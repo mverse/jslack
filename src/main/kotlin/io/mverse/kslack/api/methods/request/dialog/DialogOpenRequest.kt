@@ -13,7 +13,7 @@ data class DialogOpenRequest(
   /**
    * The dialog definition. This must be a JSON-encoded string.
    */
-  val dialog: Dialog? = null,
+  val dialog: Dialog,
 
   /**
    * Exchange a trigger to post to the user.
@@ -30,4 +30,4 @@ data class DialogOpenRequest(
    *
    * @see [Implementing dialogs](https://api.slack.com/dialogs.implementation)
    */
-  val triggerId: String? = null): SlackApiRequest
+  val triggerId: String): SlackApiRequest

@@ -17,8 +17,8 @@ Check the latest version on [the Maven Central repository](http://search.maven.o
 The following is an example using Maven. Of course, it's also possible to grab the library via Gradle, sbt and any other build tools.
 
 ```xml
-<groupId>com.github.seratch</groupId>
-<artifactId>jslack</artifactId>
+<groupId>io.mverse.slick</groupId>
+<artifactId>kslack</artifactId>
 <version>{latest version}</version>
 ```
 

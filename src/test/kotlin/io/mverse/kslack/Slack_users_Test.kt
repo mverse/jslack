@@ -23,7 +23,7 @@ import java.io.IOException
 
 class Slack_users_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
@@ -31,25 +31,25 @@ class Slack_users_Test {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     run {
-      val response = slack.methods().usersSetPresence(
+      val response = slack.usersSetPresence(
           UsersSetPresenceRequest(token, presence = ("away")))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().usersSetActive(
+      val response = slack.usersSetActive(
           UsersSetActiveRequest(token))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().usersIdentity(UsersIdentityRequest(token))
+      val response = slack.usersIdentity(UsersIdentityRequest(token))
       // TODO: test preparation?
       // {"ok":false,"error":"missing_scope","needed":"identity.basic","provided":"identify,read,post,client,apps,admin"}
       assertThat(response.ok, `is`(false))
     }
 
-    val usersListResponse = slack.methods().usersList(UsersListRequest(
+    val usersListResponse = slack.usersList(UsersListRequest(
         token = token,
         limit = 2,
         isPresence = true))
@@ -84,34 +84,34 @@ class Slack_users_Test {
     }
 
     run {
-      val response = slack.methods().usersInfo(UsersInfoRequest(token, user = (userId)))
+      val response = slack.usersInfo(UsersInfoRequest(token, user = (userId)))
       assertThat(response.ok, `is`(true))
       assertThat<User>(response.user, `is`(notNullValue()))
     }
 
     run {
-      val response = slack.methods().usersGetPresence(
+      val response = slack.usersGetPresence(
           UsersGetPresenceRequest(token, user = userId))
       assertThat(response.ok, `is`(true))
       assertThat<String>(response.presence, `is`(notNullValue()))
     }
 
     run {
-      val response = slack.methods().usersConversations(UsersConversationsRequest(
+      val response = slack.usersConversations(UsersConversationsRequest(
           token = token,
           user = userId))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().usersDeletePhoto(
+      val response = slack.usersDeletePhoto(
           UsersDeletePhotoRequest(token))
       assertThat(response.ok, `is`(true))
     }
 
     val image = File("src/test/resources/user_photo.jpg")
     run {
-      val response = slack.methods().usersSetPhoto(UsersSetPhotoRequest(
+      val response = slack.usersSetPhoto(UsersSetPhotoRequest(
           token = token,
           image = image))
       assertThat(response.ok, `is`(true))
@@ -122,7 +122,7 @@ class Slack_users_Test {
   @Throws(IOException::class, SlackApiException::class)
   fun lookupByEMailSupported() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
-    val usersListResponse = slack.methods().usersList(UsersListRequest(
+    val usersListResponse = slack.usersList(UsersListRequest(
         token = token,
         isPresence = true
     ))
@@ -139,7 +139,7 @@ class Slack_users_Test {
       throw IllegalStateException("Create a non-bot user for this test case in advance.")
     }
 
-    val response = slack.methods().usersLookupByEmail(UsersLookupByEmailRequest(
+    val response = slack.usersLookupByEmail(UsersLookupByEmailRequest(
         token = token,
         email = randomUserWhoHasEmail.profile!!.email
     ))

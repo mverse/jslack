@@ -11,7 +11,7 @@ import java.io.IOException
 
 class ExamplesTest {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
@@ -19,14 +19,14 @@ class ExamplesTest {
   fun postAMessageToGeneralChannel() {
 
     // find all channels in the team
-    val channelsResponse = slack.methods().channelsList(ChannelsListRequest(token))
+    val channelsResponse = slack.channelsList(ChannelsListRequest(token))
     assertThat(channelsResponse.toString(), channelsResponse.ok, `is`(true))
     // find #general
     val (id) = channelsResponse.channels!!.stream()
         .filter { (_, name) -> name == "general" }.findFirst().get()
 
     // https://slack.com/api/chat.postMessage
-    val postResponse = slack.methods().chatPostMessage(ChatPostMessageRequest(
+    val postResponse = slack.chatPostMessage(ChatPostMessageRequest(
         token = token,
         channel = id,
         text = "Hello World!"))
@@ -37,7 +37,7 @@ class ExamplesTest {
 
     Thread.sleep(1000L)
 
-    val deleteResponse = slack.methods().chatDelete(ChatDeleteRequest(
+    val deleteResponse = slack.chatDelete(ChatDeleteRequest(
         token = token,
         channel = id,
         ts = messageTimestamp))

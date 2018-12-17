@@ -5,37 +5,36 @@ plugins {
   id("kotlinx-serialization").version("1.3.10")
 }
 
-allprojects {
-  group = "io.mverse.slick"
 
-  mverse {
-    dependencies {
-      compile("kotlin-stdlib")
-      testCompile("junit")
-    }
+group = "io.mverse.slick"
 
-    isDefaultDependencies = false
-    coverageRequirement = 0.0
+mverse {
+  dependencies {
+    compile("kotlin-stdlib")
+    testCompile("junit")
   }
 
-  repositories {
-    jcenter()
-    maven("https://kotlin.bintray.com/kotlinx")
-  }
+  isDefaultDependencies = false
+  coverageRequirement = 0.0
+}
 
-  dependencyManagement {
-    dependencies {
-      dependencySet("org.jetbrains.kotlin:1.3.10") {
-        entry("kotlin-stdlib")
-        entry("kotlin-runtime")
-        entry("kotlin-stdlib-common")
-        entry("kotlin-stdlib-jdk7")
-        entry("kotlin-stdlib-jdk8")
-        entry("kotlin-reflect")
-        entry("kotlin-test-annotations-common")
-        entry("kotlin-test")
-        entry("kotlin-test-junit")
-      }
+repositories {
+  jcenter()
+  maven("https://kotlin.bintray.com/kotlinx")
+}
+
+dependencyManagement {
+  dependencies {
+    dependencySet("org.jetbrains.kotlin:1.3.10") {
+      entry("kotlin-stdlib")
+      entry("kotlin-runtime")
+      entry("kotlin-stdlib-common")
+      entry("kotlin-stdlib-jdk7")
+      entry("kotlin-stdlib-jdk8")
+      entry("kotlin-reflect")
+      entry("kotlin-test-annotations-common")
+      entry("kotlin-test")
+      entry("kotlin-test-junit")
     }
   }
 }

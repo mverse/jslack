@@ -11,13 +11,13 @@ import org.junit.Test
 
 class Slack_usergroups_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
   @Throws(Exception::class)
   fun create() {
-    val response = slack.methods().usergroupsCreate(UsergroupsCreateRequest(
+    val response = slack.usergroupsCreate(UsergroupsCreateRequest(
         token = token,
         name = "usergroup-" + System.currentTimeMillis()
     ))
@@ -33,16 +33,16 @@ class Slack_usergroups_Test {
   @Test
   @Throws(Exception::class)
   fun list() {
-    val response = slack.methods().usergroupsList(UsergroupsListRequest(token))
+    val response = slack.usergroupsList(UsergroupsListRequest(token))
     assertThat(response.ok, `is`(true))
   }
 
   @Test
   @Throws(Exception::class)
   fun users() {
-    val usergroups = slack.methods().usergroupsList(UsergroupsListRequest(token))
+    val usergroups = slack.usergroupsList(UsergroupsListRequest(token))
     if (usergroups.ok && usergroups.usergroups!!.size > 0) {
-      val response = slack.methods().usergroupUsersList(
+      val response = slack.usergroupUsersList(
           UsergroupUsersListRequest(
               token = token,
               isIncludeDisabled = false,
@@ -58,7 +58,7 @@ class Slack_usergroups_Test {
   @Test
   @Throws(Exception::class)
   fun users_failure() {
-    val response = slack.methods().usergroupUsersList(
+    val response = slack.usergroupUsersList(
         UsergroupUsersListRequest(
             token = token,
             isIncludeDisabled = false,

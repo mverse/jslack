@@ -1,5 +1,6 @@
 package io.mverse.kslack.shortcut.impl
 
+import io.mverse.kslack.api.methods.MethodsClient
 import io.mverse.kslack.api.methods.request.channels.ChannelsHistoryRequest
 import io.mverse.kslack.api.methods.request.channels.ChannelsListRequest
 import io.mverse.kslack.api.methods.request.chat.ChatPostMessageRequest
@@ -20,7 +21,7 @@ import java.util.*
 
 data class ShortcutImpl(
     private val apiToken: ApiToken? = null,
-    private val slack: io.mverse.kslack.Slack,
+    private val methods: MethodsClient,
     private var channels: List<Channel> = listOf()) : Shortcut {
 
   override fun findChannelIdByName(name: ChannelName): Optional<ChannelId> {
@@ -44,7 +45,7 @@ data class ShortcutImpl(
     val maybeChannelId = findChannelIdByName(name)
     if (maybeChannelId.isPresent) {
       val channelId = maybeChannelId.get()
-      val response = slack.methods().channelsHistory(ChannelsHistoryRequest(
+      val response = methods.channelsHistory(ChannelsHistoryRequest(
           token = apiToken!!.value,
           channel = channelId.value,
           count = 1000))
@@ -63,7 +64,7 @@ data class ShortcutImpl(
 
   override fun addReaction(message: Message, reactionName: ReactionName): ReactionsAddResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
-    return slack.methods().reactionsAdd(ReactionsAddRequest(
+    return methods.reactionsAdd(ReactionsAddRequest(
         token = apiToken.value,
         channel = message.channel,
         timestamp = message.ts,
@@ -72,7 +73,7 @@ data class ShortcutImpl(
 
   override fun search(query: String): SearchAllResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
-    return slack.methods().searchAll(SearchAllRequest(
+    return methods.searchAll(SearchAllRequest(
         token = apiToken.value,
         query = query,
         count = 100))
@@ -98,7 +99,7 @@ data class ShortcutImpl(
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     val channelId = findChannelIdByName(channel)
     return if (channelId.isPresent) {
-      slack.methods().chatPostMessage(ChatPostMessageRequest(
+      methods.chatPostMessage(ChatPostMessageRequest(
           token = apiToken.value,
           asUser = asUser,
           channel = channelId.get().value,
@@ -112,7 +113,7 @@ data class ShortcutImpl(
   override fun updateChannelsCache() {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     if (channels.isEmpty()) {
-      val response = slack.methods().channelsList(ChannelsListRequest(token = apiToken.value))
+      val response = methods.channelsList(ChannelsListRequest(token = apiToken.value))
       if (response.ok && response.channels != null) {
         channels = response.channels
       }

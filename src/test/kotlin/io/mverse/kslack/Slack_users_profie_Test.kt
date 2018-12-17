@@ -12,7 +12,7 @@ import java.io.IOException
 
 class Slack_users_profie_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
@@ -20,13 +20,13 @@ class Slack_users_profie_Test {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     run {
-      val response = slack.methods().usersProfileGet(UsersProfileGetRequest(token))
+      val response = slack.usersProfileGet(UsersProfileGetRequest(token))
       assertThat(response.ok, `is`(true))
       assertThat<User.Profile>(response.profile, `is`(notNullValue()))
     }
 
     run {
-      val response = slack.methods().usersProfileSet(
+      val response = slack.usersProfileSet(
           UsersProfileSetRequest(token, name=("skype"), value=("skype-" + System.currentTimeMillis())))
       assertThat(response.ok, `is`(true))
       assertThat<User.Profile>(response.profile, `is`(notNullValue()))
@@ -34,7 +34,7 @@ class Slack_users_profie_Test {
 
     run {
       val profile = User.Profile(skype = "skype-" + System.currentTimeMillis())
-      val response = slack.methods().usersProfileSet(
+      val response = slack.usersProfileSet(
           UsersProfileSetRequest(token, profile=(profile)))
       assertThat(response.ok, `is`(true))
       assertThat<User.Profile>(response.profile, `is`(notNullValue()))

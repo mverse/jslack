@@ -21,10 +21,10 @@ class Slack_pins_Test {
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun list() {
-    val channels = slack.methods().channelsList(ChannelsListRequest(token))
+    val channels = slack.channelsList(ChannelsListRequest(token))
         .channels!!.filter { it.name == "general" }.map { it.id }
 
-    val response = slack.methods().pinsList(
+    val response = slack.pinsList(
         PinsListRequest(token, channel = (channels[0])))
     assertThat(response.ok, `is`(true))
     assertThat(response.items, `is`(notNullValue()))
@@ -33,13 +33,13 @@ class Slack_pins_Test {
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun add() {
-    val channels = slack.methods().channelsList(ChannelsListRequest(token))
+    val channels = slack.channelsList(ChannelsListRequest(token))
         .channels!!.filter { it.name == "general" }.map { it.id }
 
     val file = File("src/test/resources/sample.txt")
     val fileObj: io.mverse.kslack.api.model.File?
     run {
-      val response = slack.methods().filesUpload(FilesUploadRequest(
+      val response = slack.filesUpload(FilesUploadRequest(
           token = token,
           channels = channels,
           file = file,
@@ -52,7 +52,7 @@ class Slack_pins_Test {
     }
 
     run {
-      val response = slack.methods().pinsAdd(PinsAddRequest(
+      val response = slack.pinsAdd(PinsAddRequest(
           token = token,
           channel = channels[0],
           file = fileObj!!.id
@@ -60,7 +60,7 @@ class Slack_pins_Test {
       assertThat(response.ok, `is`(true))
     }
     run {
-      val response = slack.methods().pinsRemove(PinsRemoveRequest(
+      val response = slack.pinsRemove(PinsRemoveRequest(
           token = token,
           channel = channels[0],
           file = fileObj!!.id
@@ -71,7 +71,7 @@ class Slack_pins_Test {
     run {
       // as of August 2018, File object no longer contains initialComment.
       if (fileObj!!.initialComment != null) {
-        val response = slack.methods().pinsAdd(PinsAddRequest(
+        val response = slack.pinsAdd(PinsAddRequest(
             token = token,
             channel = channels[0],
             fileComment = fileObj.initialComment!!.id

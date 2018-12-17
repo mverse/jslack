@@ -281,7 +281,7 @@ import io.mverse.kslack.api.methods.response.users.profile.UsersProfileSetRespon
  */
 interface MethodsClient {
 
-  fun setEndpointUrlPrefix(endpointUrlPrefix: String)
+  var endpointUrlPrefix: String
 
   // ------------------------------
   // api

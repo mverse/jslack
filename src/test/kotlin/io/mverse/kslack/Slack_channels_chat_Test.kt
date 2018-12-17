@@ -34,13 +34,13 @@ import java.io.IOException
 
 class Slack_channels_chat_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun channels_threading() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
-    val channels = slack.methods().channelsList(ChannelsListRequest(
+    val channels = slack.channelsList(ChannelsListRequest(
         token = token,
         limit = 2,
         isExcludeArchived = true))
@@ -50,7 +50,7 @@ class Slack_channels_chat_Test {
 
     val channelId = channels.channels!![0].id
 
-    val firstMessageCreation = slack.methods().chatPostMessage(ChatPostMessageRequest(
+    val firstMessageCreation = slack.chatPostMessage(ChatPostMessageRequest(
         channel = channelId,
         token = token,
         text = "[thread] This is a test message posted by unit tests for jslack library",
@@ -58,7 +58,7 @@ class Slack_channels_chat_Test {
 
     assertThat(firstMessageCreation.ok, `is`(true))
 
-    val reply1 = slack.methods().chatPostMessage(ChatPostMessageRequest(
+    val reply1 = slack.chatPostMessage(ChatPostMessageRequest(
         channel = channelId,
         token = token,
         asUser = false,
@@ -68,7 +68,7 @@ class Slack_channels_chat_Test {
     ))
     assertThat(reply1.ok, `is`(true))
 
-    val permalink = slack.methods().chatGetPermalink(ChatGetPermalinkRequest(
+    val permalink = slack.chatGetPermalink(ChatGetPermalinkRequest(
         token = token,
         channel = channelId,
         messageTs = reply1.ts
@@ -76,7 +76,7 @@ class Slack_channels_chat_Test {
     assertThat(permalink.ok, `is`(true))
     assertThat<String>(permalink.permalink, `is`(notNullValue()))
 
-    val reply2 = slack.methods().chatPostMessage(ChatPostMessageRequest(
+    val reply2 = slack.chatPostMessage(ChatPostMessageRequest(
         channel = channelId,
         token = token,
         asUser = true,
@@ -93,7 +93,7 @@ class Slack_channels_chat_Test {
 
     // via channels.history
     run {
-      val history = slack.methods().channelsHistory(ChannelsHistoryRequest(
+      val history = slack.channelsHistory(ChannelsHistoryRequest(
           token = token,
           channel = channelId
       ))
@@ -121,7 +121,7 @@ class Slack_channels_chat_Test {
 
     // via conversations.history
     run {
-      val history = slack.methods().conversationsHistory(ConversationsHistoryRequest(
+      val history = slack.conversationsHistory(ConversationsHistoryRequest(
           token = token,
           channel = channelId))
       assertThat(history.ok, `is`(true))
@@ -151,7 +151,7 @@ class Slack_channels_chat_Test {
   @Throws(IOException::class, SlackApiException::class)
   fun chat_getPermalink() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
-    val channels = slack.methods().channelsList(ChannelsListRequest(
+    val channels = slack.channelsList(ChannelsListRequest(
         token = token,
         isExcludeArchived = true
     ))
@@ -159,7 +159,7 @@ class Slack_channels_chat_Test {
 
     val channelId = channels.channels!![0].id
 
-    val postResponse = slack.methods().chatPostMessage(ChatPostMessageRequest(
+    val postResponse = slack.chatPostMessage(ChatPostMessageRequest(
         channel = channelId,
         token = token,
         text = "Hi, this is a test message from jSlack library's unit tests",
@@ -167,7 +167,7 @@ class Slack_channels_chat_Test {
     ))
     assertThat(postResponse.ok, `is`(true))
 
-    val permalink = slack.methods().chatGetPermalink(ChatGetPermalinkRequest(
+    val permalink = slack.chatGetPermalink(ChatGetPermalinkRequest(
         token = token,
         channel = channelId,
         messageTs = postResponse.ts
@@ -182,13 +182,13 @@ class Slack_channels_chat_Test {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     run {
-      val response = slack.methods().channelsList(
+      val response = slack.channelsList(
           ChannelsListRequest(token))
       assertThat(response.toString(), response.ok, `is`(true))
       assertThat<List<Channel>>(response.channels, `is`(notNullValue()))
     }
 
-    val creationResponse = slack.methods().channelsCreate(
+    val creationResponse = slack.channelsCreate(
         ChannelsCreateRequest(token = token, name = "test" + System.currentTimeMillis()))
     assertThat(creationResponse.ok, `is`(true))
     assertThat<Channel>(creationResponse.channel, `is`(notNullValue()))
@@ -196,7 +196,7 @@ class Slack_channels_chat_Test {
     val channel = creationResponse.channel
 
     run {
-      val response = slack.methods().channelsInfo(
+      val response = slack.channelsInfo(
           ChannelsInfoRequest(token = token, channel = (channel!!.id)))
       assertThat(response.ok, `is`(true))
       val fetchedChannel = response.channel
@@ -206,34 +206,34 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val response = slack.methods().channelsSetPurpose(
+      val response = slack.channelsSetPurpose(
           ChannelsSetPurposeRequest(token = token, channel = (channel!!.id), purpose = ("purpose")))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().channelsSetTopic(
+      val response = slack.channelsSetTopic(
           ChannelsSetTopicRequest(token = token, channel = (channel!!.id), topic = ("topic")))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().channelsHistory(
+      val response = slack.channelsHistory(
           ChannelsHistoryRequest(token = token, channel = (channel!!.id), count = (10)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val history = slack.methods().channelsHistory(
+      val history = slack.channelsHistory(
           ChannelsHistoryRequest(token = token, channel = (channel!!.id), count = (1)))
       val threadTs = history.messages!![0].ts
-      val response = slack.methods().channelsReplies(
+      val response = slack.channelsReplies(
           ChannelsRepliesRequest(token = token, channel = (channel.id), threadTs = (threadTs)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val unfurlResponse = slack.methods().chatUnfurl(ChatUnfurlRequest(
+      val unfurlResponse = slack.chatUnfurl(ChatUnfurlRequest(
           token = token,
           channel = channel!!.id,
           unfurls = "http://www.example.com/"
@@ -244,7 +244,7 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val response = slack.methods().channelsKick(ChannelsKickRequest(
+      val response = slack.channelsKick(ChannelsKickRequest(
           token = token,
           channel = channel!!.id,
           user = channel.members!![0]
@@ -255,7 +255,7 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val response = slack.methods().channelsInvite(ChannelsInviteRequest(
+      val response = slack.channelsInvite(ChannelsInviteRequest(
           token = token,
           channel = channel!!.id,
           user = channel.members!![0]
@@ -266,7 +266,7 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val response = slack.methods().chatMeMessage(ChatMeMessageRequest(
+      val response = slack.chatMeMessage(ChatMeMessageRequest(
           channel = channel!!.id,
           token = token,
           text = "Hello World! via chat.meMessage API"
@@ -275,7 +275,7 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val postResponse = slack.methods().chatPostMessage(ChatPostMessageRequest(
+      val postResponse = slack.chatPostMessage(ChatPostMessageRequest(
           channel = channel!!.id,
           token = token,
           text = "@seratch Hello World! via chat.postMessage API",
@@ -283,7 +283,7 @@ class Slack_channels_chat_Test {
       ))
       assertThat(postResponse.ok, `is`(true))
 
-      val replyResponse1 = slack.methods().chatPostMessage(ChatPostMessageRequest(
+      val replyResponse1 = slack.chatPostMessage(ChatPostMessageRequest(
           channel = channel.id,
           token = token,
           text = "@seratch Replied via chat.postMessage API",
@@ -293,7 +293,7 @@ class Slack_channels_chat_Test {
       ))
       assertThat(replyResponse1.ok, `is`(true))
 
-      val replyResponse2 = slack.methods().chatPostMessage(ChatPostMessageRequest(
+      val replyResponse2 = slack.chatPostMessage(ChatPostMessageRequest(
           channel = channel.id,
           token = token,
           text = "@seratch Replied via chat.postMessage API",
@@ -303,7 +303,7 @@ class Slack_channels_chat_Test {
       ))
       assertThat(replyResponse2.ok, `is`(true))
 
-      val updateResponse = slack.methods().chatUpdate(ChatUpdateRequest(
+      val updateResponse = slack.chatUpdate(ChatUpdateRequest(
           channel = channel.id,
           token = token,
           ts = postResponse.ts,
@@ -312,7 +312,7 @@ class Slack_channels_chat_Test {
       ))
       assertThat(updateResponse.ok, `is`(true))
 
-      val deleteResponse = slack.methods().chatDelete(ChatDeleteRequest(
+      val deleteResponse = slack.chatDelete(ChatDeleteRequest(
           token = token,
           channel = channel.id,
           ts = postResponse.message!!.ts
@@ -320,14 +320,14 @@ class Slack_channels_chat_Test {
       assertThat(deleteResponse.ok, `is`(true))
     }
     run {
-      val response = slack.methods().channelsLeave(ChannelsLeaveRequest(
+      val response = slack.channelsLeave(ChannelsLeaveRequest(
           token = token,
           channel = channel!!.id
       ))
       assertThat(response.ok, `is`(true))
     }
     run {
-      val response = slack.methods().channelsJoin(ChannelsJoinRequest(
+      val response = slack.channelsJoin(ChannelsJoinRequest(
           token = token,
           name = channel!!.name
       ))
@@ -335,7 +335,7 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val response = slack.methods().channelsRename(ChannelsRenameRequest(
+      val response = slack.channelsRename(ChannelsRenameRequest(
           token = token,
           channel = channel!!.id,
           name = channel.name + "-1"
@@ -344,13 +344,13 @@ class Slack_channels_chat_Test {
     }
 
     run {
-      val response = slack.methods().channelsArchive(
+      val response = slack.channelsArchive(
           ChannelsArchiveRequest(token = token, channel = (channel!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().channelsInfo(
+      val response = slack.channelsInfo(
           ChannelsInfoRequest(token = token, channel = (channel!!.id)))
       assertThat(response.ok, `is`(true))
       val fetchedChannel = response.channel

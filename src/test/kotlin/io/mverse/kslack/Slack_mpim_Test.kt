@@ -15,7 +15,7 @@ import java.io.IOException
 
 class Slack_mpim_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   // TODO: fix this tests
@@ -23,26 +23,26 @@ class Slack_mpim_Test {
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun operations() {
-    val listResponse = slack.methods().mpimList(MpimListRequest(token))
+    val listResponse = slack.mpimList(MpimListRequest(token))
     assertThat(listResponse.ok, `is`(true))
 
-    val usersListResponse = slack.methods().usersList(UsersListRequest(token, isPresence = (true)))
+    val usersListResponse = slack.usersList(UsersListRequest(token, isPresence = (true)))
     val users = usersListResponse.members
     val userIds = users!!.filter { !it.isDeleted && !it.isRestricted }
         .map { it.id }.filterNotNull()
 
-    val openResponse = slack.methods().mpimOpen(MpimOpenRequest(token, users=(userIds)))
+    val openResponse = slack.mpimOpen(MpimOpenRequest(token, users=(userIds)))
     assertThat(openResponse.ok, `is`(true))
 
     val channelId = openResponse.group!!.id
 
-    val markResponse = slack.methods().mpimMark(MpimMarkRequest(token, channel=(channelId)))
+    val markResponse = slack.mpimMark(MpimMarkRequest(token, channel=(channelId)))
     assertThat(markResponse.ok, `is`(true))
 
-    val historyResponse = slack.methods().mpimHistory(MpimHistoryRequest(token, channel=(channelId)))
+    val historyResponse = slack.mpimHistory(MpimHistoryRequest(token, channel=(channelId)))
     assertThat(historyResponse.ok, `is`(true))
 
-    val closeResponse = slack.methods().mpimClose(MpimCloseRequest(token, channel=(channelId)))
+    val closeResponse = slack.mpimClose(MpimCloseRequest(token, channel=(channelId)))
     assertThat(closeResponse.ok, `is`(true))
   }
 }

@@ -11,12 +11,12 @@ import java.io.IOException
 
 class Slack_auth_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun authRevoke() {
-    val response = slack.methods().authRevoke(AuthRevokeRequest(token="dummy", isTest= true))
+    val response = slack.authRevoke(AuthRevokeRequest(token="dummy", isTest= true))
     assertThat(response.ok, `is`(false))
     assertThat<String>(response.error, `is`("invalid_auth"))
     assertThat(response.isRevoked, `is`(false))
@@ -26,7 +26,7 @@ class Slack_auth_Test {
   @Throws(IOException::class, SlackApiException::class)
   fun authTest() {
     var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
-    val response = slack.methods().authTest(AuthTestRequest(token = token))
+    val response = slack.authTest(AuthTestRequest(token = token))
     assertThat(response.ok, `is`(true))
     assertThat<String>(response.url, `is`(notNullValue()))
   }

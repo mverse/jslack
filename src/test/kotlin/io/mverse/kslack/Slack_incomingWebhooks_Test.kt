@@ -6,7 +6,7 @@ val log = LoggerFactory.getLogger(Slack_incomingWebhooks_Test::class.java)
 
 class Slack_incomingWebhooks_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
 //  @Test
 //  @Throws(IOException::class)

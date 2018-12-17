@@ -1,5 +1,6 @@
 package io.mverse.kslack
 
+import io.mverse.kslack.api.methods.MethodsClient
 import io.mverse.kslack.api.methods.impl.MethodsClientImpl
 import io.mverse.kslack.api.scim.SCIMClient
 import io.mverse.kslack.api.scim.SCIMClientImpl
@@ -16,11 +17,15 @@ import io.mverse.kslack.shortcut.model.ApiToken
  *
  * https://{your team name}.slack.com/apps/manage/custom-integrations
  */
-data class Slack(private val httpClient: SlackHttpClient = SlackHttpClient()) {
+data class Slack(val httpClient: SlackHttpClient = SlackHttpClient(),
+                 val apiToken: ApiToken? = null,
+                 val methods: MethodsClient = MethodsClientImpl(httpClient),
+                 val shortcuts: Shortcut = ShortcutImpl(methods = methods, apiToken = apiToken)) :
+    MethodsClient by methods, Shortcut by shortcuts {
+
   /**
    * Send a data to Incoming Webhook endpoint.
    */
-
   fun send(url: String, payload: Payload): WebhookResponse {
     val httpResponse = this.httpClient.postJsonPostRequest(url, payload)
     val body = httpResponse.body()!!.string()
@@ -85,29 +90,18 @@ data class Slack(private val httpClient: SlackHttpClient = SlackHttpClient()) {
     return SCIMClientImpl(httpClient)
   }
 
-  /**
-   * Creates a Methods API client.
-   */
-  fun methods(): io.mverse.kslack.api.methods.MethodsClient {
-    return MethodsClientImpl(httpClient)
-  }
-
-  fun shortcut(): Shortcut {
-    return ShortcutImpl(slack = this)
-  }
-
   fun shortcut(apiToken: ApiToken): Shortcut {
-    return ShortcutImpl(apiToken = apiToken, slack = this)
+    return ShortcutImpl(apiToken = apiToken, methods = this)
   }
 
-  companion object {
-
-    @JvmStatic
-    val instance = io.mverse.kslack.Slack(SlackHttpClient())
-
-    @JvmStatic
-    fun getInstance(httpClient: SlackHttpClient): io.mverse.kslack.Slack {
-      return io.mverse.kslack.Slack(httpClient)
-    }
-  }
+//  companion object {
+//
+//    @JvmStatic
+//    val instance = Slack(SlackHttpClient())
+//
+//    @JvmStatic
+//    fun getInstance(httpClient: SlackHttpClient): io.mverse.kslack.Slack {
+//      return Slack(httpClient)
+//    }
+//  }
 }

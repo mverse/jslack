@@ -23,7 +23,7 @@ import java.io.IOException
 
 class Slack_groups_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
@@ -31,7 +31,7 @@ class Slack_groups_Test {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     val name = "secret-" + System.currentTimeMillis()
-    val creationResponse = slack.methods().groupsCreate(
+    val creationResponse = slack.groupsCreate(
         GroupsCreateRequest(token, name=(name)))
     var group = creationResponse.group
     run {
@@ -40,75 +40,75 @@ class Slack_groups_Test {
     }
 
     run {
-      val response = slack.methods().groupsList(
+      val response = slack.groupsList(
           GroupsListRequest(token))
       assertThat(response.ok, `is`(true))
     }
     run {
-      val response = slack.methods().groupsList(
+      val response = slack.groupsList(
           GroupsListRequest(token, isExcludeArchived= true))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsHistory(
+      val response = slack.groupsHistory(
           GroupsHistoryRequest(token, channel=(group!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsInfo(
+      val response = slack.groupsInfo(
           GroupsInfoRequest(token, channel=(group!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
-    val childCreationResponse = slack.methods().groupsCreateChild(
+    val childCreationResponse = slack.groupsCreateChild(
         GroupsCreateChildRequest(token, channel=(group!!.id)))
     group = childCreationResponse.group
     run { assertThat(childCreationResponse.ok, `is`(true)) }
 
     run {
-      val postResponse = slack.methods().chatPostMessage(
+      val postResponse = slack.chatPostMessage(
           ChatPostMessageRequest(token, text=("hello"), channel=(childCreationResponse.group!!.id)))
 
       val ts = postResponse.ts
-      val response = slack.methods().groupsMark(
+      val response = slack.groupsMark(
           GroupsMarkRequest(token, channel= group!!.id, ts= ts))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val (isOk) = slack.methods().groupsRename(
+      val (isOk) = slack.groupsRename(
           GroupsRenameRequest(token, channel=(group!!.id), name=("$name-")))
       assertThat(isOk, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsSetPurpose(
+      val response = slack.groupsSetPurpose(
           GroupsSetPurposeRequest(token, channel=(group!!.id), purpose=("purpose")))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsSetTopic(
+      val response = slack.groupsSetTopic(
           GroupsSetTopicRequest(token, channel=(group!!.id), topic=("topic")))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsArchive(
+      val response = slack.groupsArchive(
           GroupsArchiveRequest(token, channel=(group!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsUnarchive(
+      val response = slack.groupsUnarchive(
           GroupsUnarchiveRequest(token, channel=(group!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().groupsClose(
+      val response = slack.groupsClose(
           GroupsCloseRequest(token, channel=(group!!.id)))
       assertThat(response.ok, `is`(true))
     }

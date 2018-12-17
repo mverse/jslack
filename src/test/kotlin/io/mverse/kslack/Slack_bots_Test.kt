@@ -11,14 +11,14 @@ import java.io.IOException
 
 class Slack_bots_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun botsInfo() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     val bot = "BEMFSS0A1" // hard coded
-    val response = slack.methods().botsInfo(BotsInfoRequest(token=token, bot=bot))
+    val response = slack.botsInfo(BotsInfoRequest(token=token, bot=bot))
     assertThat(response.toString(), response.ok, `is`(true))
     assertThat<Bot>(response.toString(), response.bot, `is`(notNullValue()))
   }

@@ -10,14 +10,14 @@ import java.io.IOException
 
 class Slack_apps_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   // TODO: valid test
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun appsPermissionsRequest() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
-    val response = slack.methods().appsPermissionsRequest(AppsPermissionsRequestRequest(
+    val response = slack.appsPermissionsRequest(AppsPermissionsRequestRequest(
         token = token,
         triggerId = "dummy"))
     assertThat(response.ok, `is`(false))
@@ -29,7 +29,7 @@ class Slack_apps_Test {
   @Throws(IOException::class, SlackApiException::class)
   fun appsPermissionsInfo() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
-    val response = slack.methods().appsPermissionsInfo(AppsPermissionsInfoRequest(token))
+    val response = slack.appsPermissionsInfo(AppsPermissionsInfoRequest(token))
     assertThat(response.ok, `is`(false))
     assertThat<String>(response.error, `is`("not_allowed_token_type"))
   }

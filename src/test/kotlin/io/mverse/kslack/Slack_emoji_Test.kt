@@ -10,14 +10,14 @@ import java.io.IOException
 
 class Slack_emoji_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun emoji() {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     run {
-      val response = slack.methods().emojiList(EmojiListRequest(token))
+      val response = slack.emojiList(EmojiListRequest(token))
       assertThat(response.ok, `is`(true))
       assertThat<Map<String, String>>(response.emoji, `is`(notNullValue()))
     }

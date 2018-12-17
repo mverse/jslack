@@ -20,14 +20,14 @@ import java.io.IOException
 
 class Slack_files_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun describe() {
     run {
-      val response = slack.methods().filesList(FilesListRequest(token))
+      val response = slack.filesList(FilesListRequest(token))
       assertThat(response.ok, `is`(true))
       assertThat(response.files, `is`(notNullValue()))
     }
@@ -36,13 +36,13 @@ class Slack_files_Test {
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun createFileAndComments() {
-    val channels = slack.methods().channelsList(ChannelsListRequest(token))
+    val channels = slack.channelsList(ChannelsListRequest(token))
         .channels?.filter { it.name == "general" }?.map { it.id }?.toList()
 
     val file = File("src/test/resources/sample.txt")
     val fileObj: io.mverse.kslack.api.model.File?
     run {
-      val response = slack.methods().filesUpload(FilesUploadRequest(
+      val response = slack.filesUpload(FilesUploadRequest(
           token = token,
           channels = channels!!,
           file = file,
@@ -54,40 +54,40 @@ class Slack_files_Test {
     }
 
     run {
-      val response = slack.methods().filesInfo(FilesInfoRequest(
+      val response = slack.filesInfo(FilesInfoRequest(
           token = token,
           file = fileObj!!.id))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().filesSharedPublicURL(
+      val response = slack.filesSharedPublicURL(
           FilesSharedPublicURLRequest(token, file = (fileObj!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = slack.methods().filesRevokePublicURL(
+      val response = slack.filesRevokePublicURL(
           FilesRevokePublicURLRequest(token, file = (fileObj!!.id)))
       assertThat(response.ok, `is`(true))
     }
 
     // comments
     run {
-      val addResponse = slack.methods().filesCommentsAdd(FilesCommentsAddRequest(
+      val addResponse = slack.filesCommentsAdd(FilesCommentsAddRequest(
           token = token,
           file = fileObj!!.id,
           comment = "test comment"))
       assertThat(addResponse.ok, `is`(true))
 
-      val editResponse = slack.methods().filesCommentEdit(FilesCommentsEditRequest(
+      val editResponse = slack.filesCommentEdit(FilesCommentsEditRequest(
           token = token,
           file = fileObj.id,
           id = addResponse.comment!!.id,
           comment = "modified comment"))
       assertThat(editResponse.ok, `is`(true))
 
-      val deleteResponse = slack.methods().filesCommentsDelete(FilesCommentsDeleteRequest(
+      val deleteResponse = slack.filesCommentsDelete(FilesCommentsDeleteRequest(
           token = token,
           file = fileObj.id,
           id = addResponse.comment!!.id))
@@ -96,7 +96,7 @@ class Slack_files_Test {
     }
 
     run {
-      val response = slack.methods().filesDelete(FilesDeleteRequest(
+      val response = slack.filesDelete(FilesDeleteRequest(
           token = token,
           file = fileObj!!.id))
       assertThat(response.ok, `is`(true))

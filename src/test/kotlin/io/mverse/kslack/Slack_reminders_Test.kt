@@ -16,7 +16,7 @@ class Slack_reminders_Test {
   @Test
   @Throws(Exception::class)
   fun test() {
-    val addResponse = slack.methods().remindersAdd(RemindersAddRequest(
+    val addResponse = slack.remindersAdd(RemindersAddRequest(
         token = token,
         text = "Don't forget it!",
         time = "10"
@@ -25,19 +25,19 @@ class Slack_reminders_Test {
 
     val reminderId = addResponse.reminder!!.id
 
-    val infoResponse = slack.methods().remindersInfo(RemindersInfoRequest(
+    val infoResponse = slack.remindersInfo(RemindersInfoRequest(
         token = token,
         reminder = reminderId
     ))
     assertThat(infoResponse.ok, `is`(true))
 
-    val completeResponse = slack.methods().remindersComplete(RemindersCompleteRequest(
+    val completeResponse = slack.remindersComplete(RemindersCompleteRequest(
         token = token,
         reminder = reminderId
     ))
     assertThat(completeResponse.ok, `is`(true))
 
-    val deleteResponse = slack.methods().remindersDelete(RemindersDeleteRequest(
+    val deleteResponse = slack.remindersDelete(RemindersDeleteRequest(
         token = token,
         reminder = reminderId
     ))

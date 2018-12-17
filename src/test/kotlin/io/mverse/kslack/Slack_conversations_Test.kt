@@ -30,7 +30,7 @@ import java.io.IOException
 
 class Slack_conversations_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
@@ -38,7 +38,7 @@ class Slack_conversations_Test {
   fun channelConversation() {
 
     run {
-      val listResponse = slack.methods().conversationsList(
+      val listResponse = slack.conversationsList(
           ConversationsListRequest(
               token = token,
               isExcludeArchived = true,
@@ -50,7 +50,7 @@ class Slack_conversations_Test {
       assertThat<ResponseMetadata>(listResponse.responseMetadata, `is`(notNullValue()))
     }
 
-    val createPublicResponse = slack.methods().conversationsCreate(
+    val createPublicResponse = slack.conversationsCreate(
         ConversationsCreateRequest(
             token = token,
             name = "test" + System.currentTimeMillis(),
@@ -62,7 +62,7 @@ class Slack_conversations_Test {
 
     val channel = createPublicResponse.channel
 
-    val createPrivateResponse = slack.methods().conversationsCreate(
+    val createPrivateResponse = slack.conversationsCreate(
         ConversationsCreateRequest(
             token = token,
             name = "test" + System.currentTimeMillis(),
@@ -73,7 +73,7 @@ class Slack_conversations_Test {
     assertThat(createPrivateResponse.channel!!.isPrivate, `is`(true))
 
     run {
-      val postMessageResponse = slack.methods().chatPostMessage(
+      val postMessageResponse = slack.chatPostMessage(
           ChatPostMessageRequest(
               token = token,
               channel = createPublicResponse.channel!!.id,
@@ -82,7 +82,7 @@ class Slack_conversations_Test {
           ))
       assertThat(postMessageResponse.ok, `is`(true))
 
-      val postThread1Response = slack.methods().chatPostMessage(
+      val postThread1Response = slack.chatPostMessage(
           ChatPostMessageRequest(
               token = token,
               channel = createPublicResponse.channel!!.id,
@@ -92,7 +92,7 @@ class Slack_conversations_Test {
           ))
       assertThat(postThread1Response.ok, `is`(true))
 
-      val postThread2Response = slack.methods().chatPostMessage(
+      val postThread2Response = slack.chatPostMessage(
           ChatPostMessageRequest(
               token = token,
               channel = createPublicResponse.channel!!.id,
@@ -102,7 +102,7 @@ class Slack_conversations_Test {
           ))
       assertThat(postThread2Response.ok, `is`(true))
 
-      val repliesResponse = slack.methods().conversationsReplies(
+      val repliesResponse = slack.conversationsReplies(
           ConversationsRepliesRequest(
               token = token,
               channel = createPublicResponse.channel!!.id,
@@ -114,7 +114,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val infoResponse = slack.methods().conversationsInfo(
+      val infoResponse = slack.conversationsInfo(
           ConversationsInfoRequest(
               token = token,
               channel = channel!!.id,
@@ -132,7 +132,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val setPurposeResponse = slack.methods().conversationsSetPurpose(
+      val setPurposeResponse = slack.conversationsSetPurpose(
           ConversationsSetPurposeRequest(
               token = token,
               channel = channel!!.id,
@@ -143,7 +143,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val setTopicResponse = slack.methods().conversationsSetTopic(
+      val setTopicResponse = slack.conversationsSetTopic(
           ConversationsSetTopicRequest(
               token = token,
               channel = channel!!.id,
@@ -154,7 +154,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val historyResponse = slack.methods().conversationsHistory(
+      val historyResponse = slack.conversationsHistory(
           ConversationsHistoryRequest(
               token = token,
               channel = channel!!.id,
@@ -166,7 +166,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val membersResponse = slack.methods().conversationsMembers(
+      val membersResponse = slack.conversationsMembers(
           ConversationsMembersRequest(
               token = token,
               channel = channel!!.id,
@@ -176,13 +176,13 @@ class Slack_conversations_Test {
       assertThat(membersResponse.members!!.isEmpty(), `is`(false))
       assertThat<ResponseMetadata>(membersResponse.responseMetadata, `is`(notNullValue()))
 
-      val usersListResponse = slack.methods().usersList(
+      val usersListResponse = slack.usersList(
           UsersListRequest(token = (token)))
       val invitee = usersListResponse.members!!.first {
         !membersResponse.members!!.contains(it.id) && it.name != "slackbot" && it.isBot==false
       }
 
-      val inviteResponse = slack.methods().conversationsInvite(
+      val inviteResponse = slack.conversationsInvite(
           ConversationsInviteRequest(
               token = token,
               channel = channel.id,
@@ -190,7 +190,7 @@ class Slack_conversations_Test {
           ))
       assertThat(inviteResponse.toString(), inviteResponse.ok, `is`(true))
 
-      val kickResponse = slack.methods().conversationsKick(
+      val kickResponse = slack.conversationsKick(
           ConversationsKickRequest(
               token = token,
               channel = channel.id,
@@ -200,7 +200,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val leaveResponse = slack.methods().conversationsLeave(
+      val leaveResponse = slack.conversationsLeave(
           ConversationsLeaveRequest(
               token = token,
               channel = channel!!.id
@@ -209,7 +209,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val joinResponse = slack.methods().conversationsJoin(
+      val joinResponse = slack.conversationsJoin(
           ConversationsJoinRequest(
               token = token,
               channel = channel!!.id
@@ -218,7 +218,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val renameResponse = slack.methods().conversationsRename(
+      val renameResponse = slack.conversationsRename(
           ConversationsRenameRequest(
               token = token,
               channel = channel!!.id,
@@ -228,7 +228,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val archieveResponse = slack.methods().conversationsArchive(
+      val archieveResponse = slack.conversationsArchive(
           ConversationsArchiveRequest(
               token = token,
               channel = channel!!.id
@@ -237,7 +237,7 @@ class Slack_conversations_Test {
     }
 
     run {
-      val infoResponse = slack.methods().conversationsInfo(
+      val infoResponse = slack.conversationsInfo(
           ConversationsInfoRequest(
               token = token,
               channel = channel!!.id
@@ -254,12 +254,12 @@ class Slack_conversations_Test {
   @Throws(IOException::class, SlackApiException::class)
   fun imConversation() {
 
-    val usersListResponse = slack.methods().usersList(
+    val usersListResponse = slack.usersList(
         UsersListRequest(token))
     val users = usersListResponse.members
     val userId = users!![0].id
 
-    val openResponse = slack.methods().conversationsOpen(
+    val openResponse = slack.conversationsOpen(
         ConversationsOpenRequest(
             token = token,
             users = listOf(userId!!),
@@ -267,7 +267,7 @@ class Slack_conversations_Test {
         ))
     assertThat(openResponse.ok, `is`(true))
 
-    val membersResponse = slack.methods().conversationsMembers(
+    val membersResponse = slack.conversationsMembers(
         ConversationsMembersRequest(
             token = token,
             channel = openResponse.channel!!.id
@@ -276,7 +276,7 @@ class Slack_conversations_Test {
     assertThat<List<String>>(membersResponse.members, `is`(notNullValue()))
     assertThat(membersResponse.members!!.isEmpty(), `is`(false))
 
-    val closeResponse = slack.methods().conversationsClose(
+    val closeResponse = slack.conversationsClose(
         ConversationsCloseRequest(token = token, channel = (openResponse.channel!!.id)))
     assertThat(closeResponse.ok, `is`(true))
   }

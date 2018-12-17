@@ -1,5 +1,7 @@
 package io.mverse.kslack.api.methods.impl
 
+import io.mverse.kslack.api.methods.Methods
+import io.mverse.kslack.api.methods.MethodsClient
 import io.mverse.kslack.api.methods.request.api.ApiTestRequest
 import io.mverse.kslack.api.methods.request.apps.permissions.AppsPermissionsInfoRequest
 import io.mverse.kslack.api.methods.request.apps.permissions.AppsPermissionsRequestRequest
@@ -282,13 +284,9 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.util.*
 
-class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mverse.kslack.api.methods.MethodsClient {
+data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : MethodsClient {
 
-  private var endpointUrlPrefix = "https://slack.com/api/"
-
-  override fun setEndpointUrlPrefix(endpointUrlPrefix: String) {
-    this.endpointUrlPrefix = endpointUrlPrefix
-  }
+  override var endpointUrlPrefix = "https://slack.com/api/"
 
   // ----------------------------------------------------------------------------------
   // public methods
@@ -299,13 +297,13 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("foo", req.foo, form)
     setIfNotNull("error", req.error, form)
-    return doPostForm(form, io.mverse.kslack.api.methods.Methods.API_TEST, ApiTestResponse::class.java)
+    return doPostForm(form, Methods.API_TEST, ApiTestResponse::class.java)
   }
 
 
   override fun appsPermissionsInfo(req: AppsPermissionsInfoRequest): AppsPermissionsInfoResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.APPS_PERMISSIONS_INFO, req.token, AppsPermissionsInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.APPS_PERMISSIONS_INFO, req.token, AppsPermissionsInfoResponse::class.java)
   }
 
 
@@ -315,34 +313,34 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     if (req.scopes != null) {
       setIfNotNull("scopes", req.scopes.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.APPS_PERMISSIONS_REQUEST, req.token, AppsPermissionsRequestResponse::class.java)
+    return doPostFormWithToken(form, Methods.APPS_PERMISSIONS_REQUEST, req.token, AppsPermissionsRequestResponse::class.java)
   }
 
 
   override fun authRevoke(req: AuthRevokeRequest): AuthRevokeResponse {
     val form = FormBody.Builder()
     setIfNotNull("test", req.isTest, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.AUTH_REVOKE, req.token, AuthRevokeResponse::class.java)
+    return doPostFormWithToken(form, Methods.AUTH_REVOKE, req.token, AuthRevokeResponse::class.java)
   }
 
 
   override fun authTest(req: AuthTestRequest): AuthTestResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.AUTH_TEST, req.token, AuthTestResponse::class.java)
+    return doPostFormWithToken(form, Methods.AUTH_TEST, req.token, AuthTestResponse::class.java)
   }
 
 
   override fun botsInfo(req: BotsInfoRequest): BotsInfoResponse {
     val form = FormBody.Builder()
     setIfNotNull("bot", req.bot, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.BOTS_INFO, req.token, BotsInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.BOTS_INFO, req.token, BotsInfoResponse::class.java)
   }
 
 
   override fun channelsArchive(req: ChannelsArchiveRequest): ChannelsArchiveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_ARCHIVE, req.token, ChannelsArchiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_ARCHIVE, req.token, ChannelsArchiveResponse::class.java)
   }
 
 
@@ -350,7 +348,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("name", req.name, form)
     setIfNotNull("validate", req.isValidate, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_CREATE, req.token, ChannelsCreateResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_CREATE, req.token, ChannelsCreateResponse::class.java)
   }
 
 
@@ -362,7 +360,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("inclusive", req.isInclusive, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("unreads", req.isUnreads, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_HISTORY, req.token, ChannelsHistoryResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_HISTORY, req.token, ChannelsHistoryResponse::class.java)
   }
 
 
@@ -370,7 +368,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("thread_ts", req.threadTs, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_REPLIES, req.token, ChannelsRepliesResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_REPLIES, req.token, ChannelsRepliesResponse::class.java)
   }
 
 
@@ -378,7 +376,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("include_locale", req.isIncludeLocale, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_INFO, req.token, ChannelsInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_INFO, req.token, ChannelsInfoResponse::class.java)
   }
 
 
@@ -388,7 +386,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("cursor", req.cursor, form)
     setIfNotNull("exclude_members", req.isExcludeMembers, form)
     setIfNotNull("exclude_archived", req.isExcludeArchived, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_LIST, req.token, ChannelsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_LIST, req.token, ChannelsListResponse::class.java)
   }
 
 
@@ -396,7 +394,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_INVITE, req.token, ChannelsInviteResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_INVITE, req.token, ChannelsInviteResponse::class.java)
   }
 
 
@@ -404,7 +402,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("name", req.name, form)
     setIfNotNull("validate", req.isValidate, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_JOIN, req.token, ChannelsJoinResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_JOIN, req.token, ChannelsJoinResponse::class.java)
   }
 
 
@@ -412,14 +410,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_KICK, req.token, ChannelsKickResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_KICK, req.token, ChannelsKickResponse::class.java)
   }
 
 
   override fun channelsLeave(req: ChannelsLeaveRequest): ChannelsLeaveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_LEAVE, req.token, ChannelsLeaveResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_LEAVE, req.token, ChannelsLeaveResponse::class.java)
   }
 
 
@@ -427,7 +425,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("ts", req.ts, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_MARK, req.token, ChannelsMarkResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_MARK, req.token, ChannelsMarkResponse::class.java)
   }
 
 
@@ -436,7 +434,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("name", req.name, form)
     setIfNotNull("validate", req.isValidate, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_RENAME, req.token, ChannelsRenameResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_RENAME, req.token, ChannelsRenameResponse::class.java)
   }
 
 
@@ -444,7 +442,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("purpose", req.purpose, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_SET_PURPOSE, req.token, ChannelsSetPurposeResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_SET_PURPOSE, req.token, ChannelsSetPurposeResponse::class.java)
   }
 
 
@@ -452,14 +450,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("topic", req.topic, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_SET_TOPIC, req.token, ChannelsSetTopicResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_SET_TOPIC, req.token, ChannelsSetTopicResponse::class.java)
   }
 
 
   override fun channelsUnarchive(req: ChannelsUnarchiveRequest): ChannelsUnarchiveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHANNELS_UNARCHIVE, req.token, ChannelsUnarchiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHANNELS_UNARCHIVE, req.token, ChannelsUnarchiveResponse::class.java)
   }
 
 
@@ -467,7 +465,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("message_ts", req.messageTs, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_GET_PERMALINK, req.token, ChatGetPermalinkResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_GET_PERMALINK, req.token, ChatGetPermalinkResponse::class.java)
   }
 
 
@@ -475,7 +473,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("ts", req.ts, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_DELETE, req.token, ChatDeleteResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_DELETE, req.token, ChatDeleteResponse::class.java)
   }
 
 
@@ -483,7 +481,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("text", req.text, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_ME_MESSAGE, req.token, ChatMeMessageResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_ME_MESSAGE, req.token, ChatMeMessageResponse::class.java)
   }
 
 
@@ -499,7 +497,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     }
     setIfNotNull("link_names", req.isLinkNames, form)
     setIfNotNull("parse", req.parse, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_POST_EPHEMERAL, req.token, ChatPostEphemeralResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_POST_EPHEMERAL, req.token, ChatPostEphemeralResponse::class.java)
   }
 
 
@@ -523,7 +521,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("icon_emoji", req.iconEmoji, form)
     setIfNotNull("thread_ts", req.threadTs, form)
     setIfNotNull("reply_broadcast", req.isReplyBroadcast, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_POST_MESSAGE, req.token, ChatPostMessageResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_POST_MESSAGE, req.token, ChatPostMessageResponse::class.java)
   }
 
 
@@ -539,7 +537,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       form.add("attachments", json)
     }
     setIfNotNull("as_user", req.isAsUser, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_UPDATE, req.token, ChatUpdateResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_UPDATE, req.token, ChatUpdateResponse::class.java)
   }
 
 
@@ -551,21 +549,21 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("user_auth_required", req.isUserAuthRequired, form)
     setIfNotNull("user_auth_message", req.userAuthMessage, form)
     setIfNotNull("user_auth_url", req.userAuthUrl, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CHAT_UNFURL, req.token, ChatUnfurlResponse::class.java)
+    return doPostFormWithToken(form, Methods.CHAT_UNFURL, req.token, ChatUnfurlResponse::class.java)
   }
 
 
   override fun conversationsArchive(req: ConversationsArchiveRequest): ConversationsArchiveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_ARCHIVE, req.token, ConversationsArchiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_ARCHIVE, req.token, ConversationsArchiveResponse::class.java)
   }
 
 
   override fun conversationsClose(req: ConversationsCloseRequest): ConversationsCloseResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_CLOSE, req.token, ConversationsCloseResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_CLOSE, req.token, ConversationsCloseResponse::class.java)
   }
 
 
@@ -573,7 +571,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("name", req.name, form)
     setIfNotNull("is_private", req.isPrivate, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_CREATE, req.token, ConversationsCreateResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_CREATE, req.token, ConversationsCreateResponse::class.java)
   }
 
 
@@ -585,7 +583,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("limit", req.limit, form)
     setIfNotNull("oldest", req.oldest, form)
     setIfNotNull("inclusive", req.isInclusive, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_HISTORY, req.token, ConversationsHistoryResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_HISTORY, req.token, ConversationsHistoryResponse::class.java)
   }
 
 
@@ -593,7 +591,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("include_locale", req.isIncludeLocale, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_INFO, req.token, ConversationsInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_INFO, req.token, ConversationsInfoResponse::class.java)
   }
 
 
@@ -603,14 +601,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     if (req.users != null) {
       setIfNotNull("users", req.users.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_INVITE, req.token, ConversationsInviteResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_INVITE, req.token, ConversationsInviteResponse::class.java)
   }
 
 
   override fun conversationsJoin(req: ConversationsJoinRequest): ConversationsJoinResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_JOIN, req.token, ConversationsJoinResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_JOIN, req.token, ConversationsJoinResponse::class.java)
   }
 
 
@@ -618,14 +616,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_KICK, req.token, ConversationsKickResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_KICK, req.token, ConversationsKickResponse::class.java)
   }
 
 
   override fun conversationsLeave(req: ConversationsLeaveRequest): ConversationsLeaveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_LEAVE, req.token, ConversationsLeaveResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_LEAVE, req.token, ConversationsLeaveResponse::class.java)
   }
 
 
@@ -642,7 +640,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       }
       setIfNotNull("types", typeValues.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_LIST, req.token, ConversationsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_LIST, req.token, ConversationsListResponse::class.java)
   }
 
 
@@ -651,7 +649,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("cursor", req.cursor, form)
     setIfNotNull("limit", req.limit, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_MEMBERS, req.token, ConversationsMembersResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_MEMBERS, req.token, ConversationsMembersResponse::class.java)
   }
 
 
@@ -662,7 +660,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     if (req.users != null) {
       setIfNotNull("users", req.users.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_OPEN, req.token, ConversationsOpenResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_OPEN, req.token, ConversationsOpenResponse::class.java)
   }
 
 
@@ -670,7 +668,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("name", req.name, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_RENAME, req.token, ConversationsRenameResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_RENAME, req.token, ConversationsRenameResponse::class.java)
   }
 
 
@@ -680,7 +678,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("ts", req.ts, form)
     setIfNotNull("cursor", req.cursor, form)
     setIfNotNull("limit", req.limit, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_REPLIES, req.token, ConversationsRepliesResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_REPLIES, req.token, ConversationsRepliesResponse::class.java)
   }
 
 
@@ -688,7 +686,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("purpose", req.purpose, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_SET_PURPOSE, req.token, ConversationsSetPurposeResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_SET_PURPOSE, req.token, ConversationsSetPurposeResponse::class.java)
   }
 
 
@@ -696,52 +694,50 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("topic", req.topic, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_SET_TOPIC, req.token, ConversationsSetTopicResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_SET_TOPIC, req.token, ConversationsSetTopicResponse::class.java)
   }
 
 
   override fun conversationsUnarchive(req: ConversationsUnarchiveRequest): ConversationsUnarchiveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.CONVERSATIONS_UNARCHIVE, req.token, ConversationsUnarchiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.CONVERSATIONS_UNARCHIVE, req.token, ConversationsUnarchiveResponse::class.java)
   }
 
 
   override fun dialogOpen(req: DialogOpenRequest): DialogOpenResponse {
     val form = FormBody.Builder()
     setIfNotNull("trigger_id", req.triggerId, form)
-    if (req.dialog != null) {
-      val json = GsonFactory.createSnakeCase().toJson(req.dialog)
-      form.add("dialog", json)
-    }
+    val json = GsonFactory.createSnakeCase().toJson(req.dialog)
+    form.add("dialog", json)
 
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.DIALOG_OPEN, req.token, DialogOpenResponse::class.java)
+    return doPostFormWithToken(form, Methods.DIALOG_OPEN, req.token, DialogOpenResponse::class.java)
   }
 
 
   override fun dndEndDnd(req: DndEndDndRequest): DndEndDndResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.DND_END_DND, req.token, DndEndDndResponse::class.java)
+    return doPostFormWithToken(form, Methods.DND_END_DND, req.token, DndEndDndResponse::class.java)
   }
 
 
   override fun dndEndSnooze(req: DndEndSnoozeRequest): DndEndSnoozeResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.DND_END_SNOOZE, req.token, DndEndSnoozeResponse::class.java)
+    return doPostFormWithToken(form, Methods.DND_END_SNOOZE, req.token, DndEndSnoozeResponse::class.java)
   }
 
 
   override fun dndInfo(req: DndInfoRequest): DndInfoResponse {
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.DND_INFO, req.token, DndInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.DND_INFO, req.token, DndInfoResponse::class.java)
   }
 
 
   override fun dndSetSnooze(req: DndSetSnoozeRequest): DndSetSnoozeResponse {
     val form = FormBody.Builder()
     setIfNotNull("num_minutes", req.numMinutes, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.DND_SET_SNOOZE, req.token, DndSetSnoozeResponse::class.java)
+    return doPostFormWithToken(form, Methods.DND_SET_SNOOZE, req.token, DndSetSnoozeResponse::class.java)
   }
 
 
@@ -750,20 +746,20 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     if (req.users != null) {
       setIfNotNull("user", req.users.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.DND_TEAM_INFO, req.token, DndTeamInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.DND_TEAM_INFO, req.token, DndTeamInfoResponse::class.java)
   }
 
 
   override fun emojiList(req: EmojiListRequest): EmojiListResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.EMOJI_LIST, req.token, EmojiListResponse::class.java)
+    return doPostFormWithToken(form, Methods.EMOJI_LIST, req.token, EmojiListResponse::class.java)
   }
 
 
   override fun filesDelete(req: FilesDeleteRequest): FilesDeleteResponse {
     val form = FormBody.Builder()
     setIfNotNull("file", req.file, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_DELETE, req.token, FilesDeleteResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_DELETE, req.token, FilesDeleteResponse::class.java)
   }
 
 
@@ -772,7 +768,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file", req.file, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_INFO, req.token, FilesInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_INFO, req.token, FilesInfoResponse::class.java)
   }
 
 
@@ -787,21 +783,21 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     }
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_LIST, req.token, FilesListResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_LIST, req.token, FilesListResponse::class.java)
   }
 
 
   override fun filesRevokePublicURL(req: FilesRevokePublicURLRequest): FilesRevokePublicURLResponse {
     val form = FormBody.Builder()
     setIfNotNull("file", req.file, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_REVOKE_PUBLIC_URL, req.token, FilesRevokePublicURLResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_REVOKE_PUBLIC_URL, req.token, FilesRevokePublicURLResponse::class.java)
   }
 
 
   override fun filesSharedPublicURL(req: FilesSharedPublicURLRequest): FilesSharedPublicURLResponse {
     val form = FormBody.Builder()
     setIfNotNull("file", req.file, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_SHARED_PUBLIC_URL, req.token, FilesSharedPublicURLResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_SHARED_PUBLIC_URL, req.token, FilesSharedPublicURLResponse::class.java)
   }
 
 
@@ -819,7 +815,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       if (req.channels != null) {
         setIfNotNull("channels", req.channels.joinToString(","), form)
       }
-      return doPostMultipart(form, io.mverse.kslack.api.methods.Methods.FILES_UPLOAD, req.token, FilesUploadResponse::class.java)
+      return doPostMultipart(form, Methods.FILES_UPLOAD, req.token, FilesUploadResponse::class.java)
     } else {
       val form = FormBody.Builder()
 
@@ -831,7 +827,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       if (req.channels != null) {
         setIfNotNull("channels", req.channels.joinToString(","), form)
       }
-      return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_UPLOAD, req.token, FilesUploadResponse::class.java)
+      return doPostFormWithToken(form, Methods.FILES_UPLOAD, req.token, FilesUploadResponse::class.java)
     }
   }
 
@@ -840,7 +836,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("file", req.file, form)
     setIfNotNull("comment", req.comment, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_COMMENTS_ADD, req.token, FilesCommentsAddResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_COMMENTS_ADD, req.token, FilesCommentsAddResponse::class.java)
   }
 
 
@@ -848,7 +844,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("file", req.file, form)
     setIfNotNull("id", req.id, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_COMMENTS_DELETE, req.token, FilesCommentsDeleteResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_COMMENTS_DELETE, req.token, FilesCommentsDeleteResponse::class.java)
   }
 
 
@@ -857,28 +853,28 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file", req.file, form)
     setIfNotNull("comment", req.comment, form)
     setIfNotNull("id", req.id, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.FILES_COMMENTS_EDIT, req.token, FilesCommentsEditResponse::class.java)
+    return doPostFormWithToken(form, Methods.FILES_COMMENTS_EDIT, req.token, FilesCommentsEditResponse::class.java)
   }
 
 
   override fun groupsArchive(req: GroupsArchiveRequest): GroupsArchiveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_ARCHIVE, req.token, GroupsArchiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_ARCHIVE, req.token, GroupsArchiveResponse::class.java)
   }
 
 
   override fun groupsClose(req: GroupsCloseRequest): GroupsCloseResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_CLOSE, req.token, GroupsCloseResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_CLOSE, req.token, GroupsCloseResponse::class.java)
   }
 
 
   override fun groupsCreateChild(req: GroupsCreateChildRequest): GroupsCreateChildResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_CREATE_CHILD, req.token, GroupsCreateChildResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_CREATE_CHILD, req.token, GroupsCreateChildResponse::class.java)
   }
 
 
@@ -886,7 +882,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("name", req.name, form)
     setIfNotNull("validate", req.isValidate, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_CREATE, req.token, GroupsCreateResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_CREATE, req.token, GroupsCreateResponse::class.java)
   }
 
 
@@ -898,7 +894,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("inclusive", req.isInclusive, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("unreads", req.isUnreads, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_HISTORY, req.token, GroupsHistoryResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_HISTORY, req.token, GroupsHistoryResponse::class.java)
   }
 
 
@@ -906,7 +902,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("thread_ts", req.threadTs, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_REPLIES, req.token, GroupsRepliesResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_REPLIES, req.token, GroupsRepliesResponse::class.java)
   }
 
 
@@ -914,7 +910,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("include_locale", req.isIncludeLocale, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_INFO, req.token, GroupsInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_INFO, req.token, GroupsInfoResponse::class.java)
   }
 
 
@@ -922,7 +918,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_INVITE, req.token, GroupsInviteResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_INVITE, req.token, GroupsInviteResponse::class.java)
   }
 
 
@@ -930,14 +926,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_KICK, req.token, GroupsKickResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_KICK, req.token, GroupsKickResponse::class.java)
   }
 
 
   override fun groupsLeave(req: GroupsLeaveRequest): GroupsLeaveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_LEAVE, req.token, GroupsLeaveResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_LEAVE, req.token, GroupsLeaveResponse::class.java)
   }
 
 
@@ -945,7 +941,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("exclude_archived", req.isExcludeArchived, form)
     setIfNotNull("exclude_members", req.isExcludeMembers, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_LIST, req.token, GroupsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_LIST, req.token, GroupsListResponse::class.java)
   }
 
 
@@ -953,14 +949,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("ts", req.ts, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_MARK, req.token, GroupsMarkResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_MARK, req.token, GroupsMarkResponse::class.java)
   }
 
 
   override fun groupsOpen(req: GroupsOpenRequest): GroupsOpenResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_OPEN, req.token, GroupsOpenResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_OPEN, req.token, GroupsOpenResponse::class.java)
   }
 
 
@@ -968,7 +964,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("name", req.name, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_RENAME, req.token, GroupsRenameResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_RENAME, req.token, GroupsRenameResponse::class.java)
   }
 
 
@@ -976,7 +972,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("purpose", req.purpose, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_SET_PURPOSE, req.token, GroupsSetPurposeResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_SET_PURPOSE, req.token, GroupsSetPurposeResponse::class.java)
   }
 
 
@@ -984,7 +980,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("topic", req.topic, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_SET_TOPIC, req.token, GroupsSetTopicResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_SET_TOPIC, req.token, GroupsSetTopicResponse::class.java)
   }
 
 
@@ -992,14 +988,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
 
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.GROUPS_UNARCHIVE, req.token, GroupsUnarchiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.GROUPS_UNARCHIVE, req.token, GroupsUnarchiveResponse::class.java)
   }
 
 
   override fun imClose(req: ImCloseRequest): ImCloseResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.IM_CLOSE, req.token, ImCloseResponse::class.java)
+    return doPostFormWithToken(form, Methods.IM_CLOSE, req.token, ImCloseResponse::class.java)
   }
 
 
@@ -1011,7 +1007,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("inclusive", req.isInclusive, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("unreads", req.isUnreads, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.IM_HISTORY, req.token, ImHistoryResponse::class.java)
+    return doPostFormWithToken(form, Methods.IM_HISTORY, req.token, ImHistoryResponse::class.java)
   }
 
 
@@ -1019,7 +1015,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("cursor", req.cursor, form)
     setIfNotNull("limit", req.limit, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.IM_LIST, req.token, ImListResponse::class.java)
+    return doPostFormWithToken(form, Methods.IM_LIST, req.token, ImListResponse::class.java)
   }
 
 
@@ -1027,7 +1023,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("ts", req.ts, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.IM_MARK, req.token, ImMarkResponse::class.java)
+    return doPostFormWithToken(form, Methods.IM_MARK, req.token, ImMarkResponse::class.java)
   }
 
 
@@ -1036,7 +1032,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("user", req.user, form)
     setIfNotNull("return_im", req.isReturnIm, form)
     setIfNotNull("include_locale", req.isIncludeLocale, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.IM_OPEN, req.token, ImOpenResponse::class.java)
+    return doPostFormWithToken(form, Methods.IM_OPEN, req.token, ImOpenResponse::class.java)
   }
 
 
@@ -1044,7 +1040,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("thread_ts", req.threadTs, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.IM_REPLIES, req.token, ImRepliesResponse::class.java)
+    return doPostFormWithToken(form, Methods.IM_REPLIES, req.token, ImRepliesResponse::class.java)
   }
 
 
@@ -1054,14 +1050,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     if (req.users != null) {
       setIfNotNull("users", req.users.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MIGRATION_EXCHANGE, req.token, MigrationExchangeResponse::class.java)
+    return doPostFormWithToken(form, Methods.MIGRATION_EXCHANGE, req.token, MigrationExchangeResponse::class.java)
   }
 
 
   override fun mpimClose(req: MpimCloseRequest): MpimCloseResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MPIM_CLOSE, req.token, MpimCloseResponse::class.java)
+    return doPostFormWithToken(form, Methods.MPIM_CLOSE, req.token, MpimCloseResponse::class.java)
   }
 
 
@@ -1073,13 +1069,13 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("inclusive", req.isInclusive, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("unreads", req.isUnreads, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MPIM_HISTORY, req.token, MpimHistoryResponse::class.java)
+    return doPostFormWithToken(form, Methods.MPIM_HISTORY, req.token, MpimHistoryResponse::class.java)
   }
 
 
   override fun mpimList(req: MpimListRequest): MpimListResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MPIM_LIST, req.token, MpimListResponse::class.java)
+    return doPostFormWithToken(form, Methods.MPIM_LIST, req.token, MpimListResponse::class.java)
   }
 
 
@@ -1087,7 +1083,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("thread_ts", req.threadTs, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MPIM_LIST, req.token, MpimRepliesResponse::class.java)
+    return doPostFormWithToken(form, Methods.MPIM_LIST, req.token, MpimRepliesResponse::class.java)
   }
 
 
@@ -1095,7 +1091,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("ts", req.ts, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MPIM_MARK, req.token, MpimMarkResponse::class.java)
+    return doPostFormWithToken(form, Methods.MPIM_MARK, req.token, MpimMarkResponse::class.java)
   }
 
 
@@ -1104,7 +1100,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     if (req.users != null) {
       setIfNotNull("users", req.users.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.MPIM_OPEN, req.token, MpimOpenResponse::class.java)
+    return doPostFormWithToken(form, Methods.MPIM_OPEN, req.token, MpimOpenResponse::class.java)
   }
 
 
@@ -1115,7 +1111,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("code", req.code, form)
     setIfNotNull("redirect_uri", req.redirectUri, form)
     setIfNotNull("single_channel", req.isSingleChannel, form)
-    return doPostForm(form, io.mverse.kslack.api.methods.Methods.OAUTH_ACCESS, OAuthAccessResponse::class.java)
+    return doPostForm(form, Methods.OAUTH_ACCESS, OAuthAccessResponse::class.java)
   }
 
 
@@ -1126,7 +1122,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("code", req.code, form)
     setIfNotNull("redirect_uri", req.redirectUri, form)
     setIfNotNull("single_channel", req.isSingleChannel, form)
-    return doPostForm(form, io.mverse.kslack.api.methods.Methods.OAUTH_TOKEN, OAuthTokenResponse::class.java)
+    return doPostForm(form, Methods.OAUTH_TOKEN, OAuthTokenResponse::class.java)
   }
 
 
@@ -1136,14 +1132,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file", req.file, form)
     setIfNotNull("file_comment", req.fileComment, form)
     setIfNotNull("timestamp", req.timestamp, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.PINS_ADD, req.token, PinsAddResponse::class.java)
+    return doPostFormWithToken(form, Methods.PINS_ADD, req.token, PinsAddResponse::class.java)
   }
 
 
   override fun pinsList(req: PinsListRequest): PinsListResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.PINS_LIST, req.token, PinsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.PINS_LIST, req.token, PinsListResponse::class.java)
   }
 
 
@@ -1153,7 +1149,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file", req.file, form)
     setIfNotNull("file_comment", req.fileComment, form)
     setIfNotNull("timestamp", req.timestamp, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.PINS_REMOVE, req.token, PinsRemoveResponse::class.java)
+    return doPostFormWithToken(form, Methods.PINS_REMOVE, req.token, PinsRemoveResponse::class.java)
   }
 
 
@@ -1164,7 +1160,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file_comment", req.fileComment, form)
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("timestamp", req.timestamp, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REACTIONS_ADD, req.token, ReactionsAddResponse::class.java)
+    return doPostFormWithToken(form, Methods.REACTIONS_ADD, req.token, ReactionsAddResponse::class.java)
   }
 
 
@@ -1175,7 +1171,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("timestamp", req.timestamp, form)
     setIfNotNull("full", req.isFull, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REACTIONS_GET, req.token, ReactionsGetResponse::class.java)
+    return doPostFormWithToken(form, Methods.REACTIONS_GET, req.token, ReactionsGetResponse::class.java)
   }
 
 
@@ -1185,7 +1181,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("full", req.isFull, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REACTIONS_LIST, req.token, ReactionsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.REACTIONS_LIST, req.token, ReactionsListResponse::class.java)
   }
 
 
@@ -1196,7 +1192,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file_comment", req.fileComment, form)
     setIfNotNull("channel", req.channel, form)
     setIfNotNull("timestamp", req.timestamp, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REACTIONS_REMOVE, req.token, ReactionsRemoveResponse::class.java)
+    return doPostFormWithToken(form, Methods.REACTIONS_REMOVE, req.token, ReactionsRemoveResponse::class.java)
   }
 
 
@@ -1205,34 +1201,34 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("text", req.text, form)
     setIfNotNull("time", req.time, form)
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REMINDERS_ADD, req.token, RemindersAddResponse::class.java)
+    return doPostFormWithToken(form, Methods.REMINDERS_ADD, req.token, RemindersAddResponse::class.java)
   }
 
 
   override fun remindersComplete(req: RemindersCompleteRequest): RemindersCompleteResponse {
     val form = FormBody.Builder()
     setIfNotNull("reminder", req.reminder, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REMINDERS_COMPLETE, req.token, RemindersCompleteResponse::class.java)
+    return doPostFormWithToken(form, Methods.REMINDERS_COMPLETE, req.token, RemindersCompleteResponse::class.java)
   }
 
 
   override fun remindersDelete(req: RemindersDeleteRequest): RemindersDeleteResponse {
     val form = FormBody.Builder()
     setIfNotNull("reminder", req.reminder, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REMINDERS_DELETE, req.token, RemindersDeleteResponse::class.java)
+    return doPostFormWithToken(form, Methods.REMINDERS_DELETE, req.token, RemindersDeleteResponse::class.java)
   }
 
 
   override fun remindersInfo(req: RemindersInfoRequest): RemindersInfoResponse {
     val form = FormBody.Builder()
     setIfNotNull("reminder", req.reminder, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REMINDERS_INFO, req.token, RemindersInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.REMINDERS_INFO, req.token, RemindersInfoResponse::class.java)
   }
 
 
   override fun remindersList(req: RemindersListRequest): RemindersListResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.REMINDERS_LIST, req.token, RemindersListResponse::class.java)
+    return doPostFormWithToken(form, Methods.REMINDERS_LIST, req.token, RemindersListResponse::class.java)
   }
 
 
@@ -1240,7 +1236,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("batch_presence_aware", req.isBatchPresenceAware, form)
     setIfNotNull("presence_sub", req.isPresenceSub, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.RTM_CONNECT, req.token, RTMConnectResponse::class.java)
+    return doPostFormWithToken(form, Methods.RTM_CONNECT, req.token, RTMConnectResponse::class.java)
   }
 
 
@@ -1253,7 +1249,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("presence_sub", req.isPresenceSub, form)
     setIfNotNull("simple_latest", req.isSimpleLatest, form)
     setIfNotNull("mpim_aware", req.isMpimAware, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.RTM_START, req.token, RTMStartResponse::class.java)
+    return doPostFormWithToken(form, Methods.RTM_START, req.token, RTMStartResponse::class.java)
   }
 
 
@@ -1265,7 +1261,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("highlight", req.isHighlight, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.SEARCH_ALL, req.token, SearchAllResponse::class.java)
+    return doPostFormWithToken(form, Methods.SEARCH_ALL, req.token, SearchAllResponse::class.java)
   }
 
 
@@ -1277,7 +1273,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("highlight", req.isHighlight, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.SEARCH_MESSAGES, req.token, SearchMessagesResponse::class.java)
+    return doPostFormWithToken(form, Methods.SEARCH_MESSAGES, req.token, SearchMessagesResponse::class.java)
   }
 
 
@@ -1289,7 +1285,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("highlight", req.isHighlight, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.SEARCH_FILES, req.token, SearchFilesResponse::class.java)
+    return doPostFormWithToken(form, Methods.SEARCH_FILES, req.token, SearchFilesResponse::class.java)
   }
 
 
@@ -1299,7 +1295,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file", req.file, form)
     setIfNotNull("file_comment", req.fileComment, form)
     setIfNotNull("timestamp", req.timestamp, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.STARS_ADD, req.token, StarsAddResponse::class.java)
+    return doPostFormWithToken(form, Methods.STARS_ADD, req.token, StarsAddResponse::class.java)
   }
 
 
@@ -1307,7 +1303,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.STARS_LIST, req.token, StarsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.STARS_LIST, req.token, StarsListResponse::class.java)
   }
 
 
@@ -1317,7 +1313,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("file", req.file, form)
     setIfNotNull("file_comment", req.fileComment, form)
     setIfNotNull("timestamp", req.timestamp, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.STARS_REMOVE, req.token, StarsRemoveResponse::class.java)
+    return doPostFormWithToken(form, Methods.STARS_REMOVE, req.token, StarsRemoveResponse::class.java)
   }
 
 
@@ -1326,20 +1322,20 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("before", req.before, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.TEAM_ACCESS_LOGS, req.token, TeamAccessLogsResponse::class.java)
+    return doPostFormWithToken(form, Methods.TEAM_ACCESS_LOGS, req.token, TeamAccessLogsResponse::class.java)
   }
 
 
   override fun teamBillableInfo(req: TeamBillableInfoRequest): TeamBillableInfoResponse {
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.TEAM_BILLABLE_INFO, req.token, TeamBillableInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.TEAM_BILLABLE_INFO, req.token, TeamBillableInfoResponse::class.java)
   }
 
 
   override fun teamInfo(req: TeamInfoRequest): TeamInfoResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.TEAM_INFO, req.token, TeamInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.TEAM_INFO, req.token, TeamInfoResponse::class.java)
   }
 
 
@@ -1350,14 +1346,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("change_type", req.changeType, form)
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.TEAM_INTEGRATION_LOGS, req.token, TeamIntegrationLogsResponse::class.java)
+    return doPostFormWithToken(form, Methods.TEAM_INTEGRATION_LOGS, req.token, TeamIntegrationLogsResponse::class.java)
   }
 
 
   override fun teamProfileGet(req: TeamProfileGetRequest): TeamProfileGetResponse {
     val form = FormBody.Builder()
     setIfNotNull("visibility", req.visibility, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.TEAM_PROFILE_GET, req.token, TeamProfileGetResponse::class.java)
+    return doPostFormWithToken(form, Methods.TEAM_PROFILE_GET, req.token, TeamProfileGetResponse::class.java)
   }
 
 
@@ -1370,7 +1366,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       setIfNotNull("channels", req.channels.joinToString(","), form)
     }
     setIfNotNull("include_count", req.isIncludeCount, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_CREATE, req.token, UsergroupsCreateResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_CREATE, req.token, UsergroupsCreateResponse::class.java)
   }
 
 
@@ -1378,7 +1374,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("usergroup", req.usergroup, form)
     setIfNotNull("include_count", req.isIncludeCount, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_DISABLE, req.token, UsergroupsDisableResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_DISABLE, req.token, UsergroupsDisableResponse::class.java)
   }
 
 
@@ -1386,7 +1382,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("usergroup", req.usergroup, form)
     setIfNotNull("include_count", req.isIncludeCount, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_ENABLE, req.token, UsergroupsEnableResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_ENABLE, req.token, UsergroupsEnableResponse::class.java)
   }
 
 
@@ -1395,7 +1391,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("include_disabled", req.isIncludeDisabled, form)
     setIfNotNull("include_count", req.isIncludeCount, form)
     setIfNotNull("include_users", req.isIncludeUsers, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_LIST, req.token, UsergroupsListResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_LIST, req.token, UsergroupsListResponse::class.java)
   }
 
 
@@ -1409,7 +1405,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       setIfNotNull("channels", req.channels.joinToString(","), form)
     }
     setIfNotNull("include_count", req.isIncludeCount, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_UPDATE, req.token, UsergroupsUpdateResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_UPDATE, req.token, UsergroupsUpdateResponse::class.java)
   }
 
 
@@ -1417,7 +1413,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("usergroup", req.usergroup, form)
     setIfNotNull("include_disabled", req.isIncludeDisabled, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_USERS_LIST, req.token, UsergroupUsersListResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_USERS_LIST, req.token, UsergroupUsersListResponse::class.java)
   }
 
 
@@ -1428,7 +1424,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       setIfNotNull("users", req.users.joinToString(","), form)
     }
     setIfNotNull("include_count", req.isIncludeCount, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERGROUPS_USERS_UPDATE, req.token, UsergroupUsersUpdateResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERGROUPS_USERS_UPDATE, req.token, UsergroupUsersUpdateResponse::class.java)
   }
 
 
@@ -1446,26 +1442,26 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       }
       setIfNotNull("types", typeValues.joinToString(","), form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_CONVERSATIONS, req.token, UsersConversationsResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_CONVERSATIONS, req.token, UsersConversationsResponse::class.java)
   }
 
 
   override fun usersDeletePhoto(req: UsersDeletePhotoRequest): UsersDeletePhotoResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_DELETE_PHOTO, req.token, UsersDeletePhotoResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_DELETE_PHOTO, req.token, UsersDeletePhotoResponse::class.java)
   }
 
 
   override fun usersGetPresence(req: UsersGetPresenceRequest): UsersGetPresenceResponse {
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_GET_PRESENCE, req.token, UsersGetPresenceResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_GET_PRESENCE, req.token, UsersGetPresenceResponse::class.java)
   }
 
 
   override fun usersIdentity(req: UsersIdentityRequest): UsersIdentityResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_IDENTITY, req.token, UsersIdentityResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_IDENTITY, req.token, UsersIdentityResponse::class.java)
   }
 
 
@@ -1473,7 +1469,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
     setIfNotNull("include_locale", req.isIncludeLocale, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_INFO, req.token, UsersInfoResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_INFO, req.token, UsersInfoResponse::class.java)
   }
 
 
@@ -1483,20 +1479,20 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("limit", req.limit, form)
     setIfNotNull("include_locale", req.isIncludeLocale, form)
     setIfNotNull("presence", req.isPresence, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_LIST, req.token, UsersListResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_LIST, req.token, UsersListResponse::class.java)
   }
 
 
   override fun usersLookupByEmail(req: UsersLookupByEmailRequest): UsersLookupByEmailResponse {
     val form = FormBody.Builder()
     setIfNotNull("email", req.email, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_LOOKUP_BY_EMAIL, req.token, UsersLookupByEmailResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_LOOKUP_BY_EMAIL, req.token, UsersLookupByEmailResponse::class.java)
   }
 
 
   override fun usersSetActive(req: UsersSetActiveRequest): UsersSetActiveResponse {
     val form = FormBody.Builder()
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_SET_ACTIVE, req.token, UsersSetActiveResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_SET_ACTIVE, req.token, UsersSetActiveResponse::class.java)
   }
 
 
@@ -1507,14 +1503,14 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     setIfNotNull("crop_x", req.cropX, form)
     setIfNotNull("crop_y", req.cropY, form)
     setIfNotNull("crop_w", req.cropW, form)
-    return doPostMultipart(form, io.mverse.kslack.api.methods.Methods.USERS_SET_PHOTO, req.token, UsersSetPhotoResponse::class.java)
+    return doPostMultipart(form, Methods.USERS_SET_PHOTO, req.token, UsersSetPhotoResponse::class.java)
   }
 
 
   override fun usersSetPresence(req: UsersSetPresenceRequest): UsersSetPresenceResponse {
     val form = FormBody.Builder()
     setIfNotNull("presence", req.presence, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_SET_PRESENCE, req.token, UsersSetPresenceResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_SET_PRESENCE, req.token, UsersSetPresenceResponse::class.java)
   }
 
 
@@ -1522,7 +1518,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
     setIfNotNull("include_labels", req.isIncludeLabels, form)
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_PROFILE_GET, req.token, UsersProfileGetResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_PROFILE_GET, req.token, UsersProfileGetResponse::class.java)
   }
 
 
@@ -1535,7 +1531,7 @@ class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : io.mvers
       setIfNotNull("name", req.name, form)
       setIfNotNull("value", req.value, form)
     }
-    return doPostFormWithToken(form, io.mverse.kslack.api.methods.Methods.USERS_PROFILE_SET, req.token, UsersProfileSetResponse::class.java)
+    return doPostFormWithToken(form, Methods.USERS_PROFILE_SET, req.token, UsersProfileSetResponse::class.java)
   }
 
   // ----------------------------------------------------------------------------------

@@ -10,12 +10,12 @@ import org.junit.Test
 
 class Slack_search_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
   fun all() {
-    val response = slack.methods().searchAll(
+    val response = slack.searchAll(
         SearchAllRequest(token, query = ("test")))
 
     assertThat(response.ok, `is`(true))
@@ -23,7 +23,7 @@ class Slack_search_Test {
 
   @Test
   fun messages() {
-    val response = slack.methods().searchMessages(
+    val response = slack.searchMessages(
         SearchMessagesRequest(token, query = ("test")))
     assertThat(response.ok, `is`(true))
 
@@ -34,7 +34,7 @@ class Slack_search_Test {
 
 //  @Test()
   fun files() {
-    val response = slack.methods().searchFiles(
+    val response = slack.searchFiles(
         SearchFilesRequest(token, query = ("test")))
     assertThat(response.ok, `is`(true))
 

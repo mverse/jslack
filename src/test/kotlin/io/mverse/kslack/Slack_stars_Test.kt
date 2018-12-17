@@ -18,14 +18,14 @@ class Slack_stars_Test {
 
   @Test
   fun list() {
-    val response = slack.methods().starsList(StarsListRequest(token))
+    val response = slack.starsList(StarsListRequest(token))
     assertThat(response.ok, `is`(true))
     assertThat(response.items, `is`(notNullValue()))
   }
 
   @Test
   fun add() {
-    val channels = slack.methods().channelsList(ChannelsListRequest(token))
+    val channels = slack.channelsList(ChannelsListRequest(token))
         .channels!!
         .filter { it.name == "general" }
         .map { it.id }
@@ -33,7 +33,7 @@ class Slack_stars_Test {
     val file = File("src/test/resources/sample.txt")
     val fileObj: io.mverse.kslack.api.model.File?
     run {
-      val response = slack.methods().filesUpload(FilesUploadRequest(
+      val response = slack.filesUpload(FilesUploadRequest(
           token = token,
           channels = channels,
           file = file,
@@ -46,7 +46,7 @@ class Slack_stars_Test {
     }
 
     run {
-      val response = slack.methods().starsAdd(StarsAddRequest(
+      val response = slack.starsAdd(StarsAddRequest(
           token = token,
           channel = channels[0],
           file = fileObj!!.id
@@ -54,7 +54,7 @@ class Slack_stars_Test {
       assertThat(response.ok, `is`(true))
     }
     run {
-      val response = slack.methods().starsRemove(StarsRemoveRequest(
+      val response = slack.starsRemove(StarsRemoveRequest(
           token = token,
           channel = channels[0],
           file = fileObj!!.id
@@ -65,7 +65,7 @@ class Slack_stars_Test {
     run {
       // as of August 2018, File object no longer contains initialComment.
       if (fileObj!!.initialComment != null) {
-        val response = slack.methods().starsAdd(StarsAddRequest(
+        val response = slack.starsAdd(StarsAddRequest(
             token = token,
             channel = channels[0],
             fileComment = fileObj.initialComment!!.id

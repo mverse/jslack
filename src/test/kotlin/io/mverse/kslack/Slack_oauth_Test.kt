@@ -10,14 +10,14 @@ import java.io.IOException
 
 class Slack_oauth_Test {
 
-  internal var slack = io.mverse.kslack.Slack.instance
+  internal var slack = io.mverse.kslack.Slack()
 
   // TODO: valid test
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun access() {
     run {
-      val response = slack.methods().oauthAccess(OAuthAccessRequest(
+      val response = slack.oauthAccess(OAuthAccessRequest(
           clientId = "3485157640.XXXX",
           clientSecret = "XXXXX",
           code = "",
@@ -32,7 +32,7 @@ class Slack_oauth_Test {
   @Throws(IOException::class, SlackApiException::class)
   fun token() {
     run {
-      val response = slack.methods().oauthToken(OAuthTokenRequest(
+      val response = slack.oauthToken(OAuthTokenRequest(
           clientId = "3485157640.XXXX",
           clientSecret = "XXXXX",
           code = "",

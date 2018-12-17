@@ -41,7 +41,7 @@ class Slack_dialogs_Test {
          * that same trigger_id in order to succeed. The dialog.open request must also be made within 3
          * seconds of the user action.  Therefore, only an 'invalid trigger' ID response can be tested.
          */
-    val dialogOpenResponse = slack.methods().dialogOpen(DialogOpenRequest(
+    val dialogOpenResponse = slack.dialogOpen(DialogOpenRequest(
         token = token,
         triggerId = "FAKE_TRIGGER_ID",
         dialog = dialog))

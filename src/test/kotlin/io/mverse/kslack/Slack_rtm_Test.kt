@@ -13,7 +13,7 @@
 //@Slf4j
 //class Slack_rtm_Test {
 //
-//  internal var slack = Slack.instance
+//  internal var slack = Slack()
 //
 //  @Test
 //  @Throws(Exception::class)
