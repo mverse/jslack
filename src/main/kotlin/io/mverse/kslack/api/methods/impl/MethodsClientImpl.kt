@@ -304,7 +304,7 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient,
   }
 
   private val SlackApiRequest.tokenOrDefault: String get() {
-    return this.token ?: defaultToken ?: throw IllegalStateException("No api token could be located")
+    return this.token ?: defaultToken?.value ?: throw IllegalStateException("No api token could be located")
   }
 
   override fun appsPermissionsInfo(req: AppsPermissionsInfoRequest): AppsPermissionsInfoResponse {
