@@ -19,6 +19,7 @@ data class InteractiveMessageCallback(
     val user: User,
     val channel: Channel,
     val name: String?,
+    val value: String?,
     val actionTs: String?,
     val messageTs: String?,
     val isAppUnfurl: Boolean,
