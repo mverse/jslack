@@ -42,7 +42,6 @@ data class User(
   val locale: String? = null) {
 
   data class Profile(
-
       val avatarHash: String? = null,
       val statusText: String? = null,
       val statusTextCanonical: String? = null,
