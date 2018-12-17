@@ -7,11 +7,9 @@ import com.google.gson.annotations.SerializedName
  *
  * @see [Conversations.list API](https://api.slack.com/methods/conversations.list)
  */
-enum class ConversationType(private val value: String) {
+enum class ConversationType(val value: String) {
   @SerializedName("public_channel") PUBLIC_CHANNEL("public_channel"),
   @SerializedName("private_channel") PRIVATE_CHANNEL("private_channel"),
   @SerializedName("mpim") MPIM("mpim"),
   @SerializedName("im") IM("im");
-
-  fun value(): String = value
 }

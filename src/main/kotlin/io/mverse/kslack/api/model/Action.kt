@@ -20,7 +20,7 @@ data class Action(
  *
  * @see [Interaction Types](https://api.slack.com/interactive-messages.interaction_types)
  */
-enum class Type(private val value: String) {
+enum class Type(val value: String) {
 
   /**
    * @see [Message button](https://api.slack.com/docs/message-buttons)
@@ -33,8 +33,4 @@ enum class Type(private val value: String) {
    */
   @SerializedName("select")
   SELECT("select");
-
-  fun value(): String {
-    return value
-  }
 }

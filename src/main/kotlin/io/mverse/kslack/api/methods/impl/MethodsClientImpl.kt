@@ -636,7 +636,7 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     if (req.types != null) {
       val typeValues = ArrayList<String>()
       for (type in req.types) {
-        typeValues.add(type.value())
+        typeValues.add(type.value)
       }
       setIfNotNull("types", typeValues.joinToString(","), form)
     }
@@ -1142,7 +1142,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.PINS_LIST, req.token, PinsListResponse::class.java)
   }
 
-
   override fun pinsRemove(req: PinsRemoveRequest): PinsRemoveResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
@@ -1151,7 +1150,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("timestamp", req.timestamp, form)
     return doPostFormWithToken(form, Methods.PINS_REMOVE, req.token, PinsRemoveResponse::class.java)
   }
-
 
   override fun reactionsAdd(req: ReactionsAddRequest): ReactionsAddResponse {
     val form = FormBody.Builder()
@@ -1163,7 +1161,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.REACTIONS_ADD, req.token, ReactionsAddResponse::class.java)
   }
 
-
   override fun reactionsGet(req: ReactionsGetRequest): ReactionsGetResponse {
     val form = FormBody.Builder()
     setIfNotNull("file", req.file, form)
@@ -1174,7 +1171,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.REACTIONS_GET, req.token, ReactionsGetResponse::class.java)
   }
 
-
   override fun reactionsList(req: ReactionsListRequest): ReactionsListResponse {
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
@@ -1183,7 +1179,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("page", req.page, form)
     return doPostFormWithToken(form, Methods.REACTIONS_LIST, req.token, ReactionsListResponse::class.java)
   }
-
 
   override fun reactionsRemove(req: ReactionsRemoveRequest): ReactionsRemoveResponse {
     val form = FormBody.Builder()
@@ -1195,7 +1190,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.REACTIONS_REMOVE, req.token, ReactionsRemoveResponse::class.java)
   }
 
-
   override fun remindersAdd(req: RemindersAddRequest): RemindersAddResponse {
     val form = FormBody.Builder()
     setIfNotNull("text", req.text, form)
@@ -1204,13 +1198,11 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.REMINDERS_ADD, req.token, RemindersAddResponse::class.java)
   }
 
-
   override fun remindersComplete(req: RemindersCompleteRequest): RemindersCompleteResponse {
     val form = FormBody.Builder()
     setIfNotNull("reminder", req.reminder, form)
     return doPostFormWithToken(form, Methods.REMINDERS_COMPLETE, req.token, RemindersCompleteResponse::class.java)
   }
-
 
   override fun remindersDelete(req: RemindersDeleteRequest): RemindersDeleteResponse {
     val form = FormBody.Builder()
@@ -1218,19 +1210,16 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.REMINDERS_DELETE, req.token, RemindersDeleteResponse::class.java)
   }
 
-
   override fun remindersInfo(req: RemindersInfoRequest): RemindersInfoResponse {
     val form = FormBody.Builder()
     setIfNotNull("reminder", req.reminder, form)
     return doPostFormWithToken(form, Methods.REMINDERS_INFO, req.token, RemindersInfoResponse::class.java)
   }
 
-
   override fun remindersList(req: RemindersListRequest): RemindersListResponse {
     val form = FormBody.Builder()
     return doPostFormWithToken(form, Methods.REMINDERS_LIST, req.token, RemindersListResponse::class.java)
   }
-
 
   override fun rtmConnect(req: RTMConnectRequest): RTMConnectResponse {
     val form = FormBody.Builder()
@@ -1238,7 +1227,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("presence_sub", req.isPresenceSub, form)
     return doPostFormWithToken(form, Methods.RTM_CONNECT, req.token, RTMConnectResponse::class.java)
   }
-
 
   override fun rtmStart(req: RTMStartRequest): RTMStartResponse {
     val form = FormBody.Builder()
@@ -1252,7 +1240,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.RTM_START, req.token, RTMStartResponse::class.java)
   }
 
-
   override fun searchAll(req: SearchAllRequest): SearchAllResponse {
     val form = FormBody.Builder()
     setIfNotNull("query", req.query, form)
@@ -1263,7 +1250,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("page", req.page, form)
     return doPostFormWithToken(form, Methods.SEARCH_ALL, req.token, SearchAllResponse::class.java)
   }
-
 
   override fun searchMessages(req: SearchMessagesRequest): SearchMessagesResponse {
     val form = FormBody.Builder()
@@ -1276,7 +1262,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.SEARCH_MESSAGES, req.token, SearchMessagesResponse::class.java)
   }
 
-
   override fun searchFiles(req: SearchFilesRequest): SearchFilesResponse {
     val form = FormBody.Builder()
     setIfNotNull("query", req.query, form)
@@ -1288,7 +1273,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.SEARCH_FILES, req.token, SearchFilesResponse::class.java)
   }
 
-
   override fun starsAdd(req: StarsAddRequest): StarsAddResponse {
     val form = FormBody.Builder()
     setIfNotNull("channel", req.channel, form)
@@ -1298,14 +1282,12 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.STARS_ADD, req.token, StarsAddResponse::class.java)
   }
 
-
   override fun starsList(req: StarsListRequest): StarsListResponse {
     val form = FormBody.Builder()
     setIfNotNull("count", req.count, form)
     setIfNotNull("page", req.page, form)
     return doPostFormWithToken(form, Methods.STARS_LIST, req.token, StarsListResponse::class.java)
   }
-
 
   override fun starsRemove(req: StarsRemoveRequest): StarsRemoveResponse {
     val form = FormBody.Builder()
@@ -1316,7 +1298,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.STARS_REMOVE, req.token, StarsRemoveResponse::class.java)
   }
 
-
   override fun teamAccessLogs(req: TeamAccessLogsRequest): TeamAccessLogsResponse {
     val form = FormBody.Builder()
     setIfNotNull("before", req.before, form)
@@ -1325,19 +1306,16 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.TEAM_ACCESS_LOGS, req.token, TeamAccessLogsResponse::class.java)
   }
 
-
   override fun teamBillableInfo(req: TeamBillableInfoRequest): TeamBillableInfoResponse {
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
     return doPostFormWithToken(form, Methods.TEAM_BILLABLE_INFO, req.token, TeamBillableInfoResponse::class.java)
   }
 
-
   override fun teamInfo(req: TeamInfoRequest): TeamInfoResponse {
     val form = FormBody.Builder()
     return doPostFormWithToken(form, Methods.TEAM_INFO, req.token, TeamInfoResponse::class.java)
   }
-
 
   override fun teamIntegrationLogs(req: TeamIntegrationLogsRequest): TeamIntegrationLogsResponse {
     val form = FormBody.Builder()
@@ -1349,13 +1327,11 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.TEAM_INTEGRATION_LOGS, req.token, TeamIntegrationLogsResponse::class.java)
   }
 
-
   override fun teamProfileGet(req: TeamProfileGetRequest): TeamProfileGetResponse {
     val form = FormBody.Builder()
     setIfNotNull("visibility", req.visibility, form)
     return doPostFormWithToken(form, Methods.TEAM_PROFILE_GET, req.token, TeamProfileGetResponse::class.java)
   }
-
 
   override fun usergroupsCreate(req: UsergroupsCreateRequest): UsergroupsCreateResponse {
     val form = FormBody.Builder()
@@ -1369,14 +1345,12 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.USERGROUPS_CREATE, req.token, UsergroupsCreateResponse::class.java)
   }
 
-
   override fun usergroupsDisable(req: UsergroupsDisableRequest): UsergroupsDisableResponse {
     val form = FormBody.Builder()
     setIfNotNull("usergroup", req.usergroup, form)
     setIfNotNull("include_count", req.isIncludeCount, form)
     return doPostFormWithToken(form, Methods.USERGROUPS_DISABLE, req.token, UsergroupsDisableResponse::class.java)
   }
-
 
   override fun usergroupsEnable(req: UsergroupsEnableRequest): UsergroupsEnableResponse {
     val form = FormBody.Builder()
@@ -1385,7 +1359,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.USERGROUPS_ENABLE, req.token, UsergroupsEnableResponse::class.java)
   }
 
-
   override fun usergroupsList(req: UsergroupsListRequest): UsergroupsListResponse {
     val form = FormBody.Builder()
     setIfNotNull("include_disabled", req.isIncludeDisabled, form)
@@ -1393,7 +1366,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("include_users", req.isIncludeUsers, form)
     return doPostFormWithToken(form, Methods.USERGROUPS_LIST, req.token, UsergroupsListResponse::class.java)
   }
-
 
   override fun usergroupsUpdate(req: UsergroupsUpdateRequest): UsergroupsUpdateResponse {
     val form = FormBody.Builder()
@@ -1408,14 +1380,12 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.USERGROUPS_UPDATE, req.token, UsergroupsUpdateResponse::class.java)
   }
 
-
   override fun usergroupUsersList(req: UsergroupUsersListRequest): UsergroupUsersListResponse {
     val form = FormBody.Builder()
     setIfNotNull("usergroup", req.usergroup, form)
     setIfNotNull("include_disabled", req.isIncludeDisabled, form)
     return doPostFormWithToken(form, Methods.USERGROUPS_USERS_LIST, req.token, UsergroupUsersListResponse::class.java)
   }
-
 
   override fun usergroupUsersUpdate(req: UsergroupUsersUpdateRequest): UsergroupUsersUpdateResponse {
     val form = FormBody.Builder()
@@ -1427,7 +1397,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.USERGROUPS_USERS_UPDATE, req.token, UsergroupUsersUpdateResponse::class.java)
   }
 
-
   override fun usersConversations(req: UsersConversationsRequest): UsersConversationsResponse {
     val form = FormBody.Builder()
     setIfNotNull("user", req.user, form)
@@ -1438,19 +1407,17 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     if (req.types != null) {
       val typeValues = ArrayList<String>()
       for (type in req.types) {
-        typeValues.add(type.value())
+        typeValues.add(type.value)
       }
       setIfNotNull("types", typeValues.joinToString(","), form)
     }
     return doPostFormWithToken(form, Methods.USERS_CONVERSATIONS, req.token, UsersConversationsResponse::class.java)
   }
 
-
   override fun usersDeletePhoto(req: UsersDeletePhotoRequest): UsersDeletePhotoResponse {
     val form = FormBody.Builder()
     return doPostFormWithToken(form, Methods.USERS_DELETE_PHOTO, req.token, UsersDeletePhotoResponse::class.java)
   }
-
 
   override fun usersGetPresence(req: UsersGetPresenceRequest): UsersGetPresenceResponse {
     val form = FormBody.Builder()
@@ -1458,12 +1425,10 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.USERS_GET_PRESENCE, req.token, UsersGetPresenceResponse::class.java)
   }
 
-
   override fun usersIdentity(req: UsersIdentityRequest): UsersIdentityResponse {
     val form = FormBody.Builder()
     return doPostFormWithToken(form, Methods.USERS_IDENTITY, req.token, UsersIdentityResponse::class.java)
   }
-
 
   override fun usersInfo(req: UsersInfoRequest): UsersInfoResponse {
     val form = FormBody.Builder()
@@ -1471,7 +1436,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("include_locale", req.isIncludeLocale, form)
     return doPostFormWithToken(form, Methods.USERS_INFO, req.token, UsersInfoResponse::class.java)
   }
-
 
   override fun usersList(req: UsersListRequest): UsersListResponse {
     val form = FormBody.Builder()
@@ -1482,19 +1446,16 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostFormWithToken(form, Methods.USERS_LIST, req.token, UsersListResponse::class.java)
   }
 
-
   override fun usersLookupByEmail(req: UsersLookupByEmailRequest): UsersLookupByEmailResponse {
     val form = FormBody.Builder()
     setIfNotNull("email", req.email, form)
     return doPostFormWithToken(form, Methods.USERS_LOOKUP_BY_EMAIL, req.token, UsersLookupByEmailResponse::class.java)
   }
 
-
   override fun usersSetActive(req: UsersSetActiveRequest): UsersSetActiveResponse {
     val form = FormBody.Builder()
     return doPostFormWithToken(form, Methods.USERS_SET_ACTIVE, req.token, UsersSetActiveResponse::class.java)
   }
-
 
   override fun usersSetPhoto(req: UsersSetPhotoRequest): UsersSetPhotoResponse {
     val form = MultipartBody.Builder()
@@ -1506,13 +1467,11 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     return doPostMultipart(form, Methods.USERS_SET_PHOTO, req.token, UsersSetPhotoResponse::class.java)
   }
 
-
   override fun usersSetPresence(req: UsersSetPresenceRequest): UsersSetPresenceResponse {
     val form = FormBody.Builder()
     setIfNotNull("presence", req.presence, form)
     return doPostFormWithToken(form, Methods.USERS_SET_PRESENCE, req.token, UsersSetPresenceResponse::class.java)
   }
-
 
   override fun usersProfileGet(req: UsersProfileGetRequest): UsersProfileGetResponse {
     val form = FormBody.Builder()
@@ -1520,7 +1479,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     setIfNotNull("include_labels", req.isIncludeLabels, form)
     return doPostFormWithToken(form, Methods.USERS_PROFILE_GET, req.token, UsersProfileGetResponse::class.java)
   }
-
 
   override fun usersProfileSet(req: UsersProfileSetRequest): UsersProfileSetResponse {
     val form = FormBody.Builder()
@@ -1560,7 +1518,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     }
   }
 
-
   protected fun <T> doPostForm(
       form: FormBody.Builder,
       endpoint: String,
@@ -1568,7 +1525,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     val response = slackHttpClient.postForm(endpointUrlPrefix + endpoint, form.build())
     return SlackHttpClient.buildJsonResponse(response, clazz)
   }
-
 
   protected fun <T> doPostFormWithToken(
       form: FormBody.Builder,
@@ -1578,7 +1534,6 @@ data class MethodsClientImpl(private val slackHttpClient: SlackHttpClient) : Met
     val response = slackHttpClient.postFormWithBearerHeader(endpointUrlPrefix + endpoint, token, form.build())
     return SlackHttpClient.buildJsonResponse(response, clazz)
   }
-
 
   protected fun <T> doPostMultipart(
       form: MultipartBody.Builder,
