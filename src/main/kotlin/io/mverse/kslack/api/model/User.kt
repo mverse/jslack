@@ -8,8 +8,7 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class User(
-
-  val id: String? = null,
+  val id: String,
   val teamId: String? = null,
   val name: String? = null,
   val isDeleted: Boolean = false,
