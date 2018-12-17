@@ -13,7 +13,7 @@ object GsonFactory {
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(InteractivePayload::class.java, "type")
             .registerSubtype(DialogSubmissionPayload::class.java, "dialog_submission")
-            .registerSubtype(InteractiveMessagePayload::class.java, "dialog_submission"))
+            .registerSubtype(InteractiveMessagePayload::class.java, "interactive_message"))
         .create()
   }
 }
