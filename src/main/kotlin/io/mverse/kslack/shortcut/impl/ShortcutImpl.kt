@@ -29,16 +29,16 @@ data class ShortcutImpl(
       updateChannelsCache()
     }
     return channels.stream()
-        .filter { c -> c.name == name.value }
+        .filter { c -> c.name == name }
         .findFirst()
-        .map { c -> ChannelId(c.id) }
+        .map { c -> c.id }
   }
 
   override fun findChannelNameById(channelId: ChannelId): Optional<ChannelName> {
     return channels.stream()
-        .filter { c -> c.id == channelId.value }
+        .filter { c -> c.id == channelId }
         .findFirst()
-        .map { c -> ChannelName(c.name) }
+        .map { c -> c.name }
   }
 
   override fun findRecentMessagesByName(name: ChannelName): List<Message> {
@@ -46,13 +46,13 @@ data class ShortcutImpl(
     if (maybeChannelId.isPresent) {
       val channelId = maybeChannelId.get()
       val response = methods.channelsHistory(ChannelsHistoryRequest(
-          token = apiToken!!.value,
-          channel = channelId.value,
+          token = apiToken,
+          channel = channelId,
           count = 1000))
       return if (response.ok) {
         response.messages!!.map { message ->
           // channel in message can bt null in this case...
-          message.copy(channel = message.channel ?: channelId.value)
+          message.copy(channel = message.channel ?: channelId)
         }
       } else {
         emptyList()
@@ -65,16 +65,16 @@ data class ShortcutImpl(
   override fun addReaction(message: Message, reactionName: ReactionName): ReactionsAddResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     return methods.reactionsAdd(ReactionsAddRequest(
-        token = apiToken.value,
+        token = apiToken,
         channel = message.channel,
         timestamp = message.ts,
-        name = reactionName.value))
+        name = reactionName))
   }
 
   override fun search(query: String): SearchAllResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     return methods.searchAll(SearchAllRequest(
-        token = apiToken.value,
+        token = apiToken,
         query = query,
         count = 100))
   }
@@ -100,20 +100,20 @@ data class ShortcutImpl(
     val channelId = findChannelIdByName(channel)
     return if (channelId.isPresent) {
       methods.chatPostMessage(ChatPostMessageRequest(
-          token = apiToken.value,
+          token = apiToken,
           asUser = asUser,
-          channel = channelId.get().value,
+          channel = channelId.get(),
           text = text,
           attachments = attachments))
     } else {
-      throw IllegalStateException("Unknown channel: " + channel.value)
+      throw IllegalStateException("Unknown channel: $channel")
     }
   }
 
   override fun updateChannelsCache() {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     if (channels.isEmpty()) {
-      val response = methods.channelsList(ChannelsListRequest(token = apiToken.value))
+      val response = methods.channelsList(ChannelsListRequest(token = apiToken))
       if (response.ok && response.channels != null) {
         channels = response.channels
       }

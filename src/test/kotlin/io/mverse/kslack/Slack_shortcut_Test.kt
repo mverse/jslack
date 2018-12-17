@@ -15,13 +15,13 @@ import java.util.*
 class Slack_shortcut_Test {
 
   internal var slack = io.mverse.kslack.Slack()
-  internal var token = ApiToken(System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN))
+  internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
   @Throws(IOException::class, SlackApiException::class)
   fun chatOps() {
     val shortcut = slack.shortcut(token)
-    val channelName = ChannelName("general")
+    val channelName = "general"
 
     val channelId = shortcut.findChannelIdByName(channelName)
     assertThat(channelId.isPresent, `is`(true))
@@ -36,7 +36,7 @@ class Slack_shortcut_Test {
     val searchResult = shortcut.search("hello")
     assertThat(searchResult, `is`(notNullValue()))
 
-    val reactionName = ReactionName("smile")
+    val reactionName = "smile"
     val addReaction = shortcut.addReaction(messages[0], reactionName)
     assertThat(addReaction.ok, `is`(true))
   }
@@ -49,22 +49,22 @@ class Slack_shortcut_Test {
     val attachments = Arrays.asList<Attachment>(attachment)
 
     run {
-      val response = shortcut.post(ChannelName("general"), "hello, hello!")
+      val response = shortcut.post("general", "hello, hello!")
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = shortcut.postAsBot(ChannelName("general"), "hello, hello!")
+      val response = shortcut.postAsBot("general", "hello, hello!")
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = shortcut.post(ChannelName("general"), "Hi, these are my attachments!", attachments)
+      val response = shortcut.post("general", "Hi, these are my attachments!", attachments)
       assertThat(response.ok, `is`(true))
     }
 
     run {
-      val response = shortcut.postAsBot(ChannelName("general"), "Hi, these are my attachments!", attachments)
+      val response = shortcut.postAsBot("general", "Hi, these are my attachments!", attachments)
       assertThat(response.ok, `is`(true))
     }
   }
