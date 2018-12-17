@@ -18,5 +18,5 @@ interface DialogElement {
 
   val placeholder: String
 
-  val isOptional: Boolean
+  val optional: Boolean
 }

@@ -27,6 +27,17 @@ data class Dialog(
   val elements: List<DialogElement>? = null,
 
   /**
+   * 	An optional string that will be echoed back to your app when a user interacts with your dialog.
+   * 	Use it as a pointer to reference sensitive data stored elsewhere.
+   */
+  val state: String? = null,
+
+  /**
+   * 	Default is false. When set to true, we'll notify your request URL whenever there's a user-induced dialog cancellation.
+   */
+  val notifyOnCancel:Boolean? = null,
+
+  /**
    * User-facing string for whichever button-like thing submits the form, depending on
    * form factor. Defaults to `Submit`, localized in whichever language the end user
    * prefers. 24 characters maximum, and may contain only a single word.
