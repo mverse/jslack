@@ -6,9 +6,10 @@ import io.mverse.kslack.api.model.dialog.Dialog
 data class DialogOpenRequest(
 
   /**
-   * Authentication token. Requires scope: `none`
+   * Authentication token. Requires scope: `none`.  Can be left blank and the [Slack] will populate
+   * it.
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The dialog definition. This must be a JSON-encoded string.

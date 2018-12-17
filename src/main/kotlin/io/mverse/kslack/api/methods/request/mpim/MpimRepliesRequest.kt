@@ -7,7 +7,7 @@ data class MpimRepliesRequest(
   /**
    * Authentication token. Requires scope: `mpim:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Multiparty direct message channel to fetch thread from.

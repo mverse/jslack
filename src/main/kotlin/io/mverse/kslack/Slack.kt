@@ -19,7 +19,7 @@ import io.mverse.kslack.shortcut.model.ApiToken
  */
 data class Slack(val httpClient: SlackHttpClient = SlackHttpClient(),
                  val apiToken: ApiToken? = null,
-                 val methods: MethodsClient = MethodsClientImpl(httpClient),
+                 val methods: MethodsClient = MethodsClientImpl(httpClient, defaultToken = apiToken),
                  val shortcuts: Shortcut = ShortcutImpl(methods = methods, apiToken = apiToken)) :
     MethodsClient by methods, Shortcut by shortcuts {
 

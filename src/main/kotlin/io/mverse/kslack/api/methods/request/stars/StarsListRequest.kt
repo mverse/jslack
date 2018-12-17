@@ -7,7 +7,7 @@ data class StarsListRequest(
   /**
    * Authentication token. Requires scope: `stars:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   val count: Int? = null,
 

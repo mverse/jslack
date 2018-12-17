@@ -7,7 +7,7 @@ class ChannelsKickRequest(
   /**
    * Authentication token. Requires scope: `channels:write`
    */
- val token: String,
+ override var token: String? = null,
 
   /**
    * User to remove from channel.

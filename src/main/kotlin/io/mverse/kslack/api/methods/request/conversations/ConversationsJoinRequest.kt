@@ -7,7 +7,7 @@ data class ConversationsJoinRequest(
   /**
    * Authentication token. Requires scope: `channels:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * ID of conversation to join

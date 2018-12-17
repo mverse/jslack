@@ -7,7 +7,7 @@ class ChannelsListRequest(
   /**
    * Authentication token. Requires scope: `channels:read`
    */
- val token: String,
+ override var token: String? = null,
 
   /**
    * Exclude the `members` collection from each `channel`

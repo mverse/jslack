@@ -7,7 +7,7 @@ data class ConversationsInviteRequest(
   /**
    * Authentication token. Requires scope: `conversations:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The ID of the public or private channel to invite user(s) to.

@@ -7,7 +7,7 @@ data class DndSetSnoozeRequest(
   /**
    * Authentication token. Requires scope: `dnd:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Number of minutes, from now, to snooze until.

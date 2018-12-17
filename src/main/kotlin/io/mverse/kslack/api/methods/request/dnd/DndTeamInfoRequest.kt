@@ -7,7 +7,7 @@ data class DndTeamInfoRequest(
   /**
    * Authentication token. Requires scope: `dnd:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Comma-separated list of users to fetch Do Not Disturb status for

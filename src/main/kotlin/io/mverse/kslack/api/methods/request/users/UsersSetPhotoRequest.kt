@@ -13,7 +13,7 @@ data class UsersSetPhotoRequest(
   /**
    * Authentication token. Requires scope: `users.profile:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File contents via `multipart/form-data`.

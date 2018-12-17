@@ -7,7 +7,7 @@ data class MpimOpenRequest(
   /**
    * Authentication token. Requires scope: `mpim:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Comma separated lists of users.

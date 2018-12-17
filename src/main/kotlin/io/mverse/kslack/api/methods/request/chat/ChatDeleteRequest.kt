@@ -7,7 +7,7 @@ data class ChatDeleteRequest(
   /**
    * Authentication token. Requires scope: `chat:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Timestamp of the message to be deleted.

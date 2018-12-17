@@ -7,7 +7,7 @@ data class ChannelsRenameRequest(
   /**
    * Authentication token. Requires scope: `channels:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel to rename

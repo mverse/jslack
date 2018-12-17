@@ -7,7 +7,7 @@ data class UsersProfileGetRequest(
   /**
    * Authentication token. Requires scope: `users.profile:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * User to retrieve profile info for

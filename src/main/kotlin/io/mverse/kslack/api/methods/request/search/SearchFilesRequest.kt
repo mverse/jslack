@@ -7,7 +7,7 @@ data class SearchFilesRequest(
   /**
    * Authentication token. Requires scope: `search:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Change sort direction to ascending (`asc`) or descending (`desc`).

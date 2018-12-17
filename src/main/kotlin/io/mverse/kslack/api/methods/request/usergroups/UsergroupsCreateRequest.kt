@@ -7,7 +7,7 @@ data class UsergroupsCreateRequest(
   /**
    * Authentication token. Requires scope: `usergroups:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * A name for the User Group. Must be unique among User Groups.

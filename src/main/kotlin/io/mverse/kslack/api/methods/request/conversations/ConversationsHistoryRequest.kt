@@ -7,7 +7,7 @@ data class ConversationsHistoryRequest(
   /**
    * Authentication token. Requires scope: `conversations:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Conversation ID to fetch history for.

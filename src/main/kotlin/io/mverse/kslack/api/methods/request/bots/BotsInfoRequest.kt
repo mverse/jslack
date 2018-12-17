@@ -7,7 +7,7 @@ data class BotsInfoRequest(
   /**
    * Authentication token. Requires scope: `users:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Bot user to get info on

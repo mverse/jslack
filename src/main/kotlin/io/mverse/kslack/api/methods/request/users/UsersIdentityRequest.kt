@@ -7,4 +7,4 @@ data class UsersIdentityRequest(
   /**
    * Authentication token. Requires scope: `identity.basic`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

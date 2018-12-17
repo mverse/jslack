@@ -12,4 +12,4 @@ data class UsersDeletePhotoRequest(
   /**
    * Authentication token. Requires scope: `users.profile:write`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

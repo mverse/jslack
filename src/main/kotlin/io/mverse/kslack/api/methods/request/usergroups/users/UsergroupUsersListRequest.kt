@@ -7,7 +7,7 @@ data class UsergroupUsersListRequest(
   /**
    * Authentication token. Requires scope: `usergroups:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The encoded ID of the User Group to update.

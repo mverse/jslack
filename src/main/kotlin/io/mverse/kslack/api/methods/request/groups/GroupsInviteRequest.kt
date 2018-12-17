@@ -7,7 +7,7 @@ data class GroupsInviteRequest(
   /**
    * Authentication token. Requires scope: `groups:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Private channel to invite user to.

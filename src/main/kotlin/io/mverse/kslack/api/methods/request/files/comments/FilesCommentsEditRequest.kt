@@ -7,7 +7,7 @@ data class FilesCommentsEditRequest(
   /**
    * Authentication token. Requires scope: `files:write:user`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File containing the comment to edit.

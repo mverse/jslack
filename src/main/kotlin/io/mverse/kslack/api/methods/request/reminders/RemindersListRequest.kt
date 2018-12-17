@@ -7,4 +7,4 @@ data class RemindersListRequest(
   /**
    * Authentication token. Requires scope: `reminders:read`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

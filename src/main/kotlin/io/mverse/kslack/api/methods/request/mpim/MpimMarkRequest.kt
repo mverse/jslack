@@ -7,7 +7,7 @@ data class MpimMarkRequest(
   /**
    * Authentication token. Requires scope: `mpim:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * multiparty direct message channel to set reading cursor in.

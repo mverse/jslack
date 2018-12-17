@@ -6,7 +6,7 @@ data class ChannelsCreateRequest(
   /**
    * Authentication token. Requires scope: `channels:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Name of channel to create

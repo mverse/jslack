@@ -7,7 +7,7 @@ data class GroupsHistoryRequest(
   /**
    * Authentication token. Requires scope: `groups:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Direct message channel to fetch history for.

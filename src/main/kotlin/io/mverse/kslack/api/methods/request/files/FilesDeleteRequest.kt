@@ -7,7 +7,7 @@ data class FilesDeleteRequest(
   /**
    * Authentication token. Requires scope: `files:write:user`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * ID of file to delete.

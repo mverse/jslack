@@ -7,7 +7,7 @@ data class TeamIntegrationLogsRequest(
   /**
    * Authentication token. Requires scope: `admin`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Filter logs to this service. Defaults to all logs.

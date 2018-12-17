@@ -7,7 +7,7 @@ data class UsersListRequest(
   /**
    * Authentication token. Requires scope: `users:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute

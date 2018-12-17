@@ -7,7 +7,7 @@ class ChannelsHistoryRequest(
   /**
    * Authentication token. Requires scope: `channels:history`
    */
- val token: String,
+ override var token: String? = null,
 
   /**
    * Channel to fetch history for.

@@ -7,7 +7,7 @@ data class StarsRemoveRequest(
   /**
    * Authentication token. Requires scope: `stars:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File to remove star from.

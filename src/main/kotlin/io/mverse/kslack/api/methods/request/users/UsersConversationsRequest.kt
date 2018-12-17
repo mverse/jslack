@@ -13,7 +13,7 @@ data class UsersConversationsRequest(
   /**
    * Authentication token. Requires scope: `conversations:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Browse conversations by a specific user ID's membership.

@@ -7,7 +7,7 @@ data class FilesRevokePublicURLRequest(
   /**
    * Authentication token. Requires scope: `files:write:user`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File to revoke

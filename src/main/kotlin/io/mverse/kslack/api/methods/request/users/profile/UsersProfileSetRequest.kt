@@ -8,7 +8,7 @@ data class UsersProfileSetRequest(
   /**
    * Authentication token. Requires scope: `users.profile:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * ID of user to change. This argument may only be specified by team admins on paid teams.

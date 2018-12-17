@@ -7,7 +7,7 @@ data class UsersGetPresenceRequest(
   /**
    * Authentication token. Requires scope: `users:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * User to get presence info on. Defaults to the authed user.

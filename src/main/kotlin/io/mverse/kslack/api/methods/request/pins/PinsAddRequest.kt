@@ -7,7 +7,7 @@ data class PinsAddRequest(
   /**
    * Authentication token. Requires scope: `pins:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel to pin the item in.

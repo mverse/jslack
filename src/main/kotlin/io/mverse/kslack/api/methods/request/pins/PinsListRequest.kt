@@ -7,7 +7,7 @@ data class PinsListRequest(
   /**
    * Authentication token. Requires scope: `pins:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel to get pinned items for.

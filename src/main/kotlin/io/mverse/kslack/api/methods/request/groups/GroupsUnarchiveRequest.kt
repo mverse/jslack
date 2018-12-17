@@ -7,7 +7,7 @@ data class GroupsUnarchiveRequest(
   /**
    * Authentication token. Requires scope: `groups:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Private channel to unarchive

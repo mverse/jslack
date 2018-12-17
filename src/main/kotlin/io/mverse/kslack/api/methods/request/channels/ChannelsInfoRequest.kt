@@ -7,7 +7,7 @@ class ChannelsInfoRequest(
   /**
    * Authentication token. Requires scope: `channels:read`
    */
- val token: String,
+ override var token: String? = null,
 
   /**
    * Set this to `true` to receive the locale for this channel. Defaults to `false`

@@ -7,7 +7,7 @@ data class PinsRemoveRequest(
   /**
    * Authentication token. Requires scope: `pins:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel where the item is pinned to.

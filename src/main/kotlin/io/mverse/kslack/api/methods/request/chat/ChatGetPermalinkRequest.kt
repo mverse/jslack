@@ -14,7 +14,7 @@ data class ChatGetPermalinkRequest(
   /**
    * Authentication token. Requires scope: `none`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The ID of the conversation or channel containing the message

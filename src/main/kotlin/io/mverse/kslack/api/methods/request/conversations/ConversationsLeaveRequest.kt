@@ -7,7 +7,7 @@ data class ConversationsLeaveRequest(
   /**
    * Authentication token. Requires scope: `conversations:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Conversation to leave

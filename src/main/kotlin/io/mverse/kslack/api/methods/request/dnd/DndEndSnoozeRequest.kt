@@ -7,4 +7,4 @@ data class DndEndSnoozeRequest(
   /**
    * Authentication token. Requires scope: `dnd:write`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

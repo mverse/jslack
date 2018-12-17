@@ -7,7 +7,7 @@ data class FilesCommentsAddRequest(
   /**
    * Authentication token. Requires scope: `files:write:user`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File to add a comment to.

@@ -7,7 +7,7 @@ data class UsersInfoRequest(
   /**
    * Authentication token. Requires scope: `users:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * User to get info on

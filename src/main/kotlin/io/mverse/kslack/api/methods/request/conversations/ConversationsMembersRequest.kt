@@ -7,7 +7,7 @@ data class ConversationsMembersRequest(
   /**
    * Authentication token. Requires scope: `conversations:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * ID of the conversation to retrieve members for

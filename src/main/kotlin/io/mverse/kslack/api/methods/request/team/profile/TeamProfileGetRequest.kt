@@ -7,7 +7,7 @@ data class TeamProfileGetRequest(
   /**
    * Authentication token. Requires scope: `users.profile:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Filter by visibility.

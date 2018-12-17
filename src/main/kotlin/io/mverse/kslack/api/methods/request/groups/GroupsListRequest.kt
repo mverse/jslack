@@ -7,7 +7,7 @@ data class GroupsListRequest(
   /**
    * Authentication token. Requires scope: `groups:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Exclude the `members` from each `group`

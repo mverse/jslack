@@ -8,7 +8,7 @@ data class ChatPostEphemeralRequest(
   /**
    * Authentication token. Requires scope: `chat:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name.

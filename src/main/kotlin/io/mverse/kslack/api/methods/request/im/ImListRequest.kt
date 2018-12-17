@@ -7,7 +7,7 @@ data class ImListRequest(
   /**
    * Authentication token. Requires scope: `im:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute

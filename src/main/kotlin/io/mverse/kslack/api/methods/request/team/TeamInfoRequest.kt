@@ -7,4 +7,4 @@ data class TeamInfoRequest(
   /**
    * Authentication token. Requires scope: `team:read`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

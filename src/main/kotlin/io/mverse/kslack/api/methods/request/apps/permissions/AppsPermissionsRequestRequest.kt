@@ -7,7 +7,7 @@ data class AppsPermissionsRequestRequest(
   /**
    * Authentication token. Requires scope: `none`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Token used to trigger the permissions API

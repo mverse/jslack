@@ -7,7 +7,7 @@ data class RemindersInfoRequest(
   /**
    * Authentication token. Requires scope: `reminders:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The ID of the reminder

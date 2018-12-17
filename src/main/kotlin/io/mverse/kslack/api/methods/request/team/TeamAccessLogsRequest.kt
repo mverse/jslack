@@ -7,7 +7,7 @@ data class TeamAccessLogsRequest(
   /**
    * Authentication token. Requires scope: `admin`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * End of time range of logs to include in results (inclusive).

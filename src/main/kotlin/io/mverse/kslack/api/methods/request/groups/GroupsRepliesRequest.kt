@@ -7,7 +7,7 @@ data class GroupsRepliesRequest(
   /**
    * Authentication token. Requires scope: `groups:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Private channel to fetch thread from

@@ -7,7 +7,7 @@ data class FilesInfoRequest(
   /**
    * Authentication token. Requires scope: `files:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Specify a file by providing its ID.

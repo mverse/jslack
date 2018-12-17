@@ -7,7 +7,7 @@ data class ConversationsCreateRequest(
   /**
    * Authentication token. Requires scope: `conversations:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Name of the public or private channel to create

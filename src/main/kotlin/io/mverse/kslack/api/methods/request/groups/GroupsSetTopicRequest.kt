@@ -7,7 +7,7 @@ data class GroupsSetTopicRequest(
   /**
    * Authentication token. Requires scope: `groups:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The new topic

@@ -12,7 +12,7 @@ data class RTMStartRequest(
   /**
    * Authentication token. Requires scope: `rtm:stream`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Exclude latest timestamps for channels, groups, mpims, and ims. Automatically sets `no_unreads` to `1`

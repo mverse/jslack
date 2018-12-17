@@ -7,7 +7,7 @@ data class GroupsCreateRequest(
   /**
    * Authentication token. Requires scope: `groups:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Name of private channel to create

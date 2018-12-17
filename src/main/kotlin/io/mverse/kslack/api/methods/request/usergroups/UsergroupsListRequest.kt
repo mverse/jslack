@@ -7,7 +7,7 @@ data class UsergroupsListRequest(
   /**
    * Authentication token. Requires scope: `usergroups:read
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Include disabled User Groups.

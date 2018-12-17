@@ -7,7 +7,7 @@ data class ChatMeMessageRequest(
   /**
    * Authentication token. Requires scope: `chat:write:user`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name.

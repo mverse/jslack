@@ -7,7 +7,7 @@ data class ImRepliesRequest(
   /**
    * Authentication token. Requires scope: `im:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Direct message channel to fetch thread from.

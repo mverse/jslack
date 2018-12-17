@@ -7,7 +7,7 @@ data class FilesListRequest(
   /**
    * Authentication token. Requires scope: `files:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Filter files created by a single user.

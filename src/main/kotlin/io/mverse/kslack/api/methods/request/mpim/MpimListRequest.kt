@@ -7,4 +7,4 @@ data class MpimListRequest(
   /**
    * Authentication token. Requires scope: `mpim:read`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

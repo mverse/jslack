@@ -7,7 +7,7 @@ data class GroupsInfoRequest(
   /**
    * Authentication token. Requires scope: `groups:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Private channel to get info on

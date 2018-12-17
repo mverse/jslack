@@ -32,4 +32,4 @@ data class OAuthAccessRequest(
   /**
    * Request the user to add your app only to a single channel.
    */
-  val isSingleChannel: Boolean = false): SlackApiRequest
+  val isSingleChannel: Boolean = false)

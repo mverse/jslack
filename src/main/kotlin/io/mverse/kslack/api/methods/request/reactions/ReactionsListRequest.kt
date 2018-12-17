@@ -7,7 +7,7 @@ data class ReactionsListRequest(
   /**
    * Authentication token. Requires scope: `reactions:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Show reactions made by this user. Defaults to the authed user.

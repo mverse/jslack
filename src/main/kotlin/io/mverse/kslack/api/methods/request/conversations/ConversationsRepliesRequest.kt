@@ -7,7 +7,7 @@ data class ConversationsRepliesRequest(
   /**
    * Authentication token. Requires scope: `conversations:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Include messages with latest or oldest timestamp in results only when either timestamp is specified.

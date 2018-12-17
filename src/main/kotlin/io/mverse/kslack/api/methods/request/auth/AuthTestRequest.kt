@@ -7,4 +7,4 @@ data class AuthTestRequest(
   /**
    * Authentication token. Requires scope: `none`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

@@ -3,7 +3,6 @@ package io.mverse.kslack.api.model
 import com.google.gson.annotations.SerializedName
 
 data class Message(
-
   val type: String? = null,
   val channel: String? = null,
   val user: String? = null,

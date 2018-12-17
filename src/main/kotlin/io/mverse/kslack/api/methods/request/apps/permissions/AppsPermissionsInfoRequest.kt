@@ -6,4 +6,4 @@ data class AppsPermissionsInfoRequest(
     /**
      * Authentication token. Requires scope: `none`
      */
-    val token: String) : SlackApiRequest
+    override var token: String? = null) : SlackApiRequest

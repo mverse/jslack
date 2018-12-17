@@ -12,7 +12,7 @@ data class ChatUnfurlRequest(
   /**
    * Authentication token. Requires scope: `links:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Provide a simply-formatted string to send as an ephemeral message to the user

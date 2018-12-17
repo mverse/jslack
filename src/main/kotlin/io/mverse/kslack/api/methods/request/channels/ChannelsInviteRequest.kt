@@ -6,7 +6,7 @@ data class ChannelsInviteRequest(
   /**
    * Authentication token. Requires scope: `channels:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel to invite user to.

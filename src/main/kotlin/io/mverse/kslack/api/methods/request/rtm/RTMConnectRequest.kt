@@ -12,7 +12,7 @@ data class RTMConnectRequest(
   /**
    * Authentication token. Requires scope: `rtm:stream`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Only deliver presence events when requested by subscription.

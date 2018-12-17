@@ -7,7 +7,7 @@ data class TeamBillableInfoRequest(
   /**
    * Authentication token. Requires scope: `admin`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * A user to retrieve the billable information for. Defaults to all users.

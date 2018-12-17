@@ -5,8 +5,6 @@ import io.mverse.kslack.api.model.Attachment
 /**
  * https://api.slack.com/incoming-webhooks
  */
-
-
 data class Payload(
 
   /**

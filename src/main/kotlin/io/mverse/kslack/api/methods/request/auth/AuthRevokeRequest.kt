@@ -7,7 +7,7 @@ data class AuthRevokeRequest(
   /**
    * Authentication token. Requires scope: `none`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked.

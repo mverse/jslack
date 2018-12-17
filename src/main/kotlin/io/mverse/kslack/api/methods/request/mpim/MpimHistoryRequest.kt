@@ -7,7 +7,7 @@ data class MpimHistoryRequest(
   /**
    * Authentication token. Requires scope: `mpim:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Multiparty direct message to fetch history for.

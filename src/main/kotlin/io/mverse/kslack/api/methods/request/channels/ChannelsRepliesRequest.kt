@@ -6,7 +6,7 @@ data class ChannelsRepliesRequest(
   /**
    * Authentication token. Requires scope: `channels:history`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Channel to fetch thread from

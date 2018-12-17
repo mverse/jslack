@@ -7,7 +7,7 @@ data class ImOpenRequest(
   /**
    * Authentication token. Requires scope: `im:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * User to open a direct message channel with.

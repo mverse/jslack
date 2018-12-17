@@ -7,7 +7,7 @@ data class DndInfoRequest(
   /**
    * Authentication token. Requires scope: `dnd:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * User to fetch status for (defaults to current user)

@@ -7,7 +7,7 @@ data class ConversationsKickRequest(
   /**
    * Authentication token. Requires scope: `conversations:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * ID of conversation to remove user from.

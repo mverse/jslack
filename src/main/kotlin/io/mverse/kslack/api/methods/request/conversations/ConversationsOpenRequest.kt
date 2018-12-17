@@ -7,7 +7,7 @@ data class ConversationsOpenRequest(
   /**
    * Authentication token. Requires scope: `conversations:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Resume a conversation by supplying an `im` or `mpim`'s ID. Or provide the `users` field instead.

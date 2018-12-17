@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
   id("io.mverse.project") version "0.5.32"
   id("io.mverse.multi-platform") version "0.5.32"
@@ -45,3 +47,7 @@ dependencies {
   compile("com.google.code.gson:gson:2.8.5")
 }
 
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+  freeCompilerArgs = listOf("-XXLanguage:+InlineClasses")
+}

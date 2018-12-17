@@ -6,7 +6,7 @@ data class ChannelsArchiveRequest(
   /**
    * Authentication token. Requires scope: `channels:write`
    */
-  val token: String,
+  override var token: String? = null,
   /**
    * Channel to archive
    */

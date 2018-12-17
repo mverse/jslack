@@ -8,7 +8,7 @@ data class ConversationsListRequest(
   /**
    * Authentication token. Requires scope: `conversations:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Paginate through collections of data by setting the `cursor` parameter to

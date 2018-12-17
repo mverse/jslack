@@ -12,7 +12,7 @@ data class MigrationExchangeRequest(
   /**
    * Authentication token. Requires scope: `tokens.basic`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`.

@@ -7,4 +7,4 @@ data class EmojiListRequest(
   /**
    * Authentication token. Requires scope: `emoji:read`
    */
-  val token: String): SlackApiRequest
+  override var token: String? = null): SlackApiRequest

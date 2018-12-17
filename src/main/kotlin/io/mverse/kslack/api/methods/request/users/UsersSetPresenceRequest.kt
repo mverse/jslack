@@ -7,7 +7,7 @@ data class UsersSetPresenceRequest(
   /**
    * Authentication token. Requires scope: `users:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Either `auto` or `away`

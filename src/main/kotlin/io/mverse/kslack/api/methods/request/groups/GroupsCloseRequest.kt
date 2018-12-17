@@ -4,5 +4,5 @@ import io.mverse.kslack.api.methods.SlackApiRequest
 
 data class GroupsCloseRequest(
 
-  val token: String,
+  override var token: String? = null,
   val channel: String? = null): SlackApiRequest

@@ -7,7 +7,7 @@ data class ReactionsGetRequest(
   /**
    * Authentication token. Requires scope: `reactions:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File to get reactions for.

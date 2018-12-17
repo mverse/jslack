@@ -7,7 +7,7 @@ data class ImMarkRequest(
   /**
    * Authentication token. Requires scope: `im:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Direct message channel to set reading cursor in.

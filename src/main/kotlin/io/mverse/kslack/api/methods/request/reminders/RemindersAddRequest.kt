@@ -7,7 +7,7 @@ data class RemindersAddRequest(
   /**
    * Authentication token. Requires scope: `reminders:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The content of the reminder

@@ -7,7 +7,7 @@ data class SearchAllRequest(
   /**
    * Authentication token. Requires scope: `search:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Search query. May contains booleans, etc.

@@ -7,7 +7,7 @@ data class ImCloseRequest(
   /**
    * Authentication token. Requires scope: `im:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Direct message channel to close.

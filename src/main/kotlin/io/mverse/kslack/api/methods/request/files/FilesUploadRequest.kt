@@ -8,7 +8,7 @@ data class FilesUploadRequest(
   /**
    * Authentication token. Requires scope: `files:write:user`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.

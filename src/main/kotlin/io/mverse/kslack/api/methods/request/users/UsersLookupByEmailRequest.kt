@@ -7,7 +7,7 @@ data class UsersLookupByEmailRequest(
   /**
    * Authentication token. Requires scope: `users:read.email`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * An email address belonging to a user in the workspace

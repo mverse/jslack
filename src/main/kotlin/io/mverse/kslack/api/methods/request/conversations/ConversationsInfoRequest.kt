@@ -7,7 +7,7 @@ data class ConversationsInfoRequest(
   /**
    * Authentication token. Requires scope: `conversations:read`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * Conversation ID to learn more about

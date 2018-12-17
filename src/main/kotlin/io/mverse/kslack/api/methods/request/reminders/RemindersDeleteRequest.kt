@@ -7,7 +7,7 @@ data class RemindersDeleteRequest(
   /**
    * Authentication token. Requires scope: `reminders:write`
    */
-  val token: String,
+  override var token: String? = null,
 
   /**
    * The ID of the reminder
