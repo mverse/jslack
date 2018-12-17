@@ -8,7 +8,7 @@ import io.mverse.kslack.api.model.Team
 import io.mverse.kslack.api.model.User
 
 data class InteractiveMessageCallback(
-    val type: Type,
+    val type: String? = null,
     val actions: List<Action>,
     val responseUrl: String?,
     val triggerId: String?,
@@ -23,11 +23,4 @@ data class InteractiveMessageCallback(
     val actionTs: String?,
     val messageTs: String?,
     val isAppUnfurl: Boolean,
-    val token: String) {
-
-  enum class Type {
-    @SerializedName("interactive_message") INTERACTIVE_MESSAGE;
-
-    override fun toString() = name.toLowerCase()
-  }
-}
+    val token: String)
