@@ -1,6 +1,5 @@
 package io.mverse.kslack.api.interactive
 
-import java.lang.IllegalStateException
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
@@ -13,9 +12,9 @@ import javax.crypto.spec.SecretKeySpec
  * With the help of HMAC SHA256 implemented in your favorite programming, hash the above basestring, using the Slack Signing Secret as the key.
  * Compare this computed signature to the X-Slack-Signature header on the request.
  */
-class InteractiveRequestVerifier(val version:String = "v0", signingSecret: String) {
 
-  val sha256 = Mac.getInstance("HmacSHA256");
+class SlackRequestVerifier(val version: String = "v0", signingSecret: String) {
+  private val sha256 = Mac.getInstance("HmacSHA256")!!
 
   init {
     sha256.init(SecretKeySpec(signingSecret.toByteArray(), "HmacSHA256"))
@@ -24,9 +23,11 @@ class InteractiveRequestVerifier(val version:String = "v0", signingSecret: Strin
   fun verifyRequest(signedValue: String, timestamp: String, payload: String) {
     val concatenatedString = "$version:$timestamp:$payload"
     val hashed = sha256.doFinal(concatenatedString.toByteArray())
-    val calculatedSignature = hashed.map { String.format("%02X", it) }.joinToString("")
+    val calculatedSignature = "$version=${hashed.toHex()}"
     if (signedValue.toLowerCase() != calculatedSignature) {
       throw IllegalStateException("Signature failed validation")
     }
   }
+  fun ByteArray.toHex() = joinToString("") { String.format("%02X", (it.toInt() and 0xFF)) }.toLowerCase()
 }
+
