@@ -45,4 +45,6 @@ dependencies {
   compile("com.squareup.okhttp3:okhttp:3.11.0")
   compile("org.slf4j:slf4j-api:1.7.25")
   compile("com.google.code.gson:gson:2.8.5")
+
+  testCompile("com.willowtreeapps.assertk:assertk:0.10")
 }
