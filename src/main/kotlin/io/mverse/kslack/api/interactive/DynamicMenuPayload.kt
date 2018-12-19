@@ -4,14 +4,14 @@ import io.mverse.kslack.api.model.Channel
 import io.mverse.kslack.api.model.Team
 import io.mverse.kslack.api.model.User
 
-data class DialogSuggestionPayload(
+data class DynamicMenuPayload(
     override val type: String,
-    override val name: String,
-    override val value: String,
     val responseUrl: String?,
     override val triggerId: String?,
     override val callbackId: String,
-    val state: String?,
+    val attachmentId: Long?,
+    override val name: String,
+    override val value: String,
     override val team: Team,
     override val user: User,
     override val channel: Channel,

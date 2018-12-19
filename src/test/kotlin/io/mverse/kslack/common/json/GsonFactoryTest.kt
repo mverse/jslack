@@ -5,6 +5,7 @@ import assertk.assertions.isInstanceOf
 import io.mverse.kslack.api.interactive.DialogSubmissionPayload
 import io.mverse.kslack.api.interactive.DialogSuggestionPayload
 import io.mverse.kslack.api.interactive.InteractivePayload
+import io.mverse.kslack.api.interactive.OptionsPayload
 import org.junit.Test
 
 class GsonFactoryTest {
@@ -17,7 +18,7 @@ class GsonFactoryTest {
   @Test
   fun gsonDialogSuggestion() {
     val payload = "{\"type\":\"dialog_suggestion\",\"token\":\"zDe5HTzx5PrEzpDyb5e5tC42\",\"action_ts\":\"1545187230.176392\",\"team\":{\"id\":\"TEM9JEKM0\",\"domain\":\"slick-testing\"},\"user\":{\"id\":\"UELH8NY1W\",\"name\":\"smartytime\"},\"channel\":{\"id\":\"CEM4KJLKE\",\"name\":\"general\"},\"name\":\"\\/tag\",\"value\":\"\",\"callback_id\":\"f1527063-dfe1-4559-a39f-7e75f20180ab\",\"state\":\"\"}"
-    val interactive: InteractivePayload = GsonFactory.createSnakeCase()
+    val interactive: OptionsPayload = GsonFactory.createSnakeCase()
         .fromJson(payload)
     assert(interactive).isInstanceOf(DialogSuggestionPayload::class.java)
   }

@@ -7,7 +7,7 @@ import io.mverse.kslack.api.model.dialog.DialogOptionGroup
 /**
  * The response from a server handling dynamic options from a dialog select element.
  */
-data class DialogSelectSuggestion(
+data class DialogSuggestion(
     val options: List<DialogOption>? = null,
     val optionGroups: List<DialogOptionGroup>? = null,
     val selectedOptions: List<DialogOption>? = null,
