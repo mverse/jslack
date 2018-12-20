@@ -21,6 +21,9 @@ data class Message(
   val icons: Icon? = null,
   val file: File? = null,
 
+  // Only used for responses to commands
+  val responseType: ResponseType? = null,
+
   // https://api.slack.com/docs/message-link-unfurling
   val isUnfurlLinks: Boolean = false,
   val isUnfurlMedia: Boolean = false,
@@ -34,6 +37,12 @@ data class Message(
    * The root message information of a "thread_broadcast" message.
    */
 
+  enum class ResponseType {
+    @SerializedName("ephemeral") EPHEMERAL,
+    @SerializedName("in_channel") IN_CHANNEL;
+    val value = name.toLowerCase()
+    override fun toString(): String = value
+  }
   data class MessageRoot(
     val text: String? = null,
     val username: String? = null,
