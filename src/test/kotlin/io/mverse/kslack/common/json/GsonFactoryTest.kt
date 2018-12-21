@@ -2,6 +2,7 @@ package io.mverse.kslack.common.json
 
 import assertk.assert
 import assertk.assertions.isInstanceOf
+import io.mverse.kslack.api.interactive.DialogCancellationPayload
 import io.mverse.kslack.api.interactive.DialogSubmissionPayload
 import io.mverse.kslack.api.interactive.DialogSuggestionPayload
 import io.mverse.kslack.api.interactive.InteractivePayload
@@ -29,5 +30,13 @@ class GsonFactoryTest {
     val interactive: InteractivePayload = GsonFactory.createSnakeCase()
         .fromJson(payload)
     assert(interactive).isInstanceOf(DialogSubmissionPayload::class.java)
+  }
+
+  @Test
+  fun gsonDialogCancellation() {
+    val payload = "{\"type\":\"dialog_cancellation\",\"token\":\"zDe5HTzx5PrEzpDyb5e5tC42\",\"action_ts\":\"1545413994.867505\",\"team\":{\"id\":\"TEM9JEKM0\",\"domain\":\"slick-testing\"},\"user\":{\"id\":\"UELH8NY1W\",\"name\":\"smartytime\"},\"channel\":{\"id\":\"GEUE9CRHP\",\"name\":\"privategroup\"},\"callback_id\":\"95341845-5db4-4eb1-857d-74f37a50b52c\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/TEM9JEKM0\\/510018397891\\/e76l9bdSySICho6imauCHjDU\",\"state\":\"\"}"
+    val interactive: InteractivePayload = GsonFactory.createSnakeCase()
+        .fromJson(payload)
+    assert(interactive).isInstanceOf(DialogCancellationPayload::class.java)
   }
 }

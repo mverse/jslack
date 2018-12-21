@@ -1,5 +1,6 @@
 package io.mverse.kslack
 
+import assertk.assertions.isNull
 import io.mverse.kslack.api.methods.SlackApiException
 import io.mverse.kslack.api.methods.request.channels.ChannelsArchiveRequest
 import io.mverse.kslack.api.methods.request.channels.ChannelsCreateRequest
@@ -103,7 +104,7 @@ class Slack_channels_chat_Test {
       assertThat<String>(type, `is`("message"))
       assertThat<String>(subtype, `is`("bot_message"))
       assertThat<List<Attachment>>(attachments, `is`(nullValue()))
-      assertThat<Message.MessageRoot>(root, `is`(nullValue()))
+      assertk.assert(root).isNull()
 
       val (type1, _, _, _, _, _, _, _, _, _, _, _, subtype1) = history.messages!![0]
       assertThat<String>(type1, `is`("message"))
@@ -130,7 +131,7 @@ class Slack_channels_chat_Test {
       assertThat<String>(type, `is`("message"))
       assertThat<String>(subtype, `is`("bot_message"))
       assertThat<List<Attachment>>(attachments, `is`(nullValue()))
-      assertThat<Message.MessageRoot>(root, `is`(nullValue()))
+      assertk.assert(root).isNull()
 
       val (type1, _, _, _, _, _, _, _, _, _, _, _, subtype1) = history.messages!![0]
       assertThat<String>(type1, `is`("message"))
