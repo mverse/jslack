@@ -55,6 +55,12 @@ data class DialogSelectElement(
     val options: List<DialogOption>? = null,
 
     /**
+     * Provides a default selected value for dynamic select menus with a data_source of type external.
+     * This should be an array containing a single object that specifies the default label and value (see above).
+     */
+    val selectedOptions: List<DialogOption>? = null,
+
+    /**
      * Provide up to 100 option element attributes. Required for this type.
      */
     val optionGroups: List<DialogOptionGroup>? = null) : DialogElement {
