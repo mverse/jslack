@@ -25,7 +25,7 @@ data class DialogSelectElement(
     /**
      * A default value for this field.  Must match a value presented in [DialogOption]s.
      */
-    override val value: String,
+    override val value: String? = null,
 
     /**
      * A string displayed as needed to help guide users in completing the element.

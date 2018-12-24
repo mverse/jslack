@@ -14,7 +14,7 @@ interface DialogElement {
 
   val type: String
 
-  val value: String
+  val value: String?
 
   val placeholder: String
 
