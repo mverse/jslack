@@ -1,5 +1,5 @@
 package io.mverse.kslack.api.model
 
 data class OptionGroup(
-    val label: String? = null,
+    val text: String? = null,
     val options: List<Option>? = null)
