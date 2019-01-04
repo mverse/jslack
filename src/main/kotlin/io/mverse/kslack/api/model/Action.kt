@@ -9,8 +9,9 @@ data class Action(
     val type: Type = Type.BUTTON,
     val value: String? = null,
     val confirm: Confirmation? = null,
-    val options: List<Option> = listOf(),
-    val selectedOptions: List<Option> = listOf(),
+    val options: List<Option>?,
+    val optionGroups: List<OptionGroup>?,
+    val selectedOptions: List<Option>?,
     val dataSource: String? = null,
     val minQueryLength: Int? = null,
     val url: String? = null)
