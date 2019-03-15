@@ -6,6 +6,7 @@ import io.mverse.kslack.api.methods.request.team.TeamInfoRequest
 import io.mverse.kslack.api.methods.request.team.TeamIntegrationLogsRequest
 import io.mverse.kslack.api.methods.request.team.profile.TeamProfileGetRequest
 import io.mverse.kslack.api.methods.request.users.UsersListRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -16,7 +17,7 @@ class Slack_team_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  fun teamAccessLogs() {
+  fun teamAccessLogs() = runBlocking {
     val response = slack.teamAccessLogs(TeamAccessLogsRequest(
         token = token))
     assertThat(response.ok, `is`(false))
@@ -24,7 +25,7 @@ class Slack_team_Test {
   }
 
   @Test
-  fun teamBillableInfo() {
+  fun teamBillableInfo() = runBlocking {
     val userData = slack.usersList(UsersListRequest(token)).members!!.filter { !it.isBot && it.name != "slackbot" }.first()
     val user = userData.id
     val response = slack.teamBillableInfo(TeamBillableInfoRequest(
@@ -35,7 +36,7 @@ class Slack_team_Test {
 
   @Test
   @Throws(Exception::class)
-  fun teamInfo() {
+  fun teamInfo() = runBlocking {
     val response = slack.teamInfo(TeamInfoRequest(
         token = token))
     assertThat(response.ok, `is`(true))
@@ -43,7 +44,7 @@ class Slack_team_Test {
 
   @Test
   @Throws(Exception::class)
-  fun teamIntegrationLogs() {
+  fun teamIntegrationLogs() = runBlocking {
     val user = slack.usersList(UsersListRequest(token)).members!![0].id
     val response = slack.teamIntegrationLogs(TeamIntegrationLogsRequest(
         token = token,
@@ -53,7 +54,7 @@ class Slack_team_Test {
 
   @Test
   @Throws(Exception::class)
-  fun teamProfileGet() {
+  fun teamProfileGet() = runBlocking {
     val response = slack.teamProfileGet(TeamProfileGetRequest(token))
     assertThat(response.ok, `is`(true))
   }

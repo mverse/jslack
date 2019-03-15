@@ -1,12 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-  id("io.mverse.project") version "0.5.32"
-  id("io.mverse.multi-platform") version "0.5.32"
-  id("org.jetbrains.kotlin.jvm").version("1.3.10")
-  id("kotlinx-serialization").version("1.3.10")
+  id("io.mverse.project")
+  kotlin("jvm")
 }
-
 
 group = "io.mverse.slick"
 
@@ -27,7 +22,8 @@ repositories {
 
 dependencyManagement {
   dependencies {
-    dependencySet("org.jetbrains.kotlin:1.3.10") {
+    val kotlin: String by project
+    dependencySet("org.jetbrains.kotlin:$kotlin") {
       entry("kotlin-stdlib")
       entry("kotlin-runtime")
       entry("kotlin-stdlib-common")
@@ -42,9 +38,22 @@ dependencyManagement {
 }
 
 dependencies {
-  compile("com.squareup.okhttp3:okhttp:3.11.0")
+  compileOnly("com.squareup.okhttp3:okhttp:3.11.0")
+
+  val ktor: String by project
+  compileOnly("io.ktor:ktor-client-core:$ktor")
+  compileOnly("io.ktor:ktor-client-cio:$ktor")
+  compileOnly("io.ktor:ktor-client-json:$ktor")
+  compileOnly("io.ktor:ktor-client-gson:$ktor")
+
+  testCompile("io.ktor:ktor-client-core:$ktor")
+  testCompile("io.ktor:ktor-client-cio:$ktor")
+  testCompile("io.ktor:ktor-client-json:$ktor")
+  testCompile("io.ktor:ktor-client-gson:$ktor")
+
   compile("org.slf4j:slf4j-api:1.7.25")
   compile("com.google.code.gson:gson:2.8.5")
 
-  testCompile("com.willowtreeapps.assertk:assertk:0.10")
+  // None
+  testCompile("com.willowtreeapps.assertk:assertk-jvm:0.11")
 }

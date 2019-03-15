@@ -5,6 +5,7 @@ import io.mverse.kslack.api.model.Attachment
 import io.mverse.kslack.shortcut.model.ApiToken
 import io.mverse.kslack.shortcut.model.ChannelName
 import io.mverse.kslack.shortcut.model.ReactionName
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -18,17 +19,17 @@ class Slack_shortcut_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun chatOps() {
+
+  fun chatOps() = runBlocking {
     val shortcut = slack.shortcut(token)
     val channelName = "general"
 
     val channelId = shortcut.findChannelIdByName(channelName)
-    assertThat(channelId.isPresent, `is`(true))
+    assertThat(channelId != null, `is`(true))
 
-    val maybeChannelName = shortcut.findChannelNameById(channelId.get())
-    assertThat(maybeChannelName.isPresent, `is`(true))
-    assertThat(maybeChannelName.get(), `is`<ChannelName>(channelName))
+    val maybeChannelName = shortcut.findChannelNameById(channelId!!)
+    assertThat(maybeChannelName != null, `is`(true))
+    assertThat(maybeChannelName, `is`<ChannelName>(channelName))
 
     val messages = shortcut.findRecentMessagesByName(channelName)
     assertThat(messages, `is`(notNullValue()))
@@ -42,8 +43,8 @@ class Slack_shortcut_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun postMessage() {
+
+  fun postMessage() = runBlocking {
     val shortcut = slack.shortcut(token)
     val attachment = Attachment(text = ("text"), footer = ("footer"))
     val attachments = Arrays.asList<Attachment>(attachment)

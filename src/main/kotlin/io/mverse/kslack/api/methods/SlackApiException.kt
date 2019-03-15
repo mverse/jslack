@@ -1,11 +1,11 @@
 package io.mverse.kslack.api.methods
 
-import io.mverse.kslack.common.http.SlackHttpClient
+import io.ktor.client.HttpClient
 import io.mverse.kslack.common.json.GsonFactory
 import okhttp3.Response
 import org.slf4j.LoggerFactory
 
-val log = LoggerFactory.getLogger(SlackHttpClient::class.java)
+val log = LoggerFactory.getLogger(HttpClient::class.java)
 
 class SlackApiException(val response: Response, val responseBody: String? = null) : Exception() {
   val error: io.mverse.kslack.api.methods.SlackApiErrorResponse?

@@ -6,6 +6,7 @@ import io.mverse.kslack.api.methods.request.files.FilesUploadRequest
 import io.mverse.kslack.api.methods.request.pins.PinsAddRequest
 import io.mverse.kslack.api.methods.request.pins.PinsListRequest
 import io.mverse.kslack.api.methods.request.pins.PinsRemoveRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -19,8 +20,8 @@ class Slack_pins_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun list() {
+
+  fun list() = runBlocking {
     val channels = slack.channelsList(ChannelsListRequest(token))
         .channels!!.filter { it.name == "general" }.map { it.id }
 
@@ -31,8 +32,8 @@ class Slack_pins_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun add() {
+
+  fun add() = runBlocking {
     val channels = slack.channelsList(ChannelsListRequest(token))
         .channels!!.filter { it.name == "general" }.map { it.id }
 

@@ -9,6 +9,7 @@ import io.mverse.kslack.api.methods.request.im.ImOpenRequest
 import io.mverse.kslack.api.methods.request.im.ImRepliesRequest
 import io.mverse.kslack.api.methods.request.users.UsersListRequest
 import io.mverse.kslack.api.model.ResponseMetadata
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -21,7 +22,7 @@ class Slack_im_Test {
 
   @Test
   @Throws(Exception::class)
-  fun operations() {
+  fun operations() = runBlocking {
     val listResponse = slack.imList(ImListRequest(
         token = token,
         limit = 2))

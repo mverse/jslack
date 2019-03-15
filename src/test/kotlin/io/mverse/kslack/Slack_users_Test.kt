@@ -12,6 +12,7 @@ import io.mverse.kslack.api.methods.request.users.UsersSetActiveRequest
 import io.mverse.kslack.api.methods.request.users.UsersSetPhotoRequest
 import io.mverse.kslack.api.methods.request.users.UsersSetPresenceRequest
 import io.mverse.kslack.api.model.User
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertEquals
@@ -26,8 +27,8 @@ class Slack_users_Test {
   internal var slack = io.mverse.kslack.Slack()
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun users() {
+
+  fun users() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     run {
@@ -119,8 +120,8 @@ class Slack_users_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun lookupByEMailSupported() {
+
+  fun lookupByEMailSupported() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     val usersListResponse = slack.usersList(UsersListRequest(
         token = token,

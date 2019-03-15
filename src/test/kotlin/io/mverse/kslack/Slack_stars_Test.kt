@@ -5,6 +5,7 @@ import io.mverse.kslack.api.methods.request.files.FilesUploadRequest
 import io.mverse.kslack.api.methods.request.stars.StarsAddRequest
 import io.mverse.kslack.api.methods.request.stars.StarsListRequest
 import io.mverse.kslack.api.methods.request.stars.StarsRemoveRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -17,14 +18,14 @@ class Slack_stars_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  fun list() {
+  fun list() = runBlocking {
     val response = slack.starsList(StarsListRequest(token))
     assertThat(response.ok, `is`(true))
     assertThat(response.items, `is`(notNullValue()))
   }
 
   @Test
-  fun add() {
+  fun add() = runBlocking {
     val channels = slack.channelsList(ChannelsListRequest(token))
         .channels!!
         .filter { it.name == "general" }

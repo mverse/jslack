@@ -17,7 +17,7 @@
 //
 //  @Test
 //  @Throws(Exception::class)
-//  fun rtmStart() {
+//  fun rtmStart() = runBlocking {
 //    val jsonParser = JsonParser()
 //    val token = System.getenv(Constants.SLACK_BOT_USER_TEST_OAUTH_ACCESS_TOKEN)
 //    slack.rtmStart(token, use=({ rtm -> verifyRTMClientBehavior(jsonParser, rtm) })
@@ -25,7 +25,7 @@
 //
 //  @Test
 //  @Throws(Exception::class)
-//  fun rtmConnect() {
+//  fun rtmConnect() = runBlocking {
 //    val jsonParser = JsonParser()
 //    val token = System.getenv(Constants.SLACK_BOT_USER_TEST_OAUTH_ACCESS_TOKEN)
 //    slack.rtmConnect(token, use=({ rtm -> verifyRTMClientBehavior(jsonParser, rtm) })

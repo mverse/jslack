@@ -288,517 +288,517 @@ interface MethodsClient {
   // ------------------------------
 
 
-  fun apiTest(req: ApiTestRequest): ApiTestResponse
+  suspend fun apiTest(req: ApiTestRequest): ApiTestResponse
 
   // ------------------------------
   // apps.permissions
   // ------------------------------
 
 
-  fun appsPermissionsInfo(req: AppsPermissionsInfoRequest): AppsPermissionsInfoResponse
+  suspend fun appsPermissionsInfo(req: AppsPermissionsInfoRequest): AppsPermissionsInfoResponse
 
 
-  fun appsPermissionsRequest(req: AppsPermissionsRequestRequest): AppsPermissionsRequestResponse
+  suspend fun appsPermissionsRequest(req: AppsPermissionsRequestRequest): AppsPermissionsRequestResponse
 
   // ------------------------------
   // auth
   // ------------------------------
 
 
-  fun authRevoke(req: AuthRevokeRequest): AuthRevokeResponse
+  suspend fun authRevoke(req: AuthRevokeRequest): AuthRevokeResponse
 
 
-  fun authTest(req: AuthTestRequest): AuthTestResponse
+  suspend fun authTest(req: AuthTestRequest): AuthTestResponse
 
   // ------------------------------
   // bots
   // ------------------------------
 
 
-  fun botsInfo(req: BotsInfoRequest): BotsInfoResponse
+  suspend fun botsInfo(req: BotsInfoRequest): BotsInfoResponse
 
   // ------------------------------
   // channels
   // ------------------------------
 
 
-  fun channelsArchive(req: ChannelsArchiveRequest): ChannelsArchiveResponse
+  suspend fun channelsArchive(req: ChannelsArchiveRequest): ChannelsArchiveResponse
 
 
-  fun channelsCreate(req: ChannelsCreateRequest): ChannelsCreateResponse
+  suspend fun channelsCreate(req: ChannelsCreateRequest): ChannelsCreateResponse
 
 
-  fun channelsHistory(req: ChannelsHistoryRequest): ChannelsHistoryResponse
+  suspend fun channelsHistory(req: ChannelsHistoryRequest): ChannelsHistoryResponse
 
 
-  fun channelsReplies(req: ChannelsRepliesRequest): ChannelsRepliesResponse
+  suspend fun channelsReplies(req: ChannelsRepliesRequest): ChannelsRepliesResponse
 
 
-  fun channelsInfo(req: ChannelsInfoRequest): ChannelsInfoResponse
+  suspend fun channelsInfo(req: ChannelsInfoRequest): ChannelsInfoResponse
 
 
-  fun channelsList(req: ChannelsListRequest): ChannelsListResponse
+  suspend fun channelsList(req: ChannelsListRequest): ChannelsListResponse
 
 
-  fun channelsInvite(req: ChannelsInviteRequest): ChannelsInviteResponse
+  suspend fun channelsInvite(req: ChannelsInviteRequest): ChannelsInviteResponse
 
 
-  fun channelsJoin(req: ChannelsJoinRequest): ChannelsJoinResponse
+  suspend fun channelsJoin(req: ChannelsJoinRequest): ChannelsJoinResponse
 
 
-  fun channelsKick(req: ChannelsKickRequest): ChannelsKickResponse
+  suspend fun channelsKick(req: ChannelsKickRequest): ChannelsKickResponse
 
 
-  fun channelsLeave(req: ChannelsLeaveRequest): ChannelsLeaveResponse
+  suspend fun channelsLeave(req: ChannelsLeaveRequest): ChannelsLeaveResponse
 
 
-  fun channelsMark(req: ChannelsMarkRequest): ChannelsMarkResponse
+  suspend fun channelsMark(req: ChannelsMarkRequest): ChannelsMarkResponse
 
 
-  fun channelsRename(req: ChannelsRenameRequest): ChannelsRenameResponse
+  suspend fun channelsRename(req: ChannelsRenameRequest): ChannelsRenameResponse
 
 
-  fun channelsSetPurpose(req: ChannelsSetPurposeRequest): ChannelsSetPurposeResponse
+  suspend fun channelsSetPurpose(req: ChannelsSetPurposeRequest): ChannelsSetPurposeResponse
 
 
-  fun channelsSetTopic(req: ChannelsSetTopicRequest): ChannelsSetTopicResponse
+  suspend fun channelsSetTopic(req: ChannelsSetTopicRequest): ChannelsSetTopicResponse
 
 
-  fun channelsUnarchive(req: ChannelsUnarchiveRequest): ChannelsUnarchiveResponse
+  suspend fun channelsUnarchive(req: ChannelsUnarchiveRequest): ChannelsUnarchiveResponse
 
   // ------------------------------
   // chat
   // ------------------------------
 
 
-  fun chatGetPermalink(req: ChatGetPermalinkRequest): ChatGetPermalinkResponse
+  suspend fun chatGetPermalink(req: ChatGetPermalinkRequest): ChatGetPermalinkResponse
 
 
-  fun chatDelete(req: ChatDeleteRequest): ChatDeleteResponse
+  suspend fun chatDelete(req: ChatDeleteRequest): ChatDeleteResponse
 
 
-  fun chatMeMessage(req: ChatMeMessageRequest): ChatMeMessageResponse
+  suspend fun chatMeMessage(req: ChatMeMessageRequest): ChatMeMessageResponse
 
 
-  fun chatPostEphemeral(req: ChatPostEphemeralRequest): ChatPostEphemeralResponse
+  suspend fun chatPostEphemeral(req: ChatPostEphemeralRequest): ChatPostEphemeralResponse
 
 
-  fun chatPostMessage(req: ChatPostMessageRequest): ChatPostMessageResponse
+  suspend fun chatPostMessage(req: ChatPostMessageRequest): ChatPostMessageResponse
 
 
-  fun chatUpdate(req: ChatUpdateRequest): ChatUpdateResponse
+  suspend fun chatUpdate(req: ChatUpdateRequest): ChatUpdateResponse
 
 
-  fun chatUnfurl(req: ChatUnfurlRequest): ChatUnfurlResponse
+  suspend fun chatUnfurl(req: ChatUnfurlRequest): ChatUnfurlResponse
 
   // ------------------------------
   // conversations
   // ------------------------------
 
 
-  fun conversationsArchive(req: ConversationsArchiveRequest): ConversationsArchiveResponse
+  suspend fun conversationsArchive(req: ConversationsArchiveRequest): ConversationsArchiveResponse
 
 
-  fun conversationsClose(req: ConversationsCloseRequest): ConversationsCloseResponse
+  suspend fun conversationsClose(req: ConversationsCloseRequest): ConversationsCloseResponse
 
 
-  fun conversationsCreate(req: ConversationsCreateRequest): ConversationsCreateResponse
+  suspend fun conversationsCreate(req: ConversationsCreateRequest): ConversationsCreateResponse
 
 
-  fun conversationsHistory(req: ConversationsHistoryRequest): ConversationsHistoryResponse
+  suspend fun conversationsHistory(req: ConversationsHistoryRequest): ConversationsHistoryResponse
 
 
-  fun conversationsInfo(req: ConversationsInfoRequest): ConversationsInfoResponse
+  suspend fun conversationsInfo(req: ConversationsInfoRequest): ConversationsInfoResponse
 
 
-  fun conversationsInvite(req: ConversationsInviteRequest): ConversationsInviteResponse
+  suspend fun conversationsInvite(req: ConversationsInviteRequest): ConversationsInviteResponse
 
 
-  fun conversationsJoin(req: ConversationsJoinRequest): ConversationsJoinResponse
+  suspend fun conversationsJoin(req: ConversationsJoinRequest): ConversationsJoinResponse
 
 
-  fun conversationsKick(req: ConversationsKickRequest): ConversationsKickResponse
+  suspend fun conversationsKick(req: ConversationsKickRequest): ConversationsKickResponse
 
 
-  fun conversationsLeave(req: ConversationsLeaveRequest): ConversationsLeaveResponse
+  suspend fun conversationsLeave(req: ConversationsLeaveRequest): ConversationsLeaveResponse
 
 
-  fun conversationsList(req: ConversationsListRequest): ConversationsListResponse
+  suspend fun conversationsList(req: ConversationsListRequest): ConversationsListResponse
 
 
-  fun conversationsMembers(req: ConversationsMembersRequest): ConversationsMembersResponse
+  suspend fun conversationsMembers(req: ConversationsMembersRequest): ConversationsMembersResponse
 
 
-  fun conversationsOpen(req: ConversationsOpenRequest): ConversationsOpenResponse
+  suspend fun conversationsOpen(req: ConversationsOpenRequest): ConversationsOpenResponse
 
 
-  fun conversationsRename(req: ConversationsRenameRequest): ConversationsRenameResponse
+  suspend fun conversationsRename(req: ConversationsRenameRequest): ConversationsRenameResponse
 
 
-  fun conversationsReplies(req: ConversationsRepliesRequest): ConversationsRepliesResponse
+  suspend fun conversationsReplies(req: ConversationsRepliesRequest): ConversationsRepliesResponse
 
 
-  fun conversationsSetPurpose(req: ConversationsSetPurposeRequest): ConversationsSetPurposeResponse
+  suspend fun conversationsSetPurpose(req: ConversationsSetPurposeRequest): ConversationsSetPurposeResponse
 
 
-  fun conversationsSetTopic(req: ConversationsSetTopicRequest): ConversationsSetTopicResponse
+  suspend fun conversationsSetTopic(req: ConversationsSetTopicRequest): ConversationsSetTopicResponse
 
 
-  fun conversationsUnarchive(req: ConversationsUnarchiveRequest): ConversationsUnarchiveResponse
+  suspend fun conversationsUnarchive(req: ConversationsUnarchiveRequest): ConversationsUnarchiveResponse
 
   // ------------------------------
   // dialog
   // ------------------------------
 
 
-  fun dialogOpen(req: DialogOpenRequest): DialogOpenResponse
+  suspend fun dialogOpen(req: DialogOpenRequest): DialogOpenResponse
 
   // ------------------------------
   // dnd
   // ------------------------------
 
 
-  fun dndEndDnd(req: DndEndDndRequest): DndEndDndResponse
+  suspend fun dndEndDnd(req: DndEndDndRequest): DndEndDndResponse
 
 
-  fun dndEndSnooze(req: DndEndSnoozeRequest): DndEndSnoozeResponse
+  suspend fun dndEndSnooze(req: DndEndSnoozeRequest): DndEndSnoozeResponse
 
 
-  fun dndInfo(req: DndInfoRequest): DndInfoResponse
+  suspend fun dndInfo(req: DndInfoRequest): DndInfoResponse
 
 
-  fun dndSetSnooze(req: DndSetSnoozeRequest): DndSetSnoozeResponse
+  suspend fun dndSetSnooze(req: DndSetSnoozeRequest): DndSetSnoozeResponse
 
 
-  fun dndTeamInfo(req: DndTeamInfoRequest): DndTeamInfoResponse
+  suspend fun dndTeamInfo(req: DndTeamInfoRequest): DndTeamInfoResponse
 
   // ------------------------------
   // emoji
   // ------------------------------
 
 
-  fun emojiList(req: EmojiListRequest): EmojiListResponse
+  suspend fun emojiList(req: EmojiListRequest): EmojiListResponse
 
   // ------------------------------
   // files
   // ------------------------------
 
 
-  fun filesDelete(req: FilesDeleteRequest): FilesDeleteResponse
+  suspend fun filesDelete(req: FilesDeleteRequest): FilesDeleteResponse
 
 
-  fun filesInfo(req: FilesInfoRequest): FilesInfoResponse
+  suspend fun filesInfo(req: FilesInfoRequest): FilesInfoResponse
 
 
-  fun filesList(req: FilesListRequest): FilesListResponse
+  suspend fun filesList(req: FilesListRequest): FilesListResponse
 
 
-  fun filesRevokePublicURL(req: FilesRevokePublicURLRequest): FilesRevokePublicURLResponse
+  suspend fun filesRevokePublicURL(req: FilesRevokePublicURLRequest): FilesRevokePublicURLResponse
 
 
-  fun filesSharedPublicURL(req: FilesSharedPublicURLRequest): FilesSharedPublicURLResponse
+  suspend fun filesSharedPublicURL(req: FilesSharedPublicURLRequest): FilesSharedPublicURLResponse
 
 
-  fun filesUpload(req: FilesUploadRequest): FilesUploadResponse
+  suspend fun filesUpload(req: FilesUploadRequest): FilesUploadResponse
 
   // ------------------------------
   // files.comments
   // ------------------------------
 
 
-  fun filesCommentsAdd(req: FilesCommentsAddRequest): FilesCommentsAddResponse
+  suspend fun filesCommentsAdd(req: FilesCommentsAddRequest): FilesCommentsAddResponse
 
 
-  fun filesCommentsDelete(req: FilesCommentsDeleteRequest): FilesCommentsDeleteResponse
+  suspend fun filesCommentsDelete(req: FilesCommentsDeleteRequest): FilesCommentsDeleteResponse
 
 
-  fun filesCommentEdit(req: FilesCommentsEditRequest): FilesCommentsEditResponse
+  suspend fun filesCommentEdit(req: FilesCommentsEditRequest): FilesCommentsEditResponse
 
   // ------------------------------
   // groups
   // ------------------------------
 
 
-  fun groupsArchive(req: GroupsArchiveRequest): GroupsArchiveResponse
+  suspend fun groupsArchive(req: GroupsArchiveRequest): GroupsArchiveResponse
 
 
-  fun groupsClose(req: GroupsCloseRequest): GroupsCloseResponse
+  suspend fun groupsClose(req: GroupsCloseRequest): GroupsCloseResponse
 
 
-  fun groupsCreateChild(req: GroupsCreateChildRequest): GroupsCreateChildResponse
+  suspend fun groupsCreateChild(req: GroupsCreateChildRequest): GroupsCreateChildResponse
 
 
-  fun groupsCreate(req: GroupsCreateRequest): GroupsCreateResponse
+  suspend fun groupsCreate(req: GroupsCreateRequest): GroupsCreateResponse
 
 
-  fun groupsHistory(req: GroupsHistoryRequest): GroupsHistoryResponse
+  suspend fun groupsHistory(req: GroupsHistoryRequest): GroupsHistoryResponse
 
 
-  fun groupsInfo(req: GroupsInfoRequest): GroupsInfoResponse
+  suspend fun groupsInfo(req: GroupsInfoRequest): GroupsInfoResponse
 
 
-  fun groupsInvite(req: GroupsInviteRequest): GroupsInviteResponse
+  suspend fun groupsInvite(req: GroupsInviteRequest): GroupsInviteResponse
 
 
-  fun groupsKick(req: GroupsKickRequest): GroupsKickResponse
+  suspend fun groupsKick(req: GroupsKickRequest): GroupsKickResponse
 
 
-  fun groupsLeave(req: GroupsLeaveRequest): GroupsLeaveResponse
+  suspend fun groupsLeave(req: GroupsLeaveRequest): GroupsLeaveResponse
 
 
-  fun groupsList(req: GroupsListRequest): GroupsListResponse
+  suspend fun groupsList(req: GroupsListRequest): GroupsListResponse
 
 
-  fun groupsMark(req: GroupsMarkRequest): GroupsMarkResponse
+  suspend fun groupsMark(req: GroupsMarkRequest): GroupsMarkResponse
 
 
-  fun groupsOpen(req: GroupsOpenRequest): GroupsOpenResponse
+  suspend fun groupsOpen(req: GroupsOpenRequest): GroupsOpenResponse
 
 
-  fun groupsRename(req: GroupsRenameRequest): GroupsRenameResponse
+  suspend fun groupsRename(req: GroupsRenameRequest): GroupsRenameResponse
 
 
-  fun groupsSetPurpose(req: GroupsSetPurposeRequest): GroupsSetPurposeResponse
+  suspend fun groupsSetPurpose(req: GroupsSetPurposeRequest): GroupsSetPurposeResponse
 
 
-  fun groupsSetTopic(req: GroupsSetTopicRequest): GroupsSetTopicResponse
+  suspend fun groupsSetTopic(req: GroupsSetTopicRequest): GroupsSetTopicResponse
 
 
-  fun groupsUnarchive(req: GroupsUnarchiveRequest): GroupsUnarchiveResponse
+  suspend fun groupsUnarchive(req: GroupsUnarchiveRequest): GroupsUnarchiveResponse
 
 
-  fun groupsReplies(req: GroupsRepliesRequest): GroupsRepliesResponse
+  suspend fun groupsReplies(req: GroupsRepliesRequest): GroupsRepliesResponse
 
   // ------------------------------
   // im
   // ------------------------------
 
 
-  fun imClose(req: ImCloseRequest): ImCloseResponse
+  suspend fun imClose(req: ImCloseRequest): ImCloseResponse
 
 
-  fun imHistory(req: ImHistoryRequest): ImHistoryResponse
+  suspend fun imHistory(req: ImHistoryRequest): ImHistoryResponse
 
 
-  fun imList(req: ImListRequest): ImListResponse
+  suspend fun imList(req: ImListRequest): ImListResponse
 
 
-  fun imMark(req: ImMarkRequest): ImMarkResponse
+  suspend fun imMark(req: ImMarkRequest): ImMarkResponse
 
 
-  fun imOpen(req: ImOpenRequest): ImOpenResponse
+  suspend fun imOpen(req: ImOpenRequest): ImOpenResponse
 
 
-  fun imReplies(req: ImRepliesRequest): ImRepliesResponse
+  suspend fun imReplies(req: ImRepliesRequest): ImRepliesResponse
 
   // ------------------------------
   // migration
   // ------------------------------
 
 
-  fun migrationExchange(req: MigrationExchangeRequest): MigrationExchangeResponse
+  suspend fun migrationExchange(req: MigrationExchangeRequest): MigrationExchangeResponse
 
   // ------------------------------
   // mpim
   // ------------------------------
 
 
-  fun mpimClose(req: MpimCloseRequest): MpimCloseResponse
+  suspend fun mpimClose(req: MpimCloseRequest): MpimCloseResponse
 
 
-  fun mpimHistory(req: MpimHistoryRequest): MpimHistoryResponse
+  suspend fun mpimHistory(req: MpimHistoryRequest): MpimHistoryResponse
 
 
-  fun mpimList(req: MpimListRequest): MpimListResponse
+  suspend fun mpimList(req: MpimListRequest): MpimListResponse
 
 
-  fun mpimReplies(req: MpimRepliesRequest): MpimRepliesResponse
+  suspend fun mpimReplies(req: MpimRepliesRequest): MpimRepliesResponse
 
 
-  fun mpimMark(req: MpimMarkRequest): MpimMarkResponse
+  suspend fun mpimMark(req: MpimMarkRequest): MpimMarkResponse
 
 
-  fun mpimOpen(req: MpimOpenRequest): MpimOpenResponse
+  suspend fun mpimOpen(req: MpimOpenRequest): MpimOpenResponse
 
   // ------------------------------
   // oauth
   // ------------------------------
 
 
-  fun oauthAccess(req: OAuthAccessRequest): OAuthAccessResponse
+  suspend fun oauthAccess(req: OAuthAccessRequest): OAuthAccessResponse
 
 
-  fun oauthToken(req: OAuthTokenRequest): OAuthTokenResponse
+  suspend fun oauthToken(req: OAuthTokenRequest): OAuthTokenResponse
 
   // ------------------------------
   // pins
   // ------------------------------
 
 
-  fun pinsAdd(req: PinsAddRequest): PinsAddResponse
+  suspend fun pinsAdd(req: PinsAddRequest): PinsAddResponse
 
 
-  fun pinsList(req: PinsListRequest): PinsListResponse
+  suspend fun pinsList(req: PinsListRequest): PinsListResponse
 
 
-  fun pinsRemove(req: PinsRemoveRequest): PinsRemoveResponse
+  suspend fun pinsRemove(req: PinsRemoveRequest): PinsRemoveResponse
 
   // ------------------------------
   // reactions
   // ------------------------------
 
 
-  fun reactionsAdd(req: ReactionsAddRequest): ReactionsAddResponse
+  suspend fun reactionsAdd(req: ReactionsAddRequest): ReactionsAddResponse
 
 
-  fun reactionsGet(req: ReactionsGetRequest): ReactionsGetResponse
+  suspend fun reactionsGet(req: ReactionsGetRequest): ReactionsGetResponse
 
 
-  fun reactionsList(req: ReactionsListRequest): ReactionsListResponse
+  suspend fun reactionsList(req: ReactionsListRequest): ReactionsListResponse
 
 
-  fun reactionsRemove(req: ReactionsRemoveRequest): ReactionsRemoveResponse
+  suspend fun reactionsRemove(req: ReactionsRemoveRequest): ReactionsRemoveResponse
 
   // ------------------------------
   // reminders
   // ------------------------------
 
 
-  fun remindersAdd(req: RemindersAddRequest): RemindersAddResponse
+  suspend fun remindersAdd(req: RemindersAddRequest): RemindersAddResponse
 
 
-  fun remindersComplete(req: RemindersCompleteRequest): RemindersCompleteResponse
+  suspend fun remindersComplete(req: RemindersCompleteRequest): RemindersCompleteResponse
 
 
-  fun remindersDelete(req: RemindersDeleteRequest): RemindersDeleteResponse
+  suspend fun remindersDelete(req: RemindersDeleteRequest): RemindersDeleteResponse
 
 
-  fun remindersInfo(req: RemindersInfoRequest): RemindersInfoResponse
+  suspend fun remindersInfo(req: RemindersInfoRequest): RemindersInfoResponse
 
 
-  fun remindersList(req: RemindersListRequest): RemindersListResponse
+  suspend fun remindersList(req: RemindersListRequest): RemindersListResponse
 
   // ------------------------------
   // rtm
   // ------------------------------
 
 
-  fun rtmConnect(req: RTMConnectRequest): RTMConnectResponse
+  suspend fun rtmConnect(req: RTMConnectRequest): RTMConnectResponse
 
 
-  fun rtmStart(req: RTMStartRequest): RTMStartResponse
+  suspend fun rtmStart(req: RTMStartRequest): RTMStartResponse
 
   // ------------------------------
   // search
   // ------------------------------
 
 
-  fun searchAll(req: SearchAllRequest): SearchAllResponse
+  suspend fun searchAll(req: SearchAllRequest): SearchAllResponse
 
 
-  fun searchMessages(req: SearchMessagesRequest): SearchMessagesResponse
+  suspend fun searchMessages(req: SearchMessagesRequest): SearchMessagesResponse
 
 
-  fun searchFiles(req: SearchFilesRequest): SearchFilesResponse
+  suspend fun searchFiles(req: SearchFilesRequest): SearchFilesResponse
 
   // ------------------------------
   // stars
   // ------------------------------
 
 
-  fun starsAdd(req: StarsAddRequest): StarsAddResponse
+  suspend fun starsAdd(req: StarsAddRequest): StarsAddResponse
 
 
-  fun starsList(req: StarsListRequest): StarsListResponse
+  suspend fun starsList(req: StarsListRequest): StarsListResponse
 
 
-  fun starsRemove(req: StarsRemoveRequest): StarsRemoveResponse
+  suspend fun starsRemove(req: StarsRemoveRequest): StarsRemoveResponse
 
   // ------------------------------
   // team
   // ------------------------------
 
 
-  fun teamAccessLogs(req: TeamAccessLogsRequest): TeamAccessLogsResponse
+  suspend fun teamAccessLogs(req: TeamAccessLogsRequest): TeamAccessLogsResponse
 
 
-  fun teamBillableInfo(req: TeamBillableInfoRequest): TeamBillableInfoResponse
+  suspend fun teamBillableInfo(req: TeamBillableInfoRequest): TeamBillableInfoResponse
 
 
-  fun teamInfo(req: TeamInfoRequest): TeamInfoResponse
+  suspend fun teamInfo(req: TeamInfoRequest): TeamInfoResponse
 
 
-  fun teamIntegrationLogs(req: TeamIntegrationLogsRequest): TeamIntegrationLogsResponse
+  suspend fun teamIntegrationLogs(req: TeamIntegrationLogsRequest): TeamIntegrationLogsResponse
 
 
-  fun teamProfileGet(req: TeamProfileGetRequest): TeamProfileGetResponse
+  suspend fun teamProfileGet(req: TeamProfileGetRequest): TeamProfileGetResponse
 
   // ------------------------------
   // usergroups
   // ------------------------------
 
 
-  fun usergroupsCreate(req: UsergroupsCreateRequest): UsergroupsCreateResponse
+  suspend fun usergroupsCreate(req: UsergroupsCreateRequest): UsergroupsCreateResponse
 
 
-  fun usergroupsDisable(req: UsergroupsDisableRequest): UsergroupsDisableResponse
+  suspend fun usergroupsDisable(req: UsergroupsDisableRequest): UsergroupsDisableResponse
 
 
-  fun usergroupsEnable(req: UsergroupsEnableRequest): UsergroupsEnableResponse
+  suspend fun usergroupsEnable(req: UsergroupsEnableRequest): UsergroupsEnableResponse
 
 
-  fun usergroupsList(req: UsergroupsListRequest): UsergroupsListResponse
+  suspend fun usergroupsList(req: UsergroupsListRequest): UsergroupsListResponse
 
 
-  fun usergroupsUpdate(req: UsergroupsUpdateRequest): UsergroupsUpdateResponse
+  suspend fun usergroupsUpdate(req: UsergroupsUpdateRequest): UsergroupsUpdateResponse
 
 
-  fun usergroupUsersList(req: UsergroupUsersListRequest): UsergroupUsersListResponse
+  suspend fun usergroupUsersList(req: UsergroupUsersListRequest): UsergroupUsersListResponse
 
 
-  fun usergroupUsersUpdate(req: UsergroupUsersUpdateRequest): UsergroupUsersUpdateResponse
+  suspend fun usergroupUsersUpdate(req: UsergroupUsersUpdateRequest): UsergroupUsersUpdateResponse
 
   // ------------------------------
   // users
   // ------------------------------
 
 
-  fun usersConversations(req: UsersConversationsRequest): UsersConversationsResponse
+  suspend fun usersConversations(req: UsersConversationsRequest): UsersConversationsResponse
 
 
-  fun usersDeletePhoto(req: UsersDeletePhotoRequest): UsersDeletePhotoResponse
+  suspend fun usersDeletePhoto(req: UsersDeletePhotoRequest): UsersDeletePhotoResponse
 
 
-  fun usersGetPresence(req: UsersGetPresenceRequest): UsersGetPresenceResponse
+  suspend fun usersGetPresence(req: UsersGetPresenceRequest): UsersGetPresenceResponse
 
 
-  fun usersIdentity(req: UsersIdentityRequest): UsersIdentityResponse
+  suspend fun usersIdentity(req: UsersIdentityRequest): UsersIdentityResponse
 
 
-  fun usersInfo(req: UsersInfoRequest): UsersInfoResponse
+  suspend fun usersInfo(req: UsersInfoRequest): UsersInfoResponse
 
 
-  fun usersList(req: UsersListRequest): UsersListResponse
+  suspend fun usersList(req: UsersListRequest): UsersListResponse
 
 
-  fun usersLookupByEmail(req: UsersLookupByEmailRequest): UsersLookupByEmailResponse
+  suspend fun usersLookupByEmail(req: UsersLookupByEmailRequest): UsersLookupByEmailResponse
 
 
-  fun usersSetActive(req: UsersSetActiveRequest): UsersSetActiveResponse
+  suspend fun usersSetActive(req: UsersSetActiveRequest): UsersSetActiveResponse
 
 
-  fun usersSetPhoto(req: UsersSetPhotoRequest): UsersSetPhotoResponse
+  suspend fun usersSetPhoto(req: UsersSetPhotoRequest): UsersSetPhotoResponse
 
 
-  fun usersSetPresence(req: UsersSetPresenceRequest): UsersSetPresenceResponse
+  suspend fun usersSetPresence(req: UsersSetPresenceRequest): UsersSetPresenceResponse
 
   // ------------------------------
   // users.profile
   // ------------------------------
 
 
-  fun usersProfileGet(req: UsersProfileGetRequest): UsersProfileGetResponse
+  suspend fun usersProfileGet(req: UsersProfileGetRequest): UsersProfileGetResponse
 
 
-  fun usersProfileSet(req: UsersProfileSetRequest): UsersProfileSetResponse
+  suspend fun usersProfileSet(req: UsersProfileSetRequest): UsersProfileSetResponse
 }

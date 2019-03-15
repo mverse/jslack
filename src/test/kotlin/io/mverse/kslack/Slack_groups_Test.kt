@@ -15,6 +15,7 @@ import io.mverse.kslack.api.methods.request.groups.GroupsSetPurposeRequest
 import io.mverse.kslack.api.methods.request.groups.GroupsSetTopicRequest
 import io.mverse.kslack.api.methods.request.groups.GroupsUnarchiveRequest
 import io.mverse.kslack.api.model.Group
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -26,8 +27,8 @@ class Slack_groups_Test {
   internal var slack = io.mverse.kslack.Slack()
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun groups() {
+
+  fun groups() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     val name = "secret-" + System.currentTimeMillis()

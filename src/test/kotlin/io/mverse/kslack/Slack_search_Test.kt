@@ -3,6 +3,7 @@ package io.mverse.kslack
 import io.mverse.kslack.api.methods.request.search.SearchAllRequest
 import io.mverse.kslack.api.methods.request.search.SearchFilesRequest
 import io.mverse.kslack.api.methods.request.search.SearchMessagesRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -14,7 +15,7 @@ class Slack_search_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  fun all() {
+  fun all() = runBlocking {
     val response = slack.searchAll(
         SearchAllRequest(token, query = ("test")))
 
@@ -22,7 +23,7 @@ class Slack_search_Test {
   }
 
   @Test
-  fun messages() {
+  fun messages() = runBlocking {
     val response = slack.searchMessages(
         SearchMessagesRequest(token, query = ("test")))
     assertThat(response.ok, `is`(true))
@@ -33,7 +34,7 @@ class Slack_search_Test {
   }
 
 //  @Test()
-  fun files() {
+  fun files() = runBlocking {
     val response = slack.searchFiles(
         SearchFilesRequest(token, query = ("test")))
     assertThat(response.ok, `is`(true))

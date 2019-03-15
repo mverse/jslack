@@ -17,52 +17,51 @@ import io.mverse.kslack.shortcut.model.ApiToken
 import io.mverse.kslack.shortcut.model.ChannelId
 import io.mverse.kslack.shortcut.model.ChannelName
 import io.mverse.kslack.shortcut.model.ReactionName
-import java.util.*
 
 data class ShortcutImpl(
     private val apiToken: ApiToken? = null,
     private val methods: MethodsClient,
     private var channels: List<Channel> = listOf()) : Shortcut {
 
-  override fun findChannelIdByName(name: ChannelName): Optional<ChannelId> {
+  override suspend fun findChannelIdByName(name: ChannelName): ChannelId? {
     if (channels.isEmpty()) {
       updateChannelsCache()
     }
-    return channels.stream()
+    return channels
         .filter { c -> c.name == name }
-        .findFirst()
-        .map { c -> c.id }
+        .map { it.id }
+        .firstOrNull()
   }
 
-  override fun findChannelNameById(channelId: ChannelId): Optional<ChannelName> {
-    return channels.stream()
+  override suspend fun findChannelNameById(channelId: ChannelId): ChannelName? {
+    return channels
         .filter { c -> c.id == channelId }
-        .findFirst()
-        .map { c -> c.name }
+        .map { it.name }
+        .firstOrNull()
   }
 
-  override fun findRecentMessagesByName(name: ChannelName): List<Message> {
-    val maybeChannelId = findChannelIdByName(name)
-    if (maybeChannelId.isPresent) {
-      val channelId = maybeChannelId.get()
-      val response = methods.channelsHistory(ChannelsHistoryRequest(
-          token = apiToken,
-          channel = channelId,
-          count = 1000))
-      return if (response.ok) {
-        response.messages!!.map { message ->
-          // channel in message can bt null in this case...
-          message.copy(channel = message.channel ?: channelId)
+  override suspend fun findRecentMessagesByName(name: ChannelName): List<Message> {
+    val channelId = findChannelIdByName(name)
+    return when (channelId) {
+      null -> emptyList()
+      else -> {
+        val response = methods.channelsHistory(ChannelsHistoryRequest(
+            token = apiToken,
+            channel = channelId,
+            count = 1000))
+        if (response.ok) {
+          response.messages!!.map { message ->
+            // channel in message can bt null in this case...
+            message.copy(channel = message.channel ?: channelId)
+          }
+        } else {
+          emptyList()
         }
-      } else {
-        emptyList()
       }
-    } else {
-      return emptyList()
     }
   }
 
-  override fun addReaction(message: Message, reactionName: ReactionName): ReactionsAddResponse {
+  override suspend fun addReaction(message: Message, reactionName: ReactionName): ReactionsAddResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     return methods.reactionsAdd(ReactionsAddRequest(
         token = apiToken,
@@ -71,7 +70,7 @@ data class ShortcutImpl(
         name = reactionName))
   }
 
-  override fun search(query: String): SearchAllResponse {
+  override suspend fun search(query: String): SearchAllResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     return methods.searchAll(SearchAllRequest(
         token = apiToken,
@@ -79,38 +78,35 @@ data class ShortcutImpl(
         count = 100))
   }
 
-  override fun post(channel: ChannelName, text: String): ChatPostMessageResponse {
+  override suspend fun post(channel: ChannelName, text: String): ChatPostMessageResponse {
     return _post(channel, text, emptyList(), true)
   }
 
-  override fun postAsBot(channel: ChannelName, text: String): ChatPostMessageResponse {
+  override suspend fun postAsBot(channel: ChannelName, text: String): ChatPostMessageResponse {
     return _post(channel, text, emptyList(), false)
   }
 
-  override fun post(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse {
+  override suspend fun post(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse {
     return _post(channel, text, attachments, true)
   }
 
-  override fun postAsBot(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse {
+  override suspend fun postAsBot(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse {
     return _post(channel, text, attachments, false)
   }
 
-  private fun _post(channel: ChannelName, text: String, attachments: List<Attachment>, asUser: Boolean): ChatPostMessageResponse {
+  private suspend fun _post(channel: ChannelName, text: String, attachments: List<Attachment>, asUser: Boolean): ChatPostMessageResponse {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     val channelId = findChannelIdByName(channel)
-    return if (channelId.isPresent) {
-      methods.chatPostMessage(ChatPostMessageRequest(
-          token = apiToken,
-          asUser = asUser,
-          channel = channelId.get(),
-          text = text,
-          attachments = attachments))
-    } else {
-      throw IllegalStateException("Unknown channel: $channel")
-    }
+        ?: throw IllegalStateException("Unknown channel: $channel")
+    return methods.chatPostMessage(ChatPostMessageRequest(
+        token = apiToken,
+        asUser = asUser,
+        channel = channelId,
+        text = text,
+        attachments = attachments))
   }
 
-  override fun updateChannelsCache() {
+  override suspend fun updateChannelsCache() {
     val apiToken = apiToken ?: throw IllegalStateException("apiToken is absent")
     if (channels.isEmpty()) {
       val response = methods.channelsList(ChannelsListRequest(token = apiToken))

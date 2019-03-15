@@ -10,7 +10,7 @@ class Slack_incomingWebhooks_Test {
 
 //  @Test
 //  @Throws(IOException::class)
-//  fun incomingWebhook() {
+//  fun incomingWebhook() = runBlocking {
 //    // String url = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX";
 //    val url = System.getenv("SLACK_WEBHOOK_TEST_URL")
 //        ?: throw IllegalStateException("Environment variable SLACK_WEBHOOK_TEST_URL must be defined")

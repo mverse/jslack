@@ -3,6 +3,7 @@ package io.mverse.kslack
 import io.mverse.kslack.api.methods.SlackApiException
 import io.mverse.kslack.api.methods.request.oauth.OAuthAccessRequest
 import io.mverse.kslack.api.methods.request.oauth.OAuthTokenRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -14,8 +15,8 @@ class Slack_oauth_Test {
 
   // TODO: valid test
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun access() {
+
+  fun access() = runBlocking {
     run {
       val response = slack.oauthAccess(OAuthAccessRequest(
           clientId = "3485157640.XXXX",
@@ -29,8 +30,8 @@ class Slack_oauth_Test {
 
   // TODO: valid test
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun token() {
+
+  fun token() = runBlocking {
     run {
       val response = slack.oauthToken(OAuthTokenRequest(
           clientId = "3485157640.XXXX",

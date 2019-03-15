@@ -4,6 +4,7 @@ import io.mverse.kslack.api.methods.request.reminders.RemindersAddRequest
 import io.mverse.kslack.api.methods.request.reminders.RemindersCompleteRequest
 import io.mverse.kslack.api.methods.request.reminders.RemindersDeleteRequest
 import io.mverse.kslack.api.methods.request.reminders.RemindersInfoRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -15,7 +16,7 @@ class Slack_reminders_Test {
 
   @Test
   @Throws(Exception::class)
-  fun test() {
+  fun test() = runBlocking {
     val addResponse = slack.remindersAdd(RemindersAddRequest(
         token = token,
         text = "Don't forget it!",

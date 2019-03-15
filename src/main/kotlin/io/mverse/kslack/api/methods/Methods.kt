@@ -1,286 +1,335 @@
+@file:Suppress("ClassName")
+
 package io.mverse.kslack.api.methods
 
-object Methods {
+// ------------------------------
+// api
+// ------------------------------
 
-  // ------------------------------
-  // api
-  // ------------------------------
+object api {
+  const val test = "api.test"
+}
 
-  const val API_TEST = "api.test"
+// ------------------------------
+// apps.permissions
+// ------------------------------
 
-  // ------------------------------
-  // apps.permissions
-  // ------------------------------
+object apps {
+  object permissions {
+    const val info = "apps.permissions.info"
+    const val request = "apps.permissions.request"
+  }
+}
 
-  const val APPS_PERMISSIONS_INFO = "apps.permissions.info"
-  const val APPS_PERMISSIONS_REQUEST = "apps.permissions.request"
+// ------------------------------
+// auth
+// ------------------------------
 
-  // ------------------------------
-  // auth
-  // ------------------------------
+object auth {
+  const val revoke = "auth.revoke"
+  const val test = "auth.test"
+}
 
-  const val AUTH_REVOKE = "auth.revoke"
-  const val AUTH_TEST = "auth.test"
+// ------------------------------
+// bots
+// ------------------------------
 
-  // ------------------------------
-  // bots
-  // ------------------------------
+object bots {
+  const val info = "bots.info"
+}
 
-  const val BOTS_INFO = "bots.info"
+// ------------------------------
+// channels
+// ------------------------------
 
-  // ------------------------------
-  // channels
-  // ------------------------------
+object channels {
+  const val archive = "channels.archive"
+  const val create = "channels.create"
+  const val history = "channels.history"
+  const val info = "channels.info"
+  const val invite = "channels.invite"
+  const val join = "channels.join"
+  const val kick = "channels.kick"
+  const val leave = "channels.leave"
+  const val list = "channels.list"
+  const val mark = "channels.mark"
+  const val rename = "channels.rename"
+  const val replies = "channels.replies"
+  const val setPurpose = "channels.setPurpose"
+  const val setTopic = "channels.setTopic"
+  const val unarchive = "channels.unarchive"
+}
 
-  const val CHANNELS_ARCHIVE = "channels.archive"
-  const val CHANNELS_CREATE = "channels.create"
-  const val CHANNELS_HISTORY = "channels.history"
-  const val CHANNELS_INFO = "channels.info"
-  const val CHANNELS_INVITE = "channels.invite"
-  const val CHANNELS_JOIN = "channels.join"
-  const val CHANNELS_KICK = "channels.kick"
-  const val CHANNELS_LEAVE = "channels.leave"
-  const val CHANNELS_LIST = "channels.list"
-  const val CHANNELS_MARK = "channels.mark"
-  const val CHANNELS_RENAME = "channels.rename"
-  const val CHANNELS_REPLIES = "channels.replies"
-  const val CHANNELS_SET_PURPOSE = "channels.setPurpose"
-  const val CHANNELS_SET_TOPIC = "channels.setTopic"
-  const val CHANNELS_UNARCHIVE = "channels.unarchive"
+// ------------------------------
+// chat
+// ------------------------------
+object chat {
+  const val delete = "chat.delete"
+  const val getPermalink = "chat.getPermalink"
+  const val meMessage = "chat.meMessage"
+  const val postEphemeral = "chat.postEphemeral"
+  const val postMessage = "chat.postMessage"
+  const val unfurl = "chat.unfurl"
+  const val update = "chat.update"
+}
 
-  // ------------------------------
-  // chat
-  // ------------------------------
+// ------------------------------
+// conversations
+// ------------------------------
 
-  const val CHAT_DELETE = "chat.delete"
-  const val CHAT_GET_PERMALINK = "chat.getPermalink"
-  const val CHAT_ME_MESSAGE = "chat.meMessage"
-  const val CHAT_POST_EPHEMERAL = "chat.postEphemeral"
-  const val CHAT_POST_MESSAGE = "chat.postMessage"
-  const val CHAT_UNFURL = "chat.unfurl"
-  const val CHAT_UPDATE = "chat.update"
+object conversations {
+  const val archive = "conversations.archive"
+  const val close = "conversations.close"
+  const val create = "conversations.create"
+  const val history = "conversations.history"
+  const val info = "conversations.info"
+  const val invite = "conversations.invite"
+  const val join = "conversations.join"
+  const val kick = "conversations.kick"
+  const val leave = "conversations.leave"
+  const val list = "conversations.list"
+  const val members = "conversations.members"
+  const val open = "conversations.open"
+  const val rename = "conversations.rename"
+  const val replies = "conversations.replies"
+  const val setPurpose = "conversations.setPurpose"
+  const val setTopic = "conversations.setTopic"
+  const val unarchive = "conversations.unarchive"
+}
 
-  // ------------------------------
-  // conversations
-  // ------------------------------
+// ------------------------------
+// dialog
+// ------------------------------
 
-  const val CONVERSATIONS_ARCHIVE = "conversations.archive"
-  const val CONVERSATIONS_CLOSE = "conversations.close"
-  const val CONVERSATIONS_CREATE = "conversations.create"
-  const val CONVERSATIONS_HISTORY = "conversations.history"
-  const val CONVERSATIONS_INFO = "conversations.info"
-  const val CONVERSATIONS_INVITE = "conversations.invite"
-  const val CONVERSATIONS_JOIN = "conversations.join"
-  const val CONVERSATIONS_KICK = "conversations.kick"
-  const val CONVERSATIONS_LEAVE = "conversations.leave"
-  const val CONVERSATIONS_LIST = "conversations.list"
-  const val CONVERSATIONS_MEMBERS = "conversations.members"
-  const val CONVERSATIONS_OPEN = "conversations.open"
-  const val CONVERSATIONS_RENAME = "conversations.rename"
-  const val CONVERSATIONS_REPLIES = "conversations.replies"
-  const val CONVERSATIONS_SET_PURPOSE = "conversations.setPurpose"
-  const val CONVERSATIONS_SET_TOPIC = "conversations.setTopic"
-  const val CONVERSATIONS_UNARCHIVE = "conversations.unarchive"
+object dialog {
+  const val open = "dialog.open"
+}
 
-  // ------------------------------
-  // dialog
-  // ------------------------------
+// ------------------------------
+// dnd
+// ------------------------------
 
-  const val DIALOG_OPEN = "dialog.open"
+object dnd {
+  const val endDnd = "dnd.endDnd"
+  const val endSnooze = "dnd.endSnooze"
+  const val info = "dnd.info"
+  const val setSnooze = "dnd.setSnooze"
+  const val teamInfo = "dnd.teamInfo"
+}
 
-  // ------------------------------
-  // dnd
-  // ------------------------------
+// ------------------------------
+// emoji
+// ------------------------------
 
-  const val DND_END_DND = "dnd.endDnd"
-  const val DND_END_SNOOZE = "dnd.endSnooze"
-  const val DND_INFO = "dnd.info"
-  const val DND_SET_SNOOZE = "dnd.setSnooze"
-  const val DND_TEAM_INFO = "dnd.teamInfo"
+object emoji {
+  const val list = "emoji.list"
+}
 
-  // ------------------------------
-  // emoji
-  // ------------------------------
+// ------------------------------
+// files.comments
+// ------------------------------
 
-  const val EMOJI_LIST = "emoji.list"
+object files {
+  object comments {
+    const val add = "files.comments.add"
+    const val delete = "files.comments.delete"
+    const val edit = "files.comments.edit"
+  }
 
-  // ------------------------------
-  // files.comments
-  // ------------------------------
+  const val delete = "files.delete"
+  const val info = "files.info"
+  const val list = "files.list"
+  const val revokePublicUrl = "files.revokePublicURL"
+  const val sharedPublicUrl = "files.sharedPublicURL"
+  const val upload = "files.upload"
+}
 
-  const val FILES_COMMENTS_ADD = "files.comments.add"
-  const val FILES_COMMENTS_DELETE = "files.comments.delete"
-  const val FILES_COMMENTS_EDIT = "files.comments.edit"
+// ------------------------------
+// files
+// ------------------------------
 
-  // ------------------------------
-  // files
-  // ------------------------------
+// ------------------------------
+// groups
+// ------------------------------
+object groups {
+  const val archive = "groups.archive"
+  const val close = "groups.close"
+  const val create = "groups.create"
+  const val createChild = "groups.createChild"
+  const val history = "groups.history"
+  const val info = "groups.info"
+  const val invite = "groups.invite"
+  const val kick = "groups.kick"
+  const val leave = "groups.leave"
+  const val list = "groups.list"
+  const val mark = "groups.mark"
+  const val open = "groups.open"
+  const val rename = "groups.rename"
+  const val setPurpose = "groups.setPurpose"
+  const val setTopic = "groups.setTopic"
+  const val unarchive = "groups.unarchive"
+  const val replies = "groups.replies"
+}
 
-  const val FILES_DELETE = "files.delete"
-  const val FILES_INFO = "files.info"
-  const val FILES_LIST = "files.list"
-  const val FILES_REVOKE_PUBLIC_URL = "files.revokePublicURL"
-  const val FILES_SHARED_PUBLIC_URL = "files.sharedPublicURL"
-  const val FILES_UPLOAD = "files.upload"
+// ------------------------------
+// im
+// ------------------------------
+object im {
+  const val close = "im.close"
+  const val history = "im.history"
+  const val list = "im.list"
+  const val mark = "im.mark"
+  const val open = "im.open"
+  const val replies = "im.replies"
+}
 
-  // ------------------------------
-  // groups
-  // ------------------------------
+// ------------------------------
+// migration
+// ------------------------------
 
-  const val GROUPS_ARCHIVE = "groups.archive"
-  const val GROUPS_CLOSE = "groups.close"
-  const val GROUPS_CREATE = "groups.create"
-  const val GROUPS_CREATE_CHILD = "groups.createChild"
-  const val GROUPS_HISTORY = "groups.history"
-  const val GROUPS_INFO = "groups.info"
-  const val GROUPS_INVITE = "groups.invite"
-  const val GROUPS_KICK = "groups.kick"
-  const val GROUPS_LEAVE = "groups.leave"
-  const val GROUPS_LIST = "groups.list"
-  const val GROUPS_MARK = "groups.mark"
-  const val GROUPS_OPEN = "groups.open"
-  const val GROUPS_RENAME = "groups.rename"
-  const val GROUPS_SET_PURPOSE = "groups.setPurpose"
-  const val GROUPS_SET_TOPIC = "groups.setTopic"
-  const val GROUPS_UNARCHIVE = "groups.unarchive"
-  const val GROUPS_REPLIES = "groups.replies"
+object migration {
+  const val exchange = "migration.exchange"
+}
 
-  // ------------------------------
-  // im
-  // ------------------------------
+// ------------------------------
+// mpim
+// ------------------------------
 
-  const val IM_CLOSE = "im.close"
-  const val IM_HISTORY = "im.history"
-  const val IM_LIST = "im.list"
-  const val IM_MARK = "im.mark"
-  const val IM_OPEN = "im.open"
-  const val IM_REPLIES = "im.replies"
+object mpim {
+  const val close = "mpim.close"
+  const val history = "mpim.history"
+  const val list = "mpim.list"
+  const val mark = "mpim.mark"
+  const val open = "mpim.open"
+  const val replies = "mpim.replies"
+}
 
-  // ------------------------------
-  // migration
-  // ------------------------------
+// ------------------------------
+// oauth
+// ------------------------------
+object oauth {
+  const val access = "oauth.access"
+  const val token = "oauth.token"
+}
 
-  const val MIGRATION_EXCHANGE = "migration.exchange"
+// ------------------------------
+// pins
+// ------------------------------
+object pins {
+  const val add = "pins.add"
+  const val list = "pins.list"
+  const val remove = "pins.remove"
+}
 
-  // ------------------------------
-  // mpim
-  // ------------------------------
+// ------------------------------
+// reactions
+// ------------------------------
+object reactions {
+  const val add = "reactions.add"
+  const val get = "reactions.get"
+  const val list = "reactions.list"
+  const val remove = "reactions.remove"
+}
 
-  const val MPIM_CLOSE = "mpim.close"
-  const val MPIM_HISTORY = "mpim.history"
-  const val MPIM_LIST = "mpim.list"
-  const val MPIM_MARK = "mpim.mark"
-  const val MPIM_OPEN = "mpim.open"
-  const val MPIM_REPLIES = "mpim.replies"
+// ------------------------------
+// reminders
+// ------------------------------
 
-  // ------------------------------
-  // oauth
-  // ------------------------------
+object reminders {
+  const val add = "reminders.add"
+  const val complete = "reminders.complete"
+  const val delete = "reminders.delete"
+  const val info = "reminders.info"
+  const val list = "reminders.list"
+}
 
-  const val OAUTH_ACCESS = "oauth.access"
-  const val OAUTH_TOKEN = "oauth.token"
+// ------------------------------
+// rtm
+// ------------------------------
 
-  // ------------------------------
-  // pins
-  // ------------------------------
+object rtm {
+  const val connect = "rtm.connect"
+  const val start = "rtm.start"
+}
 
-  const val PINS_ADD = "pins.add"
-  const val PINS_LIST = "pins.list"
-  const val PINS_REMOVE = "pins.remove"
+// ------------------------------
+// search
+// ------------------------------
 
-  // ------------------------------
-  // reactions
-  // ------------------------------
+object search {
+  const val all = "search.all"
+  const val files = "search.files"
+  const val messages = "search.messages"
+}
 
-  const val REACTIONS_ADD = "reactions.add"
-  const val REACTIONS_GET = "reactions.get"
-  const val REACTIONS_LIST = "reactions.list"
-  const val REACTIONS_REMOVE = "reactions.remove"
+// ------------------------------
+// stars
+// ------------------------------
 
-  // ------------------------------
-  // reminders
-  // ------------------------------
+object stars {
+  const val add = "stars.add"
+  const val list = "stars.list"
+  const val remove = "stars.remove"
+}
 
-  const val REMINDERS_ADD = "reminders.add"
-  const val REMINDERS_COMPLETE = "reminders.complete"
-  const val REMINDERS_DELETE = "reminders.delete"
-  const val REMINDERS_INFO = "reminders.info"
-  const val REMINDERS_LIST = "reminders.list"
+// ------------------------------
+// team
+// ------------------------------
 
-  // ------------------------------
-  // rtm
-  // ------------------------------
+object team {
+  const val accessLogs = "team.accessLogs"
+  const val billableInfo = "team.billableInfo"
+  const val info = "team.info"
+  const val integrationLogs = "team.integrationLogs"
 
-  const val RTM_CONNECT = "rtm.connect"
-  const val RTM_START = "rtm.start"
+  object profile {
+    const val get = "team.profile.get"
+  }
+}
 
-  // ------------------------------
-  // search
-  // ------------------------------
+// ------------------------------
+// usergroups
+// ------------------------------
 
-  const val SEARCH_ALL = "search.all"
-  const val SEARCH_FILES = "search.files"
-  const val SEARCH_MESSAGES = "search.messages"
-
-  // ------------------------------
-  // stars
-  // ------------------------------
-
-  const val STARS_ADD = "stars.add"
-  const val STARS_LIST = "stars.list"
-  const val STARS_REMOVE = "stars.remove"
-
-  // ------------------------------
-  // team
-  // ------------------------------
-
-  const val TEAM_ACCESS_LOGS = "team.accessLogs"
-  const val TEAM_BILLABLE_INFO = "team.billableInfo"
-  const val TEAM_INFO = "team.info"
-  const val TEAM_INTEGRATION_LOGS = "team.integrationLogs"
-
-  // ------------------------------
-  // team.profile
-  // ------------------------------
-
-  const val TEAM_PROFILE_GET = "team.profile.get"
-
-  // ------------------------------
-  // usergroups
-  // ------------------------------
-
-  const val USERGROUPS_CREATE = "usergroups.create"
-  const val USERGROUPS_DISABLE = "usergroups.disable"
-  const val USERGROUPS_ENABLE = "usergroups.enable"
-  const val USERGROUPS_LIST = "usergroups.list"
-  const val USERGROUPS_UPDATE = "usergroups.update"
+object usergroups {
+  const val create = "usergroups.create"
+  const val disable = "usergroups.disable"
+  const val enable = "usergroups.enable"
+  const val list = "usergroups.list"
+  const val update = "usergroups.update"
 
   // ------------------------------
   // usergroups.users
   // ------------------------------
 
-  const val USERGROUPS_USERS_LIST = "usergroups.users.list"
-  const val USERGROUPS_USERS_UPDATE = "usergroups.users.update"
+  object users {
+    const val list = "usergroups.users.list"
+    const val update = "usergroups.users.update"
+  }
+}
 
-  // ------------------------------
-  // users
-  // ------------------------------
-
-  const val USERS_CONVERSATIONS = "users.conversations"
-  const val USERS_DELETE_PHOTO = "users.deletePhoto"
-  const val USERS_GET_PRESENCE = "users.getPresence"
-  const val USERS_IDENTITY = "users.identity"
-  const val USERS_INFO = "users.info"
-  const val USERS_LIST = "users.list"
-  const val USERS_LOOKUP_BY_EMAIL = "users.lookupByEmail"
-  const val USERS_SET_ACTIVE = "users.setActive"
-  const val USERS_SET_PHOTO = "users.setPhoto"
-  const val USERS_SET_PRESENCE = "users.setPresence"
+// ------------------------------
+// users
+// ------------------------------
+object users {
+  const val conversations = "users.conversations"
+  const val deletePhoto = "users.deletePhoto"
+  const val getPresence = "users.getPresence"
+  const val identity = "users.identity"
+  const val info = "users.info"
+  const val list = "users.list"
+  const val lookupByEmail = "users.lookupByEmail"
+  const val setActive = "users.setActive"
+  const val setPhoto = "users.setPhoto"
+  const val setPresence = "users.setPresence"
 
   // ------------------------------
   // users.profile
   // ------------------------------
 
-  const val USERS_PROFILE_GET = "users.profile.get"
-  const val USERS_PROFILE_SET = "users.profile.set"
+  object profile {
+    const val get = "users.profile.get"
+    const val set = "users.profile.set"
+  }
 }
+

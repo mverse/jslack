@@ -7,6 +7,7 @@ import io.mverse.kslack.api.methods.request.mpim.MpimListRequest
 import io.mverse.kslack.api.methods.request.mpim.MpimMarkRequest
 import io.mverse.kslack.api.methods.request.mpim.MpimOpenRequest
 import io.mverse.kslack.api.methods.request.users.UsersListRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Ignore
@@ -21,8 +22,8 @@ class Slack_mpim_Test {
   // TODO: fix this tests
   @Ignore
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun operations() {
+
+  fun operations() = runBlocking {
     val listResponse = slack.mpimList(MpimListRequest(token))
     assertThat(listResponse.ok, `is`(true))
 

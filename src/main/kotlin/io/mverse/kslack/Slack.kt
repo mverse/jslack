@@ -1,12 +1,15 @@
 package io.mverse.kslack
 
+import io.ktor.client.HttpClient
+import io.ktor.client.call.call
+import io.ktor.client.call.receive
+import io.ktor.http.takeFrom
 import io.mverse.kslack.api.methods.MethodsClient
-import io.mverse.kslack.api.methods.impl.MethodsClientImpl
+import io.mverse.kslack.api.methods.impl.BaseMethodsClient
 import io.mverse.kslack.api.scim.SCIMClient
 import io.mverse.kslack.api.scim.SCIMClientImpl
 import io.mverse.kslack.api.webhook.Payload
 import io.mverse.kslack.api.webhook.WebhookResponse
-import io.mverse.kslack.common.http.SlackHttpClient
 import io.mverse.kslack.shortcut.Shortcut
 import io.mverse.kslack.shortcut.impl.ShortcutImpl
 import io.mverse.kslack.shortcut.model.ApiToken
@@ -17,23 +20,24 @@ import io.mverse.kslack.shortcut.model.ApiToken
  *
  * https://{your team name}.slack.com/apps/manage/custom-integrations
  */
-data class Slack(val httpClient: SlackHttpClient = SlackHttpClient(),
+data class Slack(val httpClient: HttpClient,
                  val apiToken: ApiToken? = null,
-                 val methods: MethodsClient = MethodsClientImpl(httpClient, defaultToken = apiToken),
+                 val methods: MethodsClient = BaseMethodsClient(httpClient, defaultToken = apiToken),
                  val shortcuts: Shortcut = ShortcutImpl(methods = methods, apiToken = apiToken)) :
     MethodsClient by methods, Shortcut by shortcuts {
 
   /**
    * Send a data to Incoming Webhook endpoint.
    */
-  fun send(url: String, payload: Payload): WebhookResponse {
-    val httpResponse = this.httpClient.postJsonPostRequest(url, payload)
-    val body = httpResponse.body()!!.string()
-    SlackHttpClient.debugLog(httpResponse, body)
-
+  suspend fun send(url: String, payload: Payload): WebhookResponse {
+    val response = httpClient.call {
+      body = payload
+      this.url.takeFrom(url)
+    }
+    val body: String = response.receive()
     return WebhookResponse(
-        code = httpResponse.code(),
-        message = httpResponse.message(),
+        code = response.response.status.value,
+        message = response.response.status.description,
         body = body)
   }
 
@@ -94,14 +98,14 @@ data class Slack(val httpClient: SlackHttpClient = SlackHttpClient(),
     return ShortcutImpl(apiToken = apiToken, methods = this)
   }
 
-//  companion object {
-//
-//    @JvmStatic
-//    val instance = Slack(SlackHttpClient())
-//
-//    @JvmStatic
-//    fun getInstance(httpClient: SlackHttpClient): io.mverse.kslack.Slack {
-//      return Slack(httpClient)
-//    }
-//  }
+  //  companion object {
+  //
+  //    @JvmStatic
+  //    val instance = Slack(SlackHttpClient())
+  //
+  //    @JvmStatic
+  //    fun getInstance(httpClient: SlackHttpClient): io.mverse.kslack.Slack {
+  //      return Slack(httpClient)
+  //    }
+  //  }
 }

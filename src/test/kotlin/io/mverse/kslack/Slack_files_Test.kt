@@ -11,6 +11,7 @@ import io.mverse.kslack.api.methods.request.files.FilesUploadRequest
 import io.mverse.kslack.api.methods.request.files.comments.FilesCommentsAddRequest
 import io.mverse.kslack.api.methods.request.files.comments.FilesCommentsDeleteRequest
 import io.mverse.kslack.api.methods.request.files.comments.FilesCommentsEditRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -24,8 +25,8 @@ class Slack_files_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun describe() {
+
+  fun describe() = runBlocking {
     run {
       val response = slack.filesList(FilesListRequest(token))
       assertThat(response.ok, `is`(true))
@@ -34,8 +35,8 @@ class Slack_files_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun createFileAndComments() {
+
+  fun createFileAndComments() = runBlocking {
     val channels = slack.channelsList(ChannelsListRequest(token))
         .channels?.filter { it.name == "general" }?.map { it.id }?.toList()
 

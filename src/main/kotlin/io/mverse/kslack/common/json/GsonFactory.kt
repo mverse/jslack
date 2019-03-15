@@ -14,7 +14,13 @@ import io.mverse.kslack.api.interactive.OptionsPayload
 object GsonFactory {
   fun createSnakeCase(): Gson {
     return GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .configureForSlack()
+        .create()
+  }
+}
+
+fun GsonBuilder.configureForSlack(): GsonBuilder =
+    setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(InteractivePayload::class.java, "type")
             .registerSubtype(DialogSubmissionPayload::class.java, "dialog_submission")
             .registerSubtype(DialogCancellationPayload::class.java, "dialog_cancellation")
@@ -22,9 +28,6 @@ object GsonFactory {
         .registerTypeAdapterFactory(RuntimeTypeAdapterFactory.of(OptionsPayload::class.java, "type")
             .registerSubtype(DialogSuggestionPayload::class.java, "dialog_suggestion")
             .registerSubtype(DynamicMenuPayload::class.java, "interactive_message"))
-        .create()
-  }
-}
 
-inline fun <reified T> Gson.fromJson(input:String): T = this.fromJson(input, T::class.java)
+inline fun <reified T> Gson.fromJson(input: String): T = this.fromJson(input, T::class.java)
 

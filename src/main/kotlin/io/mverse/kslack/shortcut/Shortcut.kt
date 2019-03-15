@@ -21,52 +21,52 @@ interface Shortcut {
    * Shortcut internally has a cache for channels API response. This method refreshes the cache immediately.
    */
 
-  fun updateChannelsCache()
+  suspend fun updateChannelsCache()
 
   /**
    * Returns ChannelId corresponding to a given channel name if exists.
    */
 
-  fun findChannelIdByName(name: ChannelName): Optional<ChannelId>
+  suspend fun findChannelIdByName(name: ChannelName): ChannelId?
 
   /**
    * Returns a channel's human readable name corresponding to a given channel id if exists.
    */
-  fun findChannelNameById(channelId: ChannelId): Optional<ChannelName>
+  suspend fun findChannelNameById(channelId: ChannelId): ChannelName?
 
   /**
    * Returns a list of messages in the channel a given name matches.
    */
 
-  fun findRecentMessagesByName(name: ChannelName): List<Message>
+  suspend fun findRecentMessagesByName(name: ChannelName): List<Message>
 
   /**
    * Adds a reaction to a specified message.
    */
 
-  fun addReaction(message: Message, reactionName: ReactionName): ReactionsAddResponse
+  suspend fun addReaction(message: Message, reactionName: ReactionName): ReactionsAddResponse
 
   /**
    * Returns search result by a given query.
    */
 
-  fun search(query: String): SearchAllResponse
+  suspend fun search(query: String): SearchAllResponse
 
   /**
    * Posts a message to a given channel.
    */
 
-  fun post(channel: ChannelName, text: String): ChatPostMessageResponse
+  suspend fun post(channel: ChannelName, text: String): ChatPostMessageResponse
 
 
-  fun postAsBot(channel: ChannelName, text: String): ChatPostMessageResponse
+  suspend fun postAsBot(channel: ChannelName, text: String): ChatPostMessageResponse
 
   /**
    * Posts a message to a given channel.
    */
 
-  fun post(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse
+  suspend fun post(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse
 
 
-  fun postAsBot(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse
+  suspend fun postAsBot(channel: ChannelName, text: String, attachments: List<Attachment>): ChatPostMessageResponse
 }

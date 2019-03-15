@@ -4,19 +4,20 @@ import io.mverse.kslack.api.methods.SlackApiException
 import io.mverse.kslack.api.methods.request.channels.ChannelsListRequest
 import io.mverse.kslack.api.methods.request.chat.ChatDeleteRequest
 import io.mverse.kslack.api.methods.request.chat.ChatPostMessageRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
 import java.io.IOException
 
-class ExamplesTest {
+class ExamplesTest  {
 
   internal var slack = Slack()
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
   @Throws(IOException::class, SlackApiException::class, InterruptedException::class)
-  fun postAMessageToGeneralChannel() {
+  fun postAMessageToGeneralChannel() = runBlocking {
 
     // find all channels in the team
     val channelsResponse = slack.channelsList(ChannelsListRequest(token))

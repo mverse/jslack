@@ -5,6 +5,7 @@ import io.mverse.kslack.api.methods.request.dialog.DialogOpenRequest
 import io.mverse.kslack.api.model.dialog.Dialog
 import io.mverse.kslack.api.model.dialog.DialogSubType
 import io.mverse.kslack.api.model.dialog.DialogTextElement
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -16,8 +17,8 @@ class Slack_dialogs_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun open() {
+
+  fun open() = runBlocking {
 
     val quanityTextElement = DialogTextElement(
         subtype = DialogSubType.NUMBER,

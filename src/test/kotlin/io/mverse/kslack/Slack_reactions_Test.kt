@@ -8,6 +8,7 @@ import io.mverse.kslack.api.methods.request.reactions.ReactionsGetRequest
 import io.mverse.kslack.api.methods.request.reactions.ReactionsListRequest
 import io.mverse.kslack.api.methods.request.reactions.ReactionsRemoveRequest
 import io.mverse.kslack.api.methods.request.users.UsersListRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -20,8 +21,8 @@ class Slack_reactions_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun test() {
+
+  fun test() = runBlocking {
     val channel = slack.channelsList(ChannelsListRequest(token, isExcludeArchived = (true)))
         .channels!![0].id
 
@@ -54,8 +55,8 @@ class Slack_reactions_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun list() {
+
+  fun list() = runBlocking {
     val user = slack.usersList(UsersListRequest(token))
         .members!![0].id
 

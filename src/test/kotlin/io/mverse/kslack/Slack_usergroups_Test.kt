@@ -3,6 +3,7 @@ package io.mverse.kslack
 import io.mverse.kslack.api.methods.request.usergroups.UsergroupsCreateRequest
 import io.mverse.kslack.api.methods.request.usergroups.UsergroupsListRequest
 import io.mverse.kslack.api.methods.request.usergroups.users.UsergroupUsersListRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.equalTo
@@ -16,7 +17,7 @@ class Slack_usergroups_Test {
 
   @Test
   @Throws(Exception::class)
-  fun create() {
+  fun create() = runBlocking {
     val response = slack.usergroupsCreate(UsergroupsCreateRequest(
         token = token,
         name = "usergroup-" + System.currentTimeMillis()
@@ -32,14 +33,14 @@ class Slack_usergroups_Test {
 
   @Test
   @Throws(Exception::class)
-  fun list() {
+  fun list() = runBlocking {
     val response = slack.usergroupsList(UsergroupsListRequest(token))
     assertThat(response.ok, `is`(true))
   }
 
   @Test
   @Throws(Exception::class)
-  fun users() {
+  fun users() = runBlocking {
     val usergroups = slack.usergroupsList(UsergroupsListRequest(token))
     if (usergroups.ok && usergroups.usergroups!!.size > 0) {
       val response = slack.usergroupUsersList(
@@ -57,7 +58,7 @@ class Slack_usergroups_Test {
 
   @Test
   @Throws(Exception::class)
-  fun users_failure() {
+  fun users_failure() = runBlocking {
     val response = slack.usergroupUsersList(
         UsergroupUsersListRequest(
             token = token,

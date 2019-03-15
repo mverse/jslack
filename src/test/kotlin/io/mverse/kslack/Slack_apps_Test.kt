@@ -3,6 +3,7 @@ package io.mverse.kslack
 import io.mverse.kslack.api.methods.SlackApiException
 import io.mverse.kslack.api.methods.request.apps.permissions.AppsPermissionsInfoRequest
 import io.mverse.kslack.api.methods.request.apps.permissions.AppsPermissionsRequestRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -14,8 +15,8 @@ class Slack_apps_Test {
 
   // TODO: valid test
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun appsPermissionsRequest() {
+
+  fun appsPermissionsRequest()  = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     val response = slack.appsPermissionsRequest(AppsPermissionsRequestRequest(
         token = token,
@@ -26,8 +27,8 @@ class Slack_apps_Test {
 
   // TODO: valid test
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun appsPermissionsInfo() {
+
+  fun appsPermissionsInfo() = runBlocking  {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     val response = slack.appsPermissionsInfo(AppsPermissionsInfoRequest(token))
     assertThat(response.ok, `is`(false))

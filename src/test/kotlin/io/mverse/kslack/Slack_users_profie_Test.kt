@@ -4,6 +4,7 @@ import io.mverse.kslack.api.methods.SlackApiException
 import io.mverse.kslack.api.methods.request.users.profile.UsersProfileGetRequest
 import io.mverse.kslack.api.methods.request.users.profile.UsersProfileSetRequest
 import io.mverse.kslack.api.model.User
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -15,8 +16,8 @@ class Slack_users_profie_Test {
   internal var slack = io.mverse.kslack.Slack()
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun usersProfile() {
+
+  fun usersProfile() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     run {

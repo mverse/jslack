@@ -2,6 +2,7 @@ package io.mverse.kslack
 
 import io.mverse.kslack.api.methods.SlackApiException
 import io.mverse.kslack.api.methods.request.emoji.EmojiListRequest
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -13,8 +14,8 @@ class Slack_emoji_Test {
   internal var slack = io.mverse.kslack.Slack()
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun emoji() {
+
+  fun emoji() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     run {
       val response = slack.emojiList(EmojiListRequest(token))

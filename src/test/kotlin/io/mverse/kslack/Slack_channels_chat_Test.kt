@@ -24,8 +24,8 @@ import io.mverse.kslack.api.methods.request.chat.ChatUpdateRequest
 import io.mverse.kslack.api.methods.request.conversations.ConversationsHistoryRequest
 import io.mverse.kslack.api.model.Attachment
 import io.mverse.kslack.api.model.Channel
-import io.mverse.kslack.api.model.Message
 import io.mverse.kslack.api.model.ResponseMetadata
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.CoreMatchers.nullValue
@@ -38,8 +38,8 @@ class Slack_channels_chat_Test {
   internal var slack = io.mverse.kslack.Slack()
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun channels_threading() {
+
+  fun channels_threading() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     val channels = slack.channelsList(ChannelsListRequest(
         token = token,
@@ -100,15 +100,19 @@ class Slack_channels_chat_Test {
       ))
       assertThat(history.ok, `is`(true))
 
-      val (type, _, _, _, attachments, _, _, _, _, _, _, _, subtype, _, _, _, _, _, _, root) = history.messages!![1]
-      assertThat<String>(type, `is`("message"))
-      assertThat<String>(subtype, `is`("bot_message"))
-      assertThat<List<Attachment>>(attachments, `is`(nullValue()))
-      assertk.assert(root).isNull()
+      val secondMessage = history.messages!![1]
+      with(secondMessage) {
+        assertThat<String>(type, `is`("message"))
+        assertThat<String>(subtype, `is`("bot_message"))
+        assertThat<List<Attachment>>(attachments, `is`(nullValue()))
+        assertk.assert(root).isNull()
+      }
 
-      val (type1, _, _, _, _, _, _, _, _, _, _, _, subtype1) = history.messages!![0]
-      assertThat<String>(type1, `is`("message"))
-      assertThat<String>(subtype1, `is`("thread_broadcast"))
+      val firstMessage = history.messages!![0]
+      with(firstMessage) {
+        assertThat<String>(type, `is`("message"))
+        assertThat<String>(subtype, `is`("thread_broadcast"))
+      }
 
       // NOTE: the following assertions can fail due to Slack API's unstable response
       // this message must contain an attachment which shows the preview for reply1
@@ -127,15 +131,18 @@ class Slack_channels_chat_Test {
           channel = channelId))
       assertThat(history.ok, `is`(true))
 
-      val (type, _, _, _, attachments, _, _, _, _, _, _, _, subtype, _, _, _, _, _, _, root) = history.messages!![1]
-      assertThat<String>(type, `is`("message"))
-      assertThat<String>(subtype, `is`("bot_message"))
-      assertThat<List<Attachment>>(attachments, `is`(nullValue()))
-      assertk.assert(root).isNull()
+      with(history.messages!![1]) {
+        assertThat<String>(type, `is`("message"))
+        assertThat<String>(subtype, `is`("bot_message"))
+        assertThat<List<Attachment>>(attachments, `is`(nullValue()))
+        assertk.assert(root).isNull()
+      }
 
-      val (type1, _, _, _, _, _, _, _, _, _, _, _, subtype1) = history.messages!![0]
-      assertThat<String>(type1, `is`("message"))
-      assertThat<String>(subtype1, `is`("thread_broadcast"))
+
+      with(history.messages!![0]) {
+        assertThat<String>(type, `is`("message"))
+        assertThat<String>(subtype, `is`("thread_broadcast"))
+      }
 
       // NOTE: the following assertions can fail due to Slack API's unstable response
       // this message must contain an attachment which shows the preview for reply1
@@ -149,8 +156,7 @@ class Slack_channels_chat_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun chat_getPermalink() {
+  fun chat_getPermalink() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
     val channels = slack.channelsList(ChannelsListRequest(
         token = token,
@@ -178,8 +184,8 @@ class Slack_channels_chat_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun channels_chat() {
+
+  fun channels_chat() = runBlocking {
     val token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
     run {

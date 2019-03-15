@@ -22,6 +22,7 @@ import io.mverse.kslack.api.methods.request.users.UsersListRequest
 import io.mverse.kslack.api.model.Conversation
 import io.mverse.kslack.api.model.ConversationType
 import io.mverse.kslack.api.model.ResponseMetadata
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.Assert.assertThat
@@ -34,8 +35,7 @@ class Slack_conversations_Test {
   internal var token = System.getenv(Constants.SLACK_TEST_OAUTH_ACCESS_TOKEN)
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun channelConversation() {
+  fun channelConversation() = runBlocking {
 
     run {
       val listResponse = slack.conversationsList(
@@ -251,8 +251,8 @@ class Slack_conversations_Test {
   }
 
   @Test
-  @Throws(IOException::class, SlackApiException::class)
-  fun imConversation() {
+
+  fun imConversation() = runBlocking {
 
     val usersListResponse = slack.usersList(
         UsersListRequest(token))
